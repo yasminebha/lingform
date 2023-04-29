@@ -1,0 +1,44 @@
+.bubble {
+    width: 27px;
+    height: 27px;
+    border-radius: var(--circle);
+    cursor: pointer;
+}
+
+.bubble.plus {
+    position: relative;
+    background: var(--gray);
+    box-shadow: none !important;
+}
+
+.bubble.plus>input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.bubble.plus:focus {
+    outline-color: var(--gray);
+
+}
+
+.bubble:hover {
+    box-shadow: 1px 1px 10px var(--shadow-color);
+
+}
+
+.bubble:focus {
+    outline: auto;
+    outline-color: attr(data-color);
+    outline-width: var(--outline-width);
+    outline-offset: var(--outine-offset);
+}
+
+.palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}

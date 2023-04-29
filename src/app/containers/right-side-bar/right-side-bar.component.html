@@ -1,0 +1,99 @@
+<div class="side-bar d-flex">
+  <div class="d-flex buttons-block">
+    <lf-icon-button
+      icon="eye"
+      layout="outline"
+      iconStyle="solid"
+      (click)="onSave()"
+      title="preview"
+    ></lf-icon-button>
+    <lf-icon-button
+      icon="star"
+      layout="outline"
+      iconStyle="solid"
+      title="add to favoris"
+    ></lf-icon-button>
+    <lf-button text="Save" layout="outline"></lf-button>
+    <lf-button text="Send" layout="primary"></lf-button>
+  </div>
+
+  <label
+    [ngStyle]="{
+      margin: '10px 0 30px 0',
+      'font-size': '150%',
+      'font-weight': '500'
+    }"
+    >Text Style</label
+  >
+  <label>Header</label>
+  <div class="d-flex option-block">
+    <lf-dropdown
+      [ngStyle]="{ width: '80%' }"
+      [data]="fontOptions"
+    ></lf-dropdown>
+    <lf-dropdown
+      (change)="handleHeaderFont($event)"
+      [data]="headerFontSizes"
+    ></lf-dropdown>
+  </div>
+
+  <label>Question</label>
+  <div class="d-flex option-block">
+    <lf-dropdown
+      [ngStyle]="{ width: '80%' }"
+      [data]="fontOptions"
+    ></lf-dropdown>
+    <lf-dropdown [data]="questionFontSizes"></lf-dropdown>
+  </div>
+
+  <label>Text</label>
+  <div class="d-flex option-block">
+    <lf-dropdown
+      [ngStyle]="{ width: '80%' }"
+      [data]="fontOptions"
+    ></lf-dropdown>
+    <lf-dropdown [data]="textFontSizes"></lf-dropdown>
+  </div>
+  <hr
+    [ngStyle]="{
+      width: '90%',
+      margin: 'auto',
+      border: 'var(--separation-border)'
+    }"
+  />
+  <label
+    [ngStyle]="{
+      margin: '10px 0 30px 0',
+      'font-size': '150%',
+      'font-weight': '500'
+    }"
+    >Color</label
+  >
+  <lf-color-palette
+    (onChange)="onColorChange($event)"
+    [palette]="['#FF9800']"
+  ></lf-color-palette>
+
+  <label
+    [ngStyle]="{
+      margin: '10px 0 30px 0',
+      'font-size': '150%',
+      'font-weight': '500'
+    }"
+    >Background</label
+  >
+  <lf-color-palette
+    (onChange)="onColorChange($event)"
+    [palette]="['#E9E4FD', '#C6C0DF', '#CEC3F8', '#D6D1E8']"
+  ></lf-color-palette>
+  <lf-toggle rightLabel="Required"></lf-toggle>
+  <lf-icon-button
+    icon="clone"
+    iconStyle="regular"
+    layout="link"
+  ></lf-icon-button>
+
+  <lf-icon-button icon="trash" layout="link"></lf-icon-button>
+  <div draggable>Drag Me</div>
+  <!-- <lg-draggable></lg-draggable> -->
+</div>

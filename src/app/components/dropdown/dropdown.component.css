@@ -1,0 +1,22 @@
+.dropdown {
+    width: 100%;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    margin: 2px;
+    background-color: var(--bg-color);
+}
+
+.dropdown:focus {
+    outline-offset: 2px;
+    outline-color: var(--primary-color);
+}
+
+.dropdown:active {
+    font-weight: 600;
+}
+
+.size {
+    padding: 10px 15px 10px 10px;
+
+    border: var(--border);
+}

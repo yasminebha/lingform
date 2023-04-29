@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import 'tailwindcss/base'; */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+*, body {
+    margin: 0;
+    line-height: inherit;
+    font-family: 'Inter', sans-serif;
+}
+
+*, ::before, ::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--bg-color)
+}
+
+button, [type='button'], [type='reset'], [type='submit'] {
+    --webkit-appearance: button;
+    background-color: transparent;
+    background-image: none;
+    cursor: pointer;
+}
+
+:root {
+    --primary-color: #7d61e5;
+    --secondary-color: #7339ed;
+    --white: #FFFFFF;
+    --gray: #D9D9D9;
+    --border: 1px solid #969696;
+    --border-radius: 8px;
+    --circle: 50%;
+    --bg-color: #f8f6ff;
+    --separation-border: 1px solid var(--gray);
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --outine-offset: 2px;
+    --outline-width: 3px;
+    --toggle-width: 26px;
+    --toggle-height: 14px;
+    --toggle-indicator-radius: 6px;
+    --toggle-font-size: 14px
+}
+
+
+.d-flex {
+    display: flex;
+}
