@@ -11,6 +11,8 @@ export class TextFieldComponent implements OnInit {
   constructor() { }
   @Input()
   type : 'text'|'email'|'password' |'search' ='text';
+  @Input()
+  placeholder? : string ='';
   ngOnInit(): void {
   }
 
