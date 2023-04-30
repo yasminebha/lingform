@@ -1,0 +1,19 @@
+input{
+
+}
+.field{
+    border-radius: 8px;
+    border:  var(--border);
+    width: 100%;
+    padding: 8px 20px;
+    box-sizing: border-box;
+    outline: none;
+    background-color: inherit;
+    position: relative;
+}
+.field:focus{
+    border-color:var(--primary-color)!important ;
+    outline-color: var(--primary-color);
+    outline-width: 2px ;
+    transition: 0.2s;
+}

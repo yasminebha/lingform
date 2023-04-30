@@ -10,6 +10,7 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { ToggleComponent } from './components/toggle/toggle.component';
 import { RightSideBarComponent } from './containers/right-side-bar/right-side-bar.component';
 import { DraggableDirective } from './directives/draggable.directive';
+import { TextFieldComponent } from './components/text-field/text-field.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { DraggableDirective } from './directives/draggable.directive';
     ColorPaletteComponent,
     ToggleComponent,
     DraggableDirective,
+    TextFieldComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
