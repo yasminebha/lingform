@@ -11,6 +11,7 @@ import { ToggleComponent } from './components/toggle/toggle.component';
 import { RightSideBarComponent } from './containers/right-side-bar/right-side-bar.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { TextFieldComponent } from './components/text-field/text-field.component';
+import { PagestatiqueComponent } from './pages/pagestatique/pagestatique.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TextFieldComponent } from './components/text-field/text-field.component
     ToggleComponent,
     DraggableDirective,
     TextFieldComponent,
+    PagestatiqueComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
