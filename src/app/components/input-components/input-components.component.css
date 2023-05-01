@@ -1,0 +1,69 @@
+.default{
+    width: 100px;
+    height: 100px;
+    background-color: var( --input-btn-bg-color);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 20px; 
+    justify-content: center;
+    border-radius:var(--border-radius);
+    box-sizing: border-box;
+    cursor: pointer;
+    color: var(--font-color);
+    
+
+ 
+}
+.default.icon{
+   width: 50%;
+   height: 50%;
+   
+}
+
+p{
+    font-size: 80%;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.default:hover{
+    box-shadow:  var(--box-shadow);
+    transition: 0.2s;
+
+}
+
+.default:focus{
+    outline-color: var(--secondary-color)!important ;
+    outline: auto;
+    outline-offset: -2px;
+    outline-width: 2px;
+    box-shadow: none;
+    transition:0.2s ;
+}
+.second-layout{
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--secondary-color);
+    font-size: large;
+   
+    cursor: default;
+
+}
+.second-layout>.icon{
+    background-color:var( --input-btn-bg-color);    
+    width: 40px;
+    height: 40px;
+
+    position: relative;
+
+    border-radius: var(--border-radius);
+
+}
+.second-layout>.icon>img{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

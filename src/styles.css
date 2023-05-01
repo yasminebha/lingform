@@ -39,7 +39,13 @@ button, [type='button'], [type='reset'], [type='submit'] {
     --toggle-width: 26px;
     --toggle-height: 14px;
     --toggle-indicator-radius: 6px;
-    --toggle-font-size: 14px
+    --toggle-font-size: 14px;
+    --font-color :#292D32;
+    --salty-white:#F5F5F5;
+    --navbar-bg-color:#F9F9FC;
+    --input-btn-bg-color:#F3F1FF;
+    --box-shadow:1px 1px 10px var(--shadow-color);
+
 }
 
 

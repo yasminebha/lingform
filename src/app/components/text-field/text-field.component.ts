@@ -1,5 +1,5 @@
 
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'lg-text-field',
@@ -7,13 +7,19 @@ import { Component, OnInit,Input } from '@angular/core';
   styleUrls: ['./text-field.component.css']
 })
 export class TextFieldComponent implements OnInit {
+  @ViewChild('input') inputElement!: ElementRef;
 
   constructor() { }
   @Input()
-  type : 'text'|'email'|'password' |'search' ='text';
+  type : string='text';
   @Input()
   placeholder? : string ='';
+  @Input()
+  layout: string ='text-field';
+  @Input()
+  isDisabled: boolean = false;
   ngOnInit(): void {
+    
   }
 
 }

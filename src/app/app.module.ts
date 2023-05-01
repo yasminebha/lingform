@@ -11,6 +11,10 @@ import { ToggleComponent } from './components/toggle/toggle.component';
 import { RightSideBarComponent } from './containers/right-side-bar/right-side-bar.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { TextFieldComponent } from './components/text-field/text-field.component';
+import { LeftSideBarComponent } from './containers/left-side-bar/left-side-bar.component';
+;
+import { FormElementboxComponent } from './containers/form-elementbox/form-elementbox.component';
+import { InputComponentsComponent } from './components/input-components/input-components.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,9 @@ import { TextFieldComponent } from './components/text-field/text-field.component
     ToggleComponent,
     DraggableDirective,
     TextFieldComponent,
+    LeftSideBarComponent,
+    InputComponentsComponent,
+    FormElementboxComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
