@@ -6,9 +6,6 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 export class DraggableDirective {
   isDragging: boolean = false;
 
-  /**
-   *
-   */
   constructor(private element: ElementRef) {}
 
   posX!: number;
