@@ -27,6 +27,7 @@ button, [type='button'], [type='reset'], [type='submit'] {
     --primary-color: #7d61e5;
     --secondary-color: #7339ed;
     --white: #FFFFFF;
+    --color:#F9F9FC;
     --gray: #D9D9D9;
     --border: 1px solid #969696;
     --border-radius: 8px;
@@ -45,4 +46,19 @@ button, [type='button'], [type='reset'], [type='submit'] {
 
 .d-flex {
     display: flex;
+}
+*{
+    margin: 0;
+    padding:0 ;
+    box-sizing: border-box;
+    font-family: "Poppins",sans-serif;
+}
+.wrapper{
+    width: 330px;
+    padding: 2rem 1rem;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }

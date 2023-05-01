@@ -11,7 +11,11 @@ import { ToggleComponent } from './components/toggle/toggle.component';
 import { RightSideBarComponent } from './containers/right-side-bar/right-side-bar.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { TextFieldComponent } from './components/text-field/text-field.component';
-import { PagestatiqueComponent } from './pages/pagestatique/pagestatique.component';
+
+import { TitreComponent } from './partials/titre/titre.component';
+import { PageloginComponent } from './pages/pagelogin/pagelogin.component';
+import { PageGlobleComponent } from './pages/page-globle/page-globle.component';
+import { PageSignInComponent } from './pages/page-sign-in/page-sign-in.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { PagestatiqueComponent } from './pages/pagestatique/pagestatique.compone
     ToggleComponent,
     DraggableDirective,
     TextFieldComponent,
-    PagestatiqueComponent,
+  
+    TitreComponent,
+    PageloginComponent,
+    PageGlobleComponent,
+    PageSignInComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

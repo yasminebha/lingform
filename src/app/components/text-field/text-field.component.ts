@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lg-text-field',
@@ -8,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class TextFieldComponent implements OnInit {
 
   constructor() { }
-
+  @Input()
+  type : 'text'|'email'|'password' |'search' ='text';
+  @Input()
+  placeholder? : string ='';
   ngOnInit(): void {
   }
 

@@ -1,0 +1,39 @@
+.Fullname {
+    display: flex;
+    margin-block-end: 5px;
+    margin-bottom: 10px; 
+}
+.corps{
+    display: flex; 
+}
+
+h1{
+   color: var(--primary-color); 
+}
+.left-column {
+    width: 50%; 
+    float: left; 
+    margin-right: 5%; 
+  }
+  .right-column {
+    width: 45%; 
+    float: right;
+    margin-right: 5%;  
+    margin-top: 5%;  
+  }
+  #input1 {
+    margin-right: 10px; 
+  }
+  #input2 {
+    margin-left: 10px; 
+  }
+  .label{
+    text-align: left;   
+  }
+  .member{
+    font-size: 10px; 
+  }
+  .terms{
+    font-size: 13px; 
+  }
+  

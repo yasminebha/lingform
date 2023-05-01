@@ -1,0 +1,50 @@
+<div class="corps ">
+
+ <div class="left-column"> <app-page-globle></app-page-globle>
+</div>
+ <style>
+ 
+  .text {
+  text-align: center;
+}
+  </style>
+  <div class="right-column">
+    <div class="wrapper">
+        
+    <h1>sign In</h1>
+    <form   action="#">
+        <div class="Fullname">
+            <div>
+<label class="label"> Frist name</label> <br><br>
+        <lg-text-field  id="input1" type="text" placeholder=""  layout="outline"></lg-text-field><br>
+    </div>
+    <div>
+ <label> Last name</label> <br><br> 
+      <lg-text-field   id="input2" type="text" placeholder=""  layout="outline"></lg-text-field><br></div>
+    </div>
+    <p class="label"> Email</p>
+<!-- <label class="label"> Email</label> <br> -->
+        <lg-text-field  type="email" placeholder=""  layout="outline"></lg-text-field><br>
+        <p class="label"> Password</p>
+         <lg-text-field  type="password" placeholder=""  layout="outline"></lg-text-field><br>
+
+<p class="label"> confirm Password</p>
+         <lg-text-field  type="password" placeholder="" layout="outline" ></lg-text-field>
+    </form>
+    <br>
+       <div class="terms">
+        <input type="checkbox" name="" id="checkbox">
+        <label for="checkbox"> I agree to these 
+            <a href ="#">
+            Terms & Conditions
+        </a></label>
+
+       </div> 
+       <br>
+       <lf-button text="register" layout="primary"></lf-button>
+   <div class="member">
+    Already a member? <a href="signin"> Login Here</a>
+   </div>
+    </div>
+    
+    </div></div>
