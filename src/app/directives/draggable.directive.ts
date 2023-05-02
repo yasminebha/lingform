@@ -5,7 +5,6 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 })
 export class DraggableDirective {
   isDragging: boolean = false;
-
   /**
    *
    */
