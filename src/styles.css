@@ -34,7 +34,7 @@ button, [type='button'], [type='reset'], [type='submit'] {
     --bg-color: #f8f6ff;
     --separation-border: 1px solid var(--gray);
     --shadow-color: rgba(0, 0, 0, 0.2);
-    --outine-offset: 2px;
+    --outline-offset: 2px;
     --outline-width: 3px;
     --toggle-width: 26px;
     --toggle-height: 14px;

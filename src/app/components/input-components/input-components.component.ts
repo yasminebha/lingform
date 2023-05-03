@@ -11,19 +11,8 @@ export class InputComponentsComponent implements OnInit {
 
 
   @Input()
-  title: string =
-    'Heading' ||
-    'With Body' ||
-    'image' ||
-    'Short Answer ' ||
-    'Paragraph' ||
-    'email' ||
-    'Date & Time' ||
-    'phone' ||
-    'Multiple choice' ||
-    'one choice' ||
-    'file upload' ||
-    'Yes/No';
+  title!: string;
+    
     @Input()
     icon!: string;
     @Input()

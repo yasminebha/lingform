@@ -1,0 +1,15 @@
+.container{
+    padding: 15px 20px 27px 50px;
+    width: 80%;
+    margin: auto;
+    background-color: white;
+    border-radius: var(--border-radius);
+}
+.input-type-area{
+    border-bottom: 1px solid var(--gray);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.text {
+    font-size: 24px;
+}

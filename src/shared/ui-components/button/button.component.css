@@ -42,7 +42,13 @@
     outline-offset: var(--outine-offset);
     outline-color: var(--gray);
 }
+.btn.row-icon{
+    background-color: none;
+    border: none;
+    color: var(--border-color);
+    font-size: x-small;
+
+}
 
 
 
-.btn.outline:focus {}
