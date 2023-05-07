@@ -9,6 +9,7 @@ import { ToggleComponent } from './toggle/toggle.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const declarations = [
   ButtonComponent,
@@ -19,12 +20,12 @@ const declarations = [
   ToggleComponent,
   DraggableDirective,
   CheckboxComponent,
-  FileUploadComponent
+  FileUploadComponent,
 ];
 
 @NgModule({
-  imports: [BrowserModule],
-  declarations: [...declarations, ],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
+  declarations: [...declarations],
   exports: [...declarations, BrowserModule],
 })
 export class UIComponentsModule {}

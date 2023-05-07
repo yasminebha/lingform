@@ -30,7 +30,7 @@ input {
     
 }
 input:checked {
-   border: var(--secondary-color)2px solid;
+   border: var(--secondary-color) 2px solid;
 }
 
 input:checked~.checkmark:after {
