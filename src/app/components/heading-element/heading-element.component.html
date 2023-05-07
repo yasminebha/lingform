@@ -1,0 +1,30 @@
+<div *ngIf="mode === 'edit'" class="container">
+  <div class="input-type-area">
+    <lg-input-components
+      icon="heading"
+      title="heading"
+      layout="second-layout"
+    ></lg-input-components>
+  </div>
+  <form [formGroup]="headingForm" (ngSubmit)="submit()" class="form">
+    <lg-text-field
+      name="title"
+      type="text"
+      class="title"
+      [fontSize]="headingFontSize"
+      formControlName="headingControl"
+      placeholder="form title"
+    ></lg-text-field>
+    <lg-text-field
+    class="title"
+      type="text"
+      fontSize="14"
+      placeholder="description"
+    ></lg-text-field>
+  </form>
+  <div></div>
+</div>
+<div *ngIf="mode === 'live'" class="container heading-container">
+  <h1 [ngStyle]="{ 'font-size': headingFontSize + 'px' }">{{ text }}</h1>
+  <p>{{ description }}</p>
+</div>
