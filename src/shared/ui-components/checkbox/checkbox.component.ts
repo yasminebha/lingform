@@ -14,7 +14,8 @@ export class CheckboxComponent implements OnInit {
   text: string = '';
   inputStyles:string="shared";
   checkmarkStyles:string='checkmark';
-
+  @Input()
+  isDisabled:boolean=false
   name: string = '';
   ngOnInit(): void {
     if (this.type == 'radio') {

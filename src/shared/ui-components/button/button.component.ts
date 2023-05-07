@@ -11,7 +11,10 @@ export class ButtonComponent implements OnInit {
 
   @Input()
   text?: string = '';
-
+  @Input()
+  type: 'submit' | 'reset' | 'button' = 'button';
+  @Input()
+  isDisabled:boolean=false
   classes!: string;
 
   width!: number;

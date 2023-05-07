@@ -29,6 +29,9 @@ input {
     height: 20px;
     
 }
+input:checked {
+   border: var(--secondary-color)2px solid;
+}
 
 input:checked~.checkmark:after {
     display: block;
