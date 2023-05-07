@@ -1,0 +1,58 @@
+<div *ngIf="mode === 'edit'" class="container multiple-choice-container">
+  <div class="input-type-area">
+    <lg-input-components
+      icon="checkbox"
+      title="multiple choice"
+      layout="second-layout"
+    ></lg-input-components>
+    <div class="tools">
+      <lf-toggle></lf-toggle>
+      <lf-icon-button
+        icon="copy"
+        iconStyle="regular"
+        layout="row-icon"
+        class="icon"
+      ></lf-icon-button>
+      <lf-icon-button
+        icon="trash"
+        iconStyle="solid"
+        layout="row-icon"
+        class="icon"
+      ></lf-icon-button>
+    </div>
+  </div>
+  <lg-text-field class="title" placeholder="Question"></lg-text-field>
+  <div class="checkbox-list">
+    <div class="checkbox-element">
+      <div
+        [ngStyle]="{ display: 'flex', 'align-items': 'center', gap: '20px' }"
+      >
+        <lg-checkbox class="checkbox" [isDisabled]="true"></lg-checkbox>
+        <lg-text-field placeholder="choice" class="title"></lg-text-field>
+      </div>
+      <lf-icon-button
+        icon="xmark"
+        iconStyle="solid"
+        layout="row-icon"
+      ></lf-icon-button>
+    </div>
+    <lf-button (click)="onClick()" class="add-choice-btn" text="Add choice"></lf-button>
+  </div>
+</div>
+
+<div *ngIf="mode === 'live'" class="container multiple-choice-container">
+  <label for="">question text</label>
+  <div class="checkbox-list">
+    <div *ngFor="let elem of checkboxOptions" class="checkbox-element">
+      <div  [ngStyle]="{ display: 'flex', 'align-items': 'center', gap: '20px' }">
+
+        <lg-checkbox></lg-checkbox>
+        <lg-text-field
+          class="title"
+          [isDisabled]="true"
+          value="{{ elem }}"
+        ></lg-text-field>
+      </div>
+    </div>
+  </div>
+</div>
