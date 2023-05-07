@@ -1,4 +1,4 @@
-.text-field {
+.text-field>input {
     border-radius: 8px;
     border: var(--border);
     width: 100%;
@@ -7,16 +7,13 @@
     outline: none;
     background-color: inherit;
     position: relative;
- 
+    width: 100%;
 
 }
 
-.text-field:focus {
+.text-field>input:focus {
     border-color: var(--primary-color) !important;
     outline-color: var(--primary-color);
     outline-width: 2px;
     transition: 0.2s;
 }
-
-
-
