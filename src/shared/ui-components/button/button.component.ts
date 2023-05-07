@@ -14,7 +14,7 @@ export class ButtonComponent implements OnInit {
   @Input()
   type: 'submit' | 'reset' | 'button' = 'button';
   @Input()
-  isDisabled:boolean=false
+  isDisabled: boolean = false;
   classes!: string;
 
   width!: number;
