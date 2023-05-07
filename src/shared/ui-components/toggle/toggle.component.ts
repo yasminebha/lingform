@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lf-toggle',
@@ -7,11 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ToggleComponent implements OnInit {
   @Input()
-  leftLabel?: string;
+  notRequiredLabel?: string="not Required";
 
   @Input()
-  rightLabel?: string;
+  requiredLabel?: string="Required";
 
+
+  
   constructor() {}
 
   ngOnInit(): void {}
