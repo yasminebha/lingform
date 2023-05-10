@@ -7,7 +7,9 @@
     margin: 0;
     line-height: inherit;
     font-family: 'Inter', sans-serif;
+    font-size: 12px;
 }
+
 
 *, ::before, ::after {
     box-sizing: border-box;
@@ -25,9 +27,9 @@ button, [type='button'], [type='reset'], [type='submit'] {
 
 
 .container {
+    border: var(--border);
     padding: 15px 20px 27px 50px;
-    min-width:50%;
-    max-width: 60%;
+    min-width:400px;
     margin: auto;
     background-color: white;
     border-radius: var(--border-radius);
@@ -43,8 +45,28 @@ button, [type='button'], [type='reset'], [type='submit'] {
     padding-bottom: 15px;
     margin-bottom: 15px;
 }
-
-
+.tools{
+    display: flex;
+    align-items: center;
+}
+.tools> .icon i {
+ color: var(--secondary-color);
+ font-size: 1.2rem !important;
+}
+::-webkit-scrollbar {
+    width: 5px;
+ 
+}
+::-webkit-scrollbar-track {
+    background:var(--gray);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 :root {
     --primary-color: #7d61e5;
     --secondary-color: #7339ed;

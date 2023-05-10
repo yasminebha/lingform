@@ -20,15 +20,14 @@
   <label
     [ngStyle]="{
       margin: '10px 0 30px 0',
-      'font-size': '150%',
-      'font-weight': '500'
+    
+      'font-weight': '500','font-size':'18px'
     }"
     >Text Style</label
   >
   <label>Header</label>
   <div class="d-flex option-block">
-    <lf-dropdown
-      [ngStyle]="{ width: '80%' }"
+    <lf-dropdown class="dropdown"
       [data]="fontOptions"
     ></lf-dropdown>
     <lf-dropdown
@@ -39,8 +38,8 @@
 
   <label>Question</label>
   <div class="d-flex option-block">
-    <lf-dropdown
-      [ngStyle]="{ width: '80%' }"
+    <lf-dropdown class="dropdown"
+    
       [data]="fontOptions"
     ></lf-dropdown>
     <lf-dropdown [data]="questionFontSizes"></lf-dropdown>
@@ -48,8 +47,8 @@
 
   <label>Text</label>
   <div class="d-flex option-block">
-    <lf-dropdown
-      [ngStyle]="{ width: '80%' }"
+    <lf-dropdown class="dropdown"
+    
       [data]="fontOptions"
     ></lf-dropdown>
     <lf-dropdown [data]="textFontSizes"></lf-dropdown>
@@ -57,15 +56,15 @@
   <hr
     [ngStyle]="{
       width: '90%',
-      margin: 'auto',
+    
       border: 'var(--separation-border)'
     }"
   />
   <label
     [ngStyle]="{
-      margin: '10px 0 30px 0',
-      'font-size': '150%',
-      'font-weight': '500'
+      margin: '20px 0 30px 0',
+     
+      'font-weight': '500','font-size':'18px'
     }"
     >Color</label
   >
@@ -76,9 +75,9 @@
 
   <label
     [ngStyle]="{
-      margin: '10px 0 30px 0',
-      'font-size': '150%',
-      'font-weight': '500'
+      margin: '20px 0 30px 0',
+    
+      'font-weight': '500','font-size':'18px'
     }"
     >Background</label
   >
@@ -86,7 +85,7 @@
     (onChange)="onColorChange($event)"
     [palette]="['#E9E4FD', '#C6C0DF', '#CEC3F8', '#D6D1E8']"
   ></lf-color-palette>
-  <lf-toggle rightLabel="Required"></lf-toggle>
+  
   <!-- <lf-icon-button
     icon="clone"
     iconStyle="regular"
@@ -95,6 +94,6 @@
 
   <lf-icon-button icon="trash" layout="link"></lf-icon-button>
   <div draggable>Drag Me</div> -->
-  <lg-text-field></lg-text-field>
+ 
   <!-- <lg-draggable></lg-draggable> -->
 </div>

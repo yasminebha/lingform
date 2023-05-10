@@ -13,7 +13,7 @@ import { element } from '../../../shared/mock-data/element1';
   styleUrls: ['./heading-element.component.css'],
 })
 export class HeadingElementComponent implements OnInit {
-  mode: 'edit' | 'live' = 'live';
+  mode: 'edit' | 'live' = 'edit';
   type?: string;
   text?: string;
   description?: string;
@@ -38,5 +38,11 @@ export class HeadingElementComponent implements OnInit {
   }
   async submit(): Promise<void> {
     if (this.headingForm) alert(JSON.stringify(this.headingForm.value));
+
   }
+  addNewForm(i:string ,desc:string){
+    
+  }
+
+
 }
