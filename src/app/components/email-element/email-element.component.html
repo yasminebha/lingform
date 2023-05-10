@@ -1,0 +1,34 @@
+<div *ngIf="mode==='edit'" class="container">
+    <div class="input-type-area">
+      <lg-input-components
+        icon="email"
+        title="Email"
+        layout="second-layout"
+      ></lg-input-components>
+      <div class="tools">
+        <lf-toggle></lf-toggle>
+        <lf-icon-button
+          icon="copy"
+          iconStyle="regular"
+          layout="row-icon"
+          class="icon"
+        ></lf-icon-button>
+        <lf-icon-button
+          icon="trash"
+          iconStyle="solid"
+          layout="row-icon"
+          class="icon"
+        ></lf-icon-button>
+      </div>
+    </div>
+    <label for="">Email address</label>
+    <lg-text-field class="title" placeholder="short answer" [isDisabled]="true"></lg-text-field>
+  </div>
+  
+  
+  
+  <div *ngIf="mode==='live'" class="container"> 
+      <label for="">Email address</label><!-- needs binding to retrieve questLabel -->
+      <lg-text-field class="title" type="email" placeholder="email" ></lg-text-field>
+    </div>
+  
