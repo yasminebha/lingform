@@ -1,5 +1,6 @@
 //exemple 9ad raskom mt3 data kifech lezm touseli bech tefhmou kifech te5dmou lcrud
-//hedhi tet3ml fl getFormsByUserId() tjiblk forms kol mt3 user mou3ayn ta3mlou feha jointure bch table mt3 form yod5l feha table mt3 question
+//hedhi tet3ml fl getFormsByUserId() tjiblk forms kol mt3 user mou3ayn ta3mlou feha
+//jointure bch table mt3 form yod5l feha table mt3 question
 export const formData = [
   {
     //form table
@@ -25,12 +26,14 @@ export const formData = [
         type: 'multipleChoice',
         questLabel: 'what is your name',
         required: false,
-        questOptions: [
-          { key: 1, value: 'elem1' },
-          { key: 2, value: 'elem2' },
-          { key: 3, value: 'elem3' },
-          { key: 4, value: 'elem4' },
-        ], //array can be empty
+        quest_meta: {
+          options: [
+            { key: 1, value: 'elem1' },
+            { key: 2, value: 'elem2' },
+            { key: 3, value: 'elem3' },
+            { key: 4, value: 'elem4' },
+          ],
+        }, //array can be empty
       },
       {
         //element 2
@@ -41,7 +44,7 @@ export const formData = [
       },
     ],
   },
-  //exemple e5r mt3 form e5r 3amlou nafs luser 
+  //exemple e5r mt3 form e5r 3amlou nafs luser
   {
     //form table
     user_id: 'doqijo5346sfesolp', //ktebt kima yji supabase ygeneri id lel user wa7dou
@@ -63,7 +66,7 @@ export const formData = [
         type: 'shortAnswer',
         questLabel: 'what is your name?',
         required: true,
-        questOptions: [],
+        quest_meta: {},
       },
     ],
   },
