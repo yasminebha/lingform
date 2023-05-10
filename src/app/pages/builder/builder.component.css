@@ -1,0 +1,29 @@
+.form-builder{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--bg-color);
+    height: 100vh;
+}
+.left-bar{ 
+    width: 20%;
+}
+.right-bar{
+    width: 20%;
+}
+.builder{
+    overflow-y: scroll;
+    width: 60%;
+}
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background:var(--gray);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
