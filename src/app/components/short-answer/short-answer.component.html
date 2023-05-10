@@ -1,0 +1,33 @@
+<div *ngIf="mode==='edit'" class="container">
+  <div class="input-type-area">
+    <lg-input-components
+      icon="short-answer"
+      title="Short Answer"
+      layout="second-layout"
+    ></lg-input-components>
+    <div class="tools">
+      <lf-toggle></lf-toggle>
+      <lf-icon-button
+        icon="copy"
+        iconStyle="regular"
+        layout="row-icon"
+        class="icon"
+      ></lf-icon-button>
+      <lf-icon-button
+        icon="trash"
+        iconStyle="solid"
+        layout="row-icon"
+        class="icon"
+      ></lf-icon-button>
+    </div>
+  </div>
+  <lg-text-field class="title" placeholder="Question"></lg-text-field>
+  <lg-text-field class="title" placeholder="short answer" [isDisabled]="true"></lg-text-field>
+</div>
+
+
+
+<div *ngIf="mode==='live'" class="container"> 
+    <label for="">question text</label><!-- needs binding to retrieve questLabel -->
+    <lg-text-field class="title" placeholder="short answer" ></lg-text-field>
+  </div>
