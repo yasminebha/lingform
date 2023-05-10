@@ -1,6 +1,6 @@
 .default{
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height:90px;
     background-color: var( --input-btn-bg-color);
     text-align: center;
     display: flex;
@@ -17,11 +17,7 @@
 
  
 }
-.default.icon{
-   width: 50%;
-   height: 50%;
-   
-}
+
 
 p{
     font-size: 80%;
