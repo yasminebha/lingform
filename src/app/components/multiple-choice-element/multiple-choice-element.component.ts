@@ -1,47 +1,83 @@
-import { Component, OnInit } from '@angular/core';
-import { checkboxList } from '@/shared/mock-data/multiple-choice';
+import { Component, DoCheck, Input, OnInit, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as shortid from 'shortid';
-export type MultipleChoiceOption = { key: string; value: string };
+import { FormBlockComponent } from '../form-block.component';
+
+export class MultipleChoiceOption {
+
+  constructor()
+  constructor(val?: string) {
+    this.value = val;
+  }
+
+  key: string = shortid.generate();
+  value?: string;
+}
+
 @Component({
   selector: 'lg-multiple-choice-element',
   templateUrl: './multiple-choice-element.component.html',
   styleUrls: ['./multiple-choice-element.component.css'],
+  providers: [
+    {
+      multi: true,
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => MultipleChoiceElementComponent),
+    },
+  ],
 })
-export class MultipleChoiceElementComponent implements OnInit {
-  mode: 'edit' | 'live' = 'edit';
-  checkboxOptions = checkboxList;
-  options: MultipleChoiceOption[] = [];
+export class MultipleChoiceElementComponent
+  extends FormBlockComponent<MultipleChoiceOption[]>
+  implements OnInit, DoCheck, ControlValueAccessor
+{
+  // checkboxOptions = checkboxList;
 
-  constructor() {}
+  @Input()
+  override value: MultipleChoiceOption[] = [];
 
-  ngOnInit(): void {
-    this.checkboxOptions = checkboxList;
-    console.log(this.checkboxOptions);
-    if (this.mode === 'edit') {
+  onValueChange(key: string, evt: any) {
+    if (evt.target.checked && this.mode==='live') {
+      this.value.filter((val:MultipleChoiceOption)=>val.key!==key)
+    }
+  }
+
+  override ngDoCheck(): void {
+    super.ngDoCheck();
+    this.changeCommit(this.value);
+  }
+
+  override ngOnInit(): void {
+    if (this.mode === 'edit' && this.value.length === 0) {
       this.addChoice();
       this.addChoice();
     }
   }
-  onClick() {
-    console.log('works');
-  }
+
   addChoice() {
-    this.options.push(
-      { key: shortid.generate(), value: '' }
-  
-    );
+    const op = new MultipleChoiceOption();
+    this.value.push(op);
+    this.changeCommit(this.value);
   }
-  removeChoice(key: string) {
-    if (this.options.length > 2)
-      this.options = this.options.filter((opt) => opt.key !== key);
-  }
-  updateChoice(event: any, key: string) {
-    const value = event.target.value;
 
-    const obj = this.options.find((opt) => opt.key === key);
-    if (obj) {
-      obj.value = value;
+  removeChoice(key: string) {
+    if (this.value.length > 2) {
+      this.value = this.value.filter(
+        (opt: MultipleChoiceOption) => opt.key !== key
+      );
     }
-    console.log(this.options);
+
+    this.changeCommit(this.value);
+  }
+
+  updateChoice(event: any, key: string) {
+    const currentValue = event.target.value;
+
+    const choice = this.value.find(
+      (opt: MultipleChoiceOption) => opt.key === key
+    );
+    if (choice) {
+      choice.value = currentValue;
+      this.changeCommit(this.value);
+    }
   }
 }

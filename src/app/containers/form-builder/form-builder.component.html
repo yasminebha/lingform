@@ -1,13 +1,32 @@
 <!-- <lg-right-side-bar></lg-right-side-bar> -->
 <!-- <lg-left-side-bar></lg-left-side-bar> -->
 
+<div class="form-builder">
+  <div class="container header">
+    <lg-text-field
+      type="text"
+      placeholder="Form title"
+      class="title"
+      value="Untitled form"
+      fontSize="24"
+      ngModel
+      name="form-title"
+    ></lg-text-field>
+    <lg-text-field
+      type="text"
+      class="title"
+      placeholder="form description"
+      ngModel
+      name="description"
+    ></lg-text-field>
+  </div>
 
-<form class="form-builder">
- <!-- <lg-heading-element></lg-heading-element> -->
-    <lg-multiple-choice-element></lg-multiple-choice-element> 
-    <lg-one-choice></lg-one-choice>
-    <lg-one-choice></lg-one-choice>
-    <lg-one-choice></lg-one-choice>
-    <lg-email-element></lg-email-element>
-    <!-- <lg-short-answer></lg-short-answer> -->
-  </form>
+  <lg-multiple-choice-element
+    name="multipleChoice"
+    ngModel
+  ></lg-multiple-choice-element>
+  <lg-one-choice name="oneChoice" ngModel></lg-one-choice>
+  <lg-email-element></lg-email-element>
+  <lg-date-element></lg-date-element>
+  <lg-short-answer name="shortAnswer" ngModel></lg-short-answer>
+</div>

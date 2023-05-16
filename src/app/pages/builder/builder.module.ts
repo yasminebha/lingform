@@ -15,6 +15,9 @@ import { ShortAnswerComponent } from '@/app/components/short-answer/short-answer
 import { OneChoiceComponent } from '@/app/components/one-choice/one-choice.component';
 import { EmailElementComponent } from '../../components/email-element/email-element.component';
 import { PhoneElementComponent } from '../../components/phone-element/phone-element.component';
+import { DateElementComponent } from '@/app/components/date-element/date-element.component';
+import { FormHeaderComponent } from '@/app/components/form-header/form-header.component';
+
 
 
 @NgModule({
@@ -30,6 +33,10 @@ import { PhoneElementComponent } from '../../components/phone-element/phone-elem
     OneChoiceComponent,
     EmailElementComponent,
     PhoneElementComponent,
+    DateElementComponent,
+    FormHeaderComponent,
+    
+   
   ],
   imports: [
     
@@ -38,6 +45,7 @@ import { PhoneElementComponent } from '../../components/phone-element/phone-elem
     ReactiveFormsModule,
     BuilderRoutingModule,
     UIComponentsModule,
+   
   ]
 })
 export class BuilderModule { }

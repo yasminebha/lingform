@@ -10,8 +10,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BaseControlComponent } from './base-control.component';
 
 const declarations = [
+  BaseControlComponent,
   ButtonComponent,
   IconButtonComponent,
   ColorPaletteComponent,

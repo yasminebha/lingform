@@ -6,26 +6,24 @@
       layout="second-layout"
     ></lg-input-components>
   </div>
-  <form [formGroup]="headingForm" (ngSubmit)="submit()" class="form">
-    <lg-text-field
-      name="title"
-      type="text"
-      class="title"
-      [fontSize]="headingFontSize"
-      formControlName="headingControl"
-      placeholder="form title"
-    ></lg-text-field>
-    <lg-text-field
+
+  <lg-text-field
+    name="title"
+    type="text"
     class="title"
-      type="text"
-      fontSize="14"
-      placeholder="description"
-    ></lg-text-field>
-    <lf-button type="submit" text="submit"></lf-button>
-  </form>
-  <div></div>
+    formControlName="headingControl"
+    placeholder="form title"
+  ></lg-text-field>
+  <lg-text-field
+    class="title"
+    type="text"
+    fontSize="14"
+    formControlName="descriptionControl"
+    placeholder="description"
+  ></lg-text-field>
+  <lf-button type="submit" text="submit"></lf-button>
 </div>
 <div *ngIf="mode === 'live'" class="container heading-container">
-  <h1 [ngStyle]="{ 'font-size': headingFontSize + 'px' }">{{ text }}</h1>
-  <p>{{ description }}</p>
+  <h1 [ngStyle]="{ 'font-size':'24px' }">text</h1>
+  <p>fefsf</p>
 </div>

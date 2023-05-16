@@ -4,14 +4,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BuilderModule } from './pages/builder/builder.module';
-import { BuilderComponent } from './pages/builder/builder.component';
-import { ShortAnswerComponent } from './components/short-answer/short-answer.component';
-import { OneChoiceComponent } from './components/one-choice/one-choice.component';
+import { ParagraphElementComponent } from './components/paragraph-element/paragraph-element.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-   
+    ParagraphElementComponent,
+  
+  
    
   ],
   imports: [

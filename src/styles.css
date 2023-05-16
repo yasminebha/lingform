@@ -27,9 +27,9 @@ button, [type='button'], [type='reset'], [type='submit'] {
 
 
 .container {
-    border: var(--border);
-    padding: 15px 20px 27px 50px;
-    min-width:400px;
+    border: 1px var(--gray) solid;
+    padding: 15px 30px 27px 50px;
+    min-width:500px;
     margin: auto;
     background-color: white;
     border-radius: var(--border-radius);
@@ -37,6 +37,7 @@ button, [type='button'], [type='reset'], [type='submit'] {
     flex-direction: column;
     gap: 10px;
 }
+
 
 .input-type-area {
     display: flex;

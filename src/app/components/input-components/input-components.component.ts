@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'lg-input-components',
@@ -7,20 +7,18 @@ import { Component, OnInit,Input } from '@angular/core';
 })
 export class InputComponentsComponent implements OnInit {
   @Input()
-  layout?:'default'|'second-layout'='default'
-
+  layout?: 'default' | 'second-layout' = 'default';
 
   @Input()
   title!: string;
-    
-    @Input()
-    icon!: string;
-    @Input()
-    iconSize?: string;
-    @Input()
-    iconStyle: 'solid' | 'regular' | 'light' |'thin' |'duotone'= 'solid';
+
+  @Input()
+  icon!: string;
+  @Input()
+  iconSize?: string;
+  @Input()
+  iconStyle: 'solid' | 'regular' | 'light' | 'thin' | 'duotone' = 'solid';
   constructor() {}
 
   ngOnInit(): void {}
-  
 }

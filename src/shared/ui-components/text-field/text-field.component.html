@@ -6,9 +6,7 @@
     [ngStyle]="{ 'font-size': fontSize + 'px' }"
     [(ngModel)]="value"
     [disabled]="isDisabled"
-    (ngModelChange)="onChange($event)"
-    (blur)="onTouched()"
-   
+    (blur)="onTouched($event)"
   />
 </div>
 

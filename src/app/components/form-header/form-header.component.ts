@@ -2,35 +2,35 @@ import { Component, OnInit, forwardRef } from '@angular/core';
 import { FormBlockComponent } from '../form-block.component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
+
+
 @Component({
-  selector: 'lg-short-answer',
-  templateUrl: './short-answer.component.html',
-  styleUrls: ['./short-answer.component.css'],
+  selector: 'lg-form-header',
+  templateUrl: './form-header.component.html',
+  styleUrls: ['./form-header.component.css'],
   providers: [
     {
       multi: true,
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ShortAnswerComponent),
+      useExisting: forwardRef(() => FormHeaderComponent),
     },
   ],
 })
-export class ShortAnswerComponent
-  extends FormBlockComponent<string>
-  implements OnInit
-{
-  override value : string=''
-  override ngOnInit(): void {}
-
+export class FormHeaderComponent extends FormBlockComponent<string[]> implements OnInit {
+title!:string
+description?:string
+public override value: string[] = [];
+  override ngOnInit(): void {
+  }
   override ngDoCheck(): void {
     super.ngDoCheck();
     this.changeCommit(this.value);
   }
-  updateQuestLabel(event: any) {
+  
+  updateFieldValue(event: any) {
     const currentValue = event.target.value;
     console.log(currentValue);
       this.value = currentValue;
       this.changeCommit(this.value);
     }
-  }
-
-
+}

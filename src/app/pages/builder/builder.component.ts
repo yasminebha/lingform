@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'lg-builder',
   templateUrl: './builder.component.html',
-  styleUrls: ['./builder.component.css']
+  styleUrls: ['./builder.component.css'],
 })
 export class BuilderComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  onSubmit(f: NgForm) {
+    console.log(f.value); // { first: '', last: '' }
   }
-
 }

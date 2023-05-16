@@ -7,8 +7,11 @@
     outline: none;
     background-color: inherit;
     position: relative;
-    width: 100%;
 
+
+}
+.text-field{
+    width: 100%;
 }
 
 .text-field>input:focus {

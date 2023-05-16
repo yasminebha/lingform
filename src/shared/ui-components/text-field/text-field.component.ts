@@ -5,7 +5,8 @@ import {
   OnInit,
   forwardRef,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BaseControlComponent } from '../base-control.component';
 
 @Component({
   selector: 'lg-text-field',
@@ -13,14 +14,16 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   styleUrls: ['./text-field.component.css'],
   providers: [
     {
-      multi: true,
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => TextFieldComponent),
+      multi: true,
     },
   ],
 })
-export class TextFieldComponent implements OnInit, ControlValueAccessor {
-
+export class TextFieldComponent
+  extends BaseControlComponent<string, HTMLInputElement>
+  implements OnInit
+{
   @Input()
   type: string = 'text';
   @Input()
@@ -32,29 +35,27 @@ export class TextFieldComponent implements OnInit, ControlValueAccessor {
   @Input()
   layout: string = 'text-field';
   @Input()
-  value?: string = undefined;
+  override value?: string | undefined;
   @Input()
-  isDisabled:boolean=false
+  isDisabled: boolean = false;
 
-  constructor(private $el: ElementRef<HTMLInputElement>) {}
+  // onChange: any = () => {};
+  // onTouched: any = () => {};
 
-  onChange: any = () => {};
-  onTouched: any = () => {};
-
-  writeValue(value: string): void {
-    this.value = value;
-    this.$el.nativeElement.value = value;
-  }
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    if(isDisabled)
-    this.$el.nativeElement.disabled = isDisabled;
-  }
+  // writeValue(value: string): void {
+  //   this.value = value;
+  //   this.$el.nativeElement.value = value;
+  // }
+  // registerOnChange(fn: any): void {
+  //   this.onChange = fn;
+  // }
+  // registerOnTouched(fn: any): void {
+  //   this.onTouched = fn;
+  // }
+  // setDisabledState?(isDisabled: boolean): void {
+  //   if(isDisabled)
+  //   this.$el.nativeElement.disabled = isDisabled;
+  // }
 
   ngOnInit(): void {}
 }

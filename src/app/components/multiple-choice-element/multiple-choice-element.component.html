@@ -21,41 +21,56 @@
       ></lf-icon-button>
     </div>
   </div>
-  <lg-text-field class="title" placeholder="Question"></lg-text-field>
+  <lg-text-field class="title" placeholder="question label"></lg-text-field>
   <div class="checkbox-list">
-
-    <div *ngFor="let opt of options; let i = index" class="checkbox-element">
+    <div *ngFor="let opt of value; let i = index" class="checkbox-element">
       <div
-        [ngStyle]="{ display: 'flex', 'align-items': 'center', gap: '20px' }"
+        [ngStyle]="{
+          display: 'flex',
+          'align-items': 'center',
+          gap: '20px',
+          width: '60%'
+        }"
       >
         <lg-checkbox class="checkbox" [isDisabled]="true"></lg-checkbox>
-        <lg-text-field placeholder="{{'choice '+(i+1)}}" class="title" (input)="updateChoice($event,opt.key)" ></lg-text-field>
+        <lg-text-field
+          placeholder="{{ 'choice ' + (i + 1) }}"
+          [value]="opt.value"
+          class="title"
+          (input)="updateChoice($event, opt.key)"
+        ></lg-text-field>
       </div>
       <lf-icon-button
-      (click)="removeChoice(opt.key)"
+        (click)="removeChoice(opt.key)"
         icon="xmark"
         iconStyle="solid"
         layout="row-icon"
       ></lf-icon-button>
     </div>
 
-    <lf-button (click)="addChoice()"  class="add-choice-btn" text="Add choice"></lf-button>
+    <lf-button
+      (click)="addChoice()"
+      class="add-choice-btn"
+      text="Add choice"
+    ></lf-button>
   </div>
 </div>
 
 <div *ngIf="mode === 'live'" class="container multiple-choice-container">
   <label for="">question text</label>
   <div class="checkbox-list">
-    <div *ngFor="let elem of checkboxOptions" class="checkbox-element">
-      <div  [ngStyle]="{ display: 'flex', 'align-items': 'center', gap: '20px' }">
-
-        <lg-checkbox></lg-checkbox>
-        <lg-text-field
-          class="title"
-          [isDisabled]="true"
-          value="{{ elem }}"
-        ></lg-text-field>
-      </div>
-    </div>
+    <label
+      *ngFor="let o of value"
+      class="checkbox-element"
+      [ngStyle]="{
+        display: 'flex',
+        'align-items': 'center',
+        gap: '20px',
+        width: '60%'
+      }"
+    >
+      <lg-checkbox (change)="onValueChange(o.key, $event)"></lg-checkbox>
+      {{ o.value }}
+    </label>
   </div>
 </div>

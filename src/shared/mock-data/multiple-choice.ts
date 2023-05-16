@@ -1,7 +1,1 @@
-export const checkboxList=[
-    "elem1",
-    "elem2",
-    "elem3",
-    "elem4"
-
-]
+export const checkboxList = ['elem1', 'elem2', 'elem3', 'elem4'];
