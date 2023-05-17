@@ -35,11 +35,12 @@ export class CheckboxComponent
 
   @Input()
   text: string = '';
-
+  @Input()
+  override value:string=''
   @Input()
   isDisabled: boolean = false;
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
     if (this.type == 'radio') {
       this.inputStyles += ' radio';
       this.checkmarkStyles += ' radio-mark';

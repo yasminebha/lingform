@@ -8,7 +8,8 @@ import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 export class ColorPaletteComponent implements OnInit {
   @Input()
   palette: string[] = ['#DB4437', '#4F2ECB'];
-
+  @Input()
+  role:'bgColor'|'color'='color'
   @Output()
   onChange: EventEmitter<string> = new EventEmitter<string>();
 

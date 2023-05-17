@@ -1,8 +1,9 @@
 <!-- <lg-right-side-bar></lg-right-side-bar> -->
 <!-- <lg-left-side-bar></lg-left-side-bar> -->
 
-<div class="form-builder" [ngStyle]="{ 'background-color': bgColor }">
+<div class="form-builder" [ngStyle]="{'background-color': bgColor }">
   <div class="container header">
+
     <lg-text-field
       type="text"
       placeholder="Form title"
@@ -27,10 +28,12 @@
     ></lg-multiple-choice-element>
     <lg-one-choice
       *ngIf="block.kind === 'OneChoiceComponent'"
+      [value]="block"
       name="oneChoice"
     ></lg-one-choice>
     <lg-email-element
       *ngIf="block.kind === 'EmailElementComponent'"
+ 
     ></lg-email-element>
     <lg-date-element
       *ngIf="block.kind === 'DateElementComponent'"

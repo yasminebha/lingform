@@ -10,6 +10,7 @@ export interface BuilderState {
   headerFontFamily: string;
   headerFontSize: number;
   backgroundColor: string;
+  ThemeColor:string;
   blocks: Record<string, QuestionElement>;
 }
 
@@ -17,19 +18,22 @@ const initialState: BuilderState = {
   headerFontFamily: 'roboto',
   headerFontSize: 16,
   backgroundColor: '#f8f6ff',
+  ThemeColor:'#7339ed',
   blocks: {
     '1': {
       form_id: '1',
       kind: MultipleChoiceElementComponent.name,
+      questLabel:'what is your name',
       quest_id: '1',
       required: true,
-      quest_meta: { options: [{ key: 'asdasd', value: 'ch1' }] },
+      quest_meta: { options: [] },
     },
     '2': {
       form_id: '1',
       kind: OneChoiceComponent.name,
       quest_id: '2',
       required: false,
+      quest_meta: { options: [] },
     },
     '3': {
       form_id: '1',
@@ -58,6 +62,13 @@ export const builderReducer = createReducer(
     ...currentState,
     backgroundColor: bgColor,
   })),
+
+  on(BuilderActions.changeColor,(currentState,{ color })=>
+  ({
+    ...currentState,
+      ThemeColor:color,
+  })),
+
   on(BuilderActions.updateBlock, (currentState, { blockId, ...newBlock }) => {
     const oldBlock = currentState.blocks[blockId];
 
@@ -71,6 +82,15 @@ export const builderReducer = createReducer(
         },
       },
     };
+  }),
+  on(BuilderActions.addBlock,(currentState,{...newBlock})=>{
+    return{
+      ...currentState,
+      blocks:{
+        ...currentState.blocks,
+        newBlock
+      }
+    }
   }),
   on(BuilderActions.removeBlock, (currentState, { blockId }) => {
     delete currentState.blocks[blockId];

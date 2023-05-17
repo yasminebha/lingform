@@ -5,6 +5,10 @@ export const changeBgColor = createAction(
   'BUILDER/UPDATE_BACKGROUD_COLOR',
   props<{ bgColor: string }>()
 );
+export const changeColor = createAction(
+  'BUILDER/UPDATE_BACKGROUD_COLOR',
+  props<{ color: string }>()
+);
 
 export const addBlock = createAction(
   'BUILDER/ADD_BLOCK',
@@ -15,6 +19,7 @@ export const removeBlock = createAction(
   'BUILDER/REMOVE_BLOCK',
   props<{ blockId: string }>()
 );
+
 
 export const updateBlock = createAction(
   'BUILDER/UPDATE_BLOCK',

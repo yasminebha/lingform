@@ -57,13 +57,13 @@
   <label
     [ngStyle]="{
       margin: '20px 0 30px 0',
-
       'font-weight': '500',
       'font-size': '18px'
     }"
     >Color</label
   >
   <lf-color-palette
+    role="color"
     (onChange)="onColorChange($event)"
     [palette]="['#FF9800']"
   ></lf-color-palette>
@@ -71,14 +71,14 @@
   <label
     [ngStyle]="{
       margin: '20px 0 30px 0',
-
       'font-weight': '500',
       'font-size': '18px'
     }"
     >Background</label
   >
   <lf-color-palette
-    (onChange)="onColorChange($event)"
+    role="bgColor"
+    (onChange)="onBgColorChange($event)"
     [palette]="['#E9E4FD', '#C6C0DF', '#CEC3F8', '#D6D1E8']"
   ></lf-color-palette>
 

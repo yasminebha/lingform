@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 })
 export class FormBuilderComponent implements OnInit {
   bgColor: string = '#FFF';
+ 
 
   blocks: QuestionElement[] = [];
 
@@ -18,9 +19,9 @@ export class FormBuilderComponent implements OnInit {
   ngOnInit(): void {
     this.store.subscribe(({ builder }) => {
       this.bgColor = builder.backgroundColor;
-
       this.blocks = Object.values(builder.blocks);
     });
+ 
   }
 
   // updateFieldValue(event: any) {

@@ -1,4 +1,6 @@
+import { AppState } from '@/app/store/reducers';
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'lg-input-components',
@@ -18,7 +20,8 @@ export class InputComponentsComponent implements OnInit {
   iconSize?: string;
   @Input()
   iconStyle: 'solid' | 'regular' | 'light' | 'thin' | 'duotone' = 'solid';
-  constructor() {}
+  constructor(private readonly store: Store<AppState>) {}
 
   ngOnInit(): void {}
+ 
 }

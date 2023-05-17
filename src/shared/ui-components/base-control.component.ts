@@ -1,11 +1,16 @@
-import { Component, DoCheck, ElementRef, Renderer2 } from '@angular/core';
+import { AppState } from '@/app/store/reducers';
+import { Component, DoCheck, ElementRef,OnInit, Renderer2, } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
 @Component({ template: '' })
 export class BaseControlComponent<TValue, TElement>
   implements ControlValueAccessor, DoCheck
 {
   public value?: TValue;
+  public ThemeColor: string = '#7339ed';
+
+
 
   public changeCommit = (val: TValue) => {
     this.value = val;
@@ -15,11 +20,18 @@ export class BaseControlComponent<TValue, TElement>
 
   constructor(
     private _renderer: Renderer2,
-    private _elementRef: ElementRef<TElement>
+    private _elementRef: ElementRef<TElement>,
+    readonly store: Store<AppState>
   ) {}
-
+  
   ngDoCheck(): void {}
+  ngOnInit():void{
+    this.store.subscribe(({ builder }) => {
+      this.ThemeColor = builder.ThemeColor;
+    });
 
+  }
+  
   public writeValue(val: TValue): void {
     this._renderer.setProperty(this._elementRef.nativeElement, 'value', val);
   }

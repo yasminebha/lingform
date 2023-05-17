@@ -18,17 +18,5 @@ export class ShortAnswerComponent
   extends FormBlockComponent<string>
   implements OnInit
 {
-  override value: string = '';
-  override ngOnInit(): void {}
-
-  // override ngDoCheck(): void {
-  //   super.ngDoCheck();
-  //   this.changeCommit(this.value);
-  // }
-  updateQuestLabel(event: any) {
-    const currentValue = event.target.value;
-    console.log(currentValue);
-    this.value = currentValue;
-    // this.changeCommit(this.value);
-  }
+ 
 }

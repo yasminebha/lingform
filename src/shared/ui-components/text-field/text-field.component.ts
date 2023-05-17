@@ -57,5 +57,5 @@ export class TextFieldComponent
   //   this.$el.nativeElement.disabled = isDisabled;
   // }
 
-  ngOnInit(): void {}
+  override ngOnInit(): void {}
 }

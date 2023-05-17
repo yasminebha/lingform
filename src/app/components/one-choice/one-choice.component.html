@@ -21,10 +21,10 @@
       ></lf-icon-button>
     </div>
   </div>
-  <lg-text-field class="title" placeholder="question label"></lg-text-field>
+  <lg-text-field class="title" [value]="value?.questLabel" (input)="updateQuestLabel($event)" placeholder="question label"></lg-text-field>
   <div class="checkbox-list">
     <div
-      *ngFor="let opt of value?.quest_meta?.options; let i = index"
+      *ngFor="let o of value?.quest_meta?.options; let i = index"
       class="checkbox-element"
     >
       <div
@@ -38,11 +38,12 @@
         <lg-text-field
           placeholder="{{ 'choice ' + (i + 1) }}"
           class="title"
-          (input)="updateChoice($event, opt.key)"
+          [value]="o.value"
+          (input)="updateChoice($event, o.key)"
         ></lg-text-field>
       </div>
       <lf-icon-button
-        (click)="removeChoice(opt.key)"
+        (click)="removeChoice(o.key)"
         icon="xmark"
         iconStyle="solid"
         layout="row-icon"

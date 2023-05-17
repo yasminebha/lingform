@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MultipleChoiceElementComponent } from '../multiple-choice-element/multiple-choice-element.component';
+import { MultipleChoiceElementComponent, MultipleChoiceOption } from '../multiple-choice-element/multiple-choice-element.component';
+import { updateBlock } from '@/app/store/actions/builder.actions';
+import { debounce } from '@/shared/utils/timing';
 
 @Component({
   selector: 'lg-one-choice',
@@ -13,8 +15,9 @@ export class OneChoiceComponent
   extends MultipleChoiceElementComponent
   implements OnInit
 {
-  override ngOnInit(): void {
-    this.addChoice();
-    this.addChoice();
-  }
+  
+  
+
+ 
+
 }

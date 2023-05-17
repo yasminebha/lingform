@@ -15,5 +15,8 @@ export class FormBlockComponent<TValue> implements OnInit {
    */
   constructor(readonly store: Store<AppState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   
+  }
+  
 }
