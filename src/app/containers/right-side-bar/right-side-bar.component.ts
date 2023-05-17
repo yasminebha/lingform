@@ -1,4 +1,6 @@
+import { changeBgColor } from '@/app/store/actions/builder.actions';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'lg-right-side-bar',
@@ -6,7 +8,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./right-side-bar.component.css'],
 })
 export class RightSideBarComponent implements OnInit {
-  constructor() {}
+  constructor(private readonly store: Store) {}
   fontOptions: Array<{ key: any; label: string }> = [];
   headerFontSizes: Array<{ key: any; label: string }> = [];
   questionFontSizes: Array<{ key: any; label: string }> = [];
@@ -60,6 +62,6 @@ export class RightSideBarComponent implements OnInit {
   }
 
   onColorChange(color: string) {
-    console.log(color);
+    this.store.dispatch(changeBgColor({ bgColor: color }));
   }
 }

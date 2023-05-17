@@ -1,7 +1,7 @@
 <!-- <lg-right-side-bar></lg-right-side-bar> -->
 <!-- <lg-left-side-bar></lg-left-side-bar> -->
 
-<div class="form-builder">
+<div class="form-builder" [ngStyle]="{ 'background-color': bgColor }">
   <div class="container header">
     <lg-text-field
       type="text"
@@ -9,24 +9,35 @@
       class="title"
       value="Untitled form"
       fontSize="24"
-      ngModel
       name="form-title"
     ></lg-text-field>
     <lg-text-field
       type="text"
       class="title"
       placeholder="form description"
-      ngModel
       name="description"
     ></lg-text-field>
   </div>
 
-  <lg-multiple-choice-element
-    name="multipleChoice"
-    ngModel
-  ></lg-multiple-choice-element>
-  <lg-one-choice name="oneChoice" ngModel></lg-one-choice>
-  <lg-email-element></lg-email-element>
-  <lg-date-element></lg-date-element>
-  <lg-short-answer name="shortAnswer" ngModel></lg-short-answer>
+  <div *ngFor="let block of blocks">
+    <lg-multiple-choice-element
+      *ngIf="block.kind === 'MultipleChoiceElementComponent'"
+      [value]="block"
+      name="multipleChoice"
+    ></lg-multiple-choice-element>
+    <lg-one-choice
+      *ngIf="block.kind === 'OneChoiceComponent'"
+      name="oneChoice"
+    ></lg-one-choice>
+    <lg-email-element
+      *ngIf="block.kind === 'EmailElementComponent'"
+    ></lg-email-element>
+    <lg-date-element
+      *ngIf="block.kind === 'DateElementComponent'"
+    ></lg-date-element>
+    <lg-short-answer
+      *ngIf="block.kind === 'ShortAnswerComponent'"
+      name="shortAnswer"
+    ></lg-short-answer>
+  </div>
 </div>

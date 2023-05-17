@@ -1,12 +1,9 @@
 .form-builder {
-
     padding: 30px 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: var(--bg-color);
     margin: auto;
-
 }
 
 .header {

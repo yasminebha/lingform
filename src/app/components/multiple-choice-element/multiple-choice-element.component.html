@@ -23,7 +23,10 @@
   </div>
   <lg-text-field class="title" placeholder="question label"></lg-text-field>
   <div class="checkbox-list">
-    <div *ngFor="let opt of value; let i = index" class="checkbox-element">
+    <div
+      *ngFor="let o of value?.quest_meta?.options; let i = index"
+      class="checkbox-element"
+    >
       <div
         [ngStyle]="{
           display: 'flex',
@@ -35,13 +38,13 @@
         <lg-checkbox class="checkbox" [isDisabled]="true"></lg-checkbox>
         <lg-text-field
           placeholder="{{ 'choice ' + (i + 1) }}"
-          [value]="opt.value"
+          [value]="o.value"
           class="title"
-          (input)="updateChoice($event, opt.key)"
+          (input)="updateChoice($event, o.key)"
         ></lg-text-field>
       </div>
       <lf-icon-button
-        (click)="removeChoice(opt.key)"
+        (click)="removeChoice(o.key)"
         icon="xmark"
         iconStyle="solid"
         layout="row-icon"
@@ -60,7 +63,7 @@
   <label for="">question text</label>
   <div class="checkbox-list">
     <label
-      *ngFor="let o of value"
+      *ngFor="let o of value?.quest_meta?.options"
       class="checkbox-element"
       [ngStyle]="{
         display: 'flex',

@@ -23,7 +23,10 @@
   </div>
   <lg-text-field class="title" placeholder="question label"></lg-text-field>
   <div class="checkbox-list">
-    <div *ngFor="let opt of value; let i = index" class="checkbox-element">
+    <div
+      *ngFor="let opt of value?.quest_meta?.options; let i = index"
+      class="checkbox-element"
+    >
       <div
         [ngStyle]="{ display: 'flex', 'align-items': 'center', gap: '20px' }"
       >
@@ -57,7 +60,7 @@
 <div *ngIf="mode === 'live'" class="container multiple-choice-container">
   <label for="">question text</label>
   <div class="checkbox-list">
-    <div *ngFor="let o of value" class="checkbox-element">
+    <div *ngFor="let o of value?.quest_meta?.options" class="checkbox-element">
       <div
         [ngStyle]="{ display: 'flex', 'align-items': 'center', gap: '20px' }"
       >

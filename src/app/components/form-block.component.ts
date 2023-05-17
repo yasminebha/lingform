@@ -1,18 +1,19 @@
-import { BaseControlComponent } from '@/shared/ui-components/base-control.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/reducers';
 
 @Component({
   template: '',
 })
-export class FormBlockComponent<TValue>
-  extends BaseControlComponent<TValue, HTMLElement>
-  implements OnInit
-{
+export class FormBlockComponent<TValue> implements OnInit {
   mode: 'edit' | 'live' = 'edit';
+  @Input()
+  value?: TValue;
 
-  QuestLabel: string='';
-  required:boolean =false;
+  /**
+   *
+   */
+  constructor(readonly store: Store<AppState>) {}
 
   ngOnInit(): void {}
-  
 }

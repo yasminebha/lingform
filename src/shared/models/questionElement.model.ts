@@ -1,7 +1,7 @@
 export class QuestionElement<TMeta = Record<string, any>> {
   quest_id!: string;
   form_id!: string;
-  type!: string;
+  kind!: string;
   questLabel?: string;
   required: boolean = false;
   quest_meta?: TMeta;
@@ -9,7 +9,7 @@ export class QuestionElement<TMeta = Record<string, any>> {
   constructor(args?: QuestionElement<TMeta>) {
     if (args) {
       this.form_id = args.form_id;
-      this.type = args.type;
+      this.kind = args.kind;
       this.questLabel = args.questLabel;
       this.required = args.required;
       this.quest_meta = args.quest_meta;
