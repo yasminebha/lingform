@@ -1,8 +1,8 @@
 .text-field>input {
-    border-radius: 8px;
-    border: var(--border);
+    border-radius: 15px;
+    border: 1px solid var(--gray);
     width: 100%;
-    padding: 8px 20px;
+    padding: 12px 20px;
     box-sizing: border-box;
     outline: none;
     background-color: inherit;

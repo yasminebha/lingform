@@ -5,19 +5,23 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ParagraphElementComponent } from './components/paragraph-element/paragraph-element.component';
 import { BuilderModule } from './pages/builder/builder.module';
 import { metaReducers, reducers } from './store/reducers';
-import { environment } from '@/environments/environment';
+import { AccountModule } from './pages/account/account.module';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { UIComponentsModule } from '@/shared/ui-components/ui-components.module';
+
 
 @NgModule({
-  declarations: [AppComponent, ParagraphElementComponent],
+  declarations: [AppComponent,PageNotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     BuilderModule,
+    AccountModule,
+   UIComponentsModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),

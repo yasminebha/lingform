@@ -11,6 +11,7 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseControlComponent } from './base-control.component';
+import { CommonModule } from '@angular/common';
 
 const declarations = [
   BaseControlComponent,
@@ -26,8 +27,8 @@ const declarations = [
 ];
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
+  imports: [ FormsModule,CommonModule, ReactiveFormsModule],
   declarations: [...declarations],
-  exports: [...declarations, BrowserModule],
+  exports: [...declarations],
 })
 export class UIComponentsModule {}

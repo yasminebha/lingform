@@ -1,5 +1,7 @@
-
-import { updateBuilderDescription, updateBuilderTitle } from '@/app/store/actions/builder.actions';
+import {
+  updateBuilderDescription,
+  updateBuilderTitle,
+} from '@/app/store/actions/builder.actions';
 import { AppState } from '@/app/store/reducers';
 import { builderReducer } from '@/app/store/reducers/builder';
 import { QuestionElement } from '@/shared/models/questionElement.model';
@@ -14,43 +16,42 @@ import { Store } from '@ngrx/store';
 })
 export class FormBuilderComponent implements OnInit {
   title: string = 'untitled Form';
-  description:string = ""
+  description: string = '';
   bgColor: string = '#FFF';
   blocks: QuestionElement[] = [];
 
   constructor(private readonly store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store.subscribe(({ builder }) => {
+    const subscription = this.store.subscribe(({ builder }) => {
       this.bgColor = builder.backgroundColor;
       this.blocks = Object.values(builder.blocks);
-      this.title=builder.title
-      this.description=builder.description
-   
+      this.title = builder.title;
+      this.description = builder.description;
     });
+    subscription.unsubscribe();
   }
-  updateBuilderTitle(evt:any): void {
-    const debouncedUpdateTitle  = debounce(() => {
-    
-      const updatedValue=evt.target.value
+  updateBuilderTitle(evt: any): void {
+    const debouncedUpdateTitle = debounce(() => {
+      const updatedValue = evt.target.value;
       this.store.dispatch(
         updateBuilderTitle({
           title: updatedValue,
         })
       );
     }, 1000);
-    debouncedUpdateTitle ();
+    debouncedUpdateTitle();
   }
-  updateBuilderDescription(evt:any): void {
-    const debouncedUpdateDescription  = debounce(() => {
-      const updatedValue=evt.target.value
+  updateBuilderDescription(evt: any): void {
+    const debouncedUpdateDescription = debounce(() => {
+      const updatedValue = evt.target.value;
       this.store.dispatch(
         updateBuilderDescription({
           Description: updatedValue,
         })
-        );
-      }, 1000);
-    debouncedUpdateDescription ();
+      );
+    }, 1000);
+    debouncedUpdateDescription();
   }
 
   // updateFieldValue(event: any) {

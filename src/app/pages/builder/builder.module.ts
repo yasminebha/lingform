@@ -17,6 +17,7 @@ import { EmailElementComponent } from '../../components/email-element/email-elem
 import { PhoneElementComponent } from '../../components/phone-element/phone-element.component';
 import { DateElementComponent } from '@/app/components/date-element/date-element.component';
 import { FormHeaderComponent } from '@/app/components/form-header/form-header.component';
+import { ParagraphElementComponent } from '@/app/components/paragraph-element/paragraph-element.component';
 
 
 
@@ -35,14 +36,13 @@ import { FormHeaderComponent } from '@/app/components/form-header/form-header.co
     PhoneElementComponent,
     DateElementComponent,
     FormHeaderComponent,
-    
+    ParagraphElementComponent
    
   ],
   imports: [
     
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     BuilderRoutingModule,
     UIComponentsModule,
    
