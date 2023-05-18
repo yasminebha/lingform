@@ -1,8 +1,10 @@
 
 import { addBlock } from '@/app/store/actions/builder.actions';
 import { AppState } from '@/app/store/reducers';
+import { QuestionElement } from '@/shared/models/questionElement.model';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -16,25 +18,27 @@ export class LeftSideBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  addElementBlock(componentType:string){
-    if(componentType === "MultipleChoiceElementComponent"||"OneChoiceComponent"){
-      this.store.select('builder').subscribe((builder) => {
+  addElementBlock(componentType: string) {
+   
+      this.store.select('builder')
+      .pipe(take(1)).subscribe((builder) => {
         const newBlockId = (Object.keys(builder.blocks).length + 1).toString();
 
-        const newBlock = {
+        const newBlock: QuestionElement = {
           form_id: '1',
           kind: componentType,
-          questLabel: 'what is your name',
+          questLabel: '',
           quest_id: newBlockId,
           required: true,
           quest_meta: { options: [] },
         };
-        this.store.dispatch(addBlock({
-        ...newBlock///ne9sa
-          }));
-      }
-       
-      );
+
+        this.store.dispatch(addBlock({ blockId: newBlockId, newBlock }));
+      });
+    
   }
-}
+  test(){
+    console.log("heloo");
+    
+  }
 }

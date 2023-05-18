@@ -6,24 +6,29 @@ import { ShortAnswerComponent } from '@/app/components/short-answer/short-answer
 import { QuestionElement } from '@/shared/models/questionElement.model';
 import { createReducer, on } from '@ngrx/store';
 import * as BuilderActions from '../actions/builder.actions';
+
 export interface BuilderState {
+  title: string;
+  description: string;
   headerFontFamily: string;
   headerFontSize: number;
   backgroundColor: string;
-  ThemeColor:string;
+  ThemeColor: string;
   blocks: Record<string, QuestionElement>;
 }
 
 const initialState: BuilderState = {
+  title: 'untitled Form',
+  description: '',
   headerFontFamily: 'roboto',
   headerFontSize: 16,
   backgroundColor: '#f8f6ff',
-  ThemeColor:'#7339ed',
+  ThemeColor: '#7339ed',
   blocks: {
     '1': {
       form_id: '1',
       kind: MultipleChoiceElementComponent.name,
-      questLabel:'what is your name',
+      questLabel: 'what is your name',
       quest_id: '1',
       required: true,
       quest_meta: { options: [] },
@@ -63,11 +68,21 @@ export const builderReducer = createReducer(
     backgroundColor: bgColor,
   })),
 
-  on(BuilderActions.changeColor,(currentState,{ color })=>
-  ({
+  on(BuilderActions.changeColor, (currentState, { color }) => ({
     ...currentState,
-      ThemeColor:color,
+    ThemeColor: color,
   })),
+  on(BuilderActions.updateBuilderTitle, (currentState, { title }) => ({
+    ...currentState,
+    title: title,
+  })),
+  on(
+    BuilderActions.updateBuilderDescription,
+    (currentState, { Description }) => ({
+      ...currentState,
+      description: Description,
+    })
+  ),
 
   on(BuilderActions.updateBlock, (currentState, { blockId, ...newBlock }) => {
     const oldBlock = currentState.blocks[blockId];
@@ -83,18 +98,17 @@ export const builderReducer = createReducer(
       },
     };
   }),
-  on(BuilderActions.addBlock,(currentState,{...newBlock})=>{
-    return{
+  on(BuilderActions.addBlock, (currentState, { blockId, newBlock }) => {
+    return {
       ...currentState,
-      blocks:{
+      blocks: {
         ...currentState.blocks,
-        newBlock
-      }
-    }
+        [blockId]: newBlock,
+      },
+    };
   }),
   on(BuilderActions.removeBlock, (currentState, { blockId }) => {
     delete currentState.blocks[blockId];
-
     return currentState;
   })
 );

@@ -40,10 +40,7 @@ export class MultipleChoiceElementComponent
   }
 
   override ngOnInit(): void {
-    if (this.mode === 'edit' && this.value?.quest_meta?.options?.length == 0) {
-     
-     
-    }
+  
   }
   updateQuestLabel(evt: any): void {
     const debouncedUpdateLabel = debounce(()=>{

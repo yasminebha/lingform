@@ -8,15 +8,20 @@
       type="text"
       placeholder="Form title"
       class="title"
-      value="Untitled form"
+      [value]="title"
       fontSize="24"
-      name="form-title"
+  
+      (input)="updateBuilderTitle($event)"
+
     ></lg-text-field>
     <lg-text-field
       type="text"
       class="title"
       placeholder="form description"
-      name="description"
+ 
+      [value]="description"
+      (input)="updateBuilderDescription($event)"
+ 
     ></lg-text-field>
   </div>
 
@@ -42,5 +47,6 @@
       *ngIf="block.kind === 'ShortAnswerComponent'"
       name="shortAnswer"
     ></lg-short-answer>
+  
   </div>
 </div>

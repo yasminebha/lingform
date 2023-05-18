@@ -20,7 +20,7 @@ export class InputComponentsComponent implements OnInit {
   iconSize?: string;
   @Input()
   iconStyle: 'solid' | 'regular' | 'light' | 'thin' | 'duotone' = 'solid';
-  constructor(private readonly store: Store<AppState>) {}
+  constructor() {}
 
   ngOnInit(): void {}
  

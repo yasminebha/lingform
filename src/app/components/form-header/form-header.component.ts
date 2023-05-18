@@ -1,6 +1,8 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { FormBlockComponent } from '../form-block.component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { debounce } from '@/shared/utils/timing';
+import { updateBlock } from '@/app/store/actions/builder.actions';
 
 @Component({
   selector: 'lg-form-header',
@@ -18,19 +20,8 @@ export class FormHeaderComponent
   extends FormBlockComponent<string[]>
   implements OnInit
 {
-  title!: string;
-  description?: string;
-  public override value: string[] = [];
-  // override ngOnInit(): void {}
-  // override ngDoCheck(): void {
-  //   super.ngDoCheck();
-  //   this.changeCommit(this.value);
-  // }
 
-  updateFieldValue(event: any) {
-    const currentValue = event.target.value;
-    console.log(currentValue);
-    this.value = currentValue;
-    // this.changeCommit(this.value);
-  }
+
+
+  
 }

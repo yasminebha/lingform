@@ -11,17 +11,16 @@
     name="title"
     type="text"
     class="title"
-    formControlName="headingControl"
+ 
     placeholder="form title"
   ></lg-text-field>
   <lg-text-field
     class="title"
     type="text"
     fontSize="14"
-    formControlName="descriptionControl"
     placeholder="description"
   ></lg-text-field>
-  <lf-button type="submit" text="submit"></lf-button>
+  
 </div>
 <div *ngIf="mode === 'live'" class="container heading-container">
   <h1 [ngStyle]="{ 'font-size':'24px' }">text</h1>

@@ -7,7 +7,7 @@ import { FormBlockComponent } from '../form-block.component';
   styleUrls: ['./heading-element.component.css'],
 })
 export class HeadingElementComponent
-  extends FormBlockComponent<{ heading: string; description?: string }>
+  extends FormBlockComponent<string>
   implements OnInit
 {
   override async ngOnInit(): Promise<void> {}
