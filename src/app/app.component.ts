@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AppState } from './store/reducers';
 import { Store } from '@ngrx/store';
 import { login } from './store/actions/user.actions';
+import { UserService } from '@/shared/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent {
   public isLoggedIn: boolean = false;
   public userId: string | undefined = '';
   constructor(
-    private userService: FormService,
+    private userService: UserService,
     private store: Store<AppState>
   ) {}
   ngOnInit() {
