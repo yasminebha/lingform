@@ -85,12 +85,14 @@ export class RightSideBarComponent implements OnInit {
             quest_id: block.quest_id,
             form_id: block.form_id,
             kind: block.kind || null,
+            questLabel:block.questLabel,
             required: block.required || false,
             quest_meta: block.quest_meta || {},
           };
           this.questSevice.addQuestionBlock(newBlock);
         });
       });
+      alert('form has been saved')
   }
   handleHeaderFont($event: any) {
     console.log($event.target.value);
