@@ -1,30 +1,22 @@
-export class Form {
-  form_id!: string;
-  editor_id!: string;
-  title!: string;
-  description!: string;
-  headingFontSize: string = '16';
-  headingFontFamily: string = '16';
-  questionFontSize: string = '16';
-  questionFontFamily: string = '16';
-  color: string = '#000';
-  bgColor: string = '#000';
-  textFontSize: string = '16';
-  textFontFamily: string = '16';
+import * as shortid from 'shortid';
+import { QuestionElement } from './questionElement.model';
 
-  constructor(args?: Form) {
-    if (args) {
-      this.editor_id = args.editor_id;
-      this.title = args.title;
-      this.description = args.description;
-      this.headingFontFamily = args.headingFontFamily;
-      this.headingFontSize = args.headingFontSize;
-      this.questionFontSize = args.questionFontSize;
-      this.questionFontFamily = args.questionFontFamily;
-      this.color = args.color;
-      this.bgColor = args.bgColor;
-      this.textFontSize = args.textFontSize;
-      this.textFontFamily = args.textFontFamily;
-    }
+export class Form {
+  form_id: string = shortid.generate();
+  editeur_id!: string;
+  title: string = 'Untitled form';
+  color: string = '#FFFFF';
+  bgColor: string = '#FFFFF';
+  description?: string;
+  headingFontSize: string = '18';
+  headingFontFamily: string = 'Roboto';
+  questionFontSize: string = '9';
+  questionFontFamily: string = 'Roboto';
+  textFontSize: string = '12';
+  textFontFamily: string = 'Roboto';
+  question: QuestionElement[] = [];
+
+  constructor(editeurId: string) {
+    this.editeur_id = editeurId;
   }
 }

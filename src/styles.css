@@ -46,6 +46,18 @@ button, [type='button'], [type='reset'], [type='submit'] {
     padding-bottom: 15px;
     margin-bottom: 15px;
 }
+.title .text-field>input {
+    width: 100% !important;
+    border: none !important;
+    border-bottom: 1px var(--gray) solid !important;
+    border-radius: 0 !important;
+
+}
+
+.title .text-field>input:disabled {
+    border: none !important;
+    border-radius: 0 !important;
+}
 .tools{
     display: flex;
     align-items: center;

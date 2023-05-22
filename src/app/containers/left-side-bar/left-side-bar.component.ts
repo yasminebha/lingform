@@ -4,6 +4,7 @@ import { QuestionElement } from '@/shared/models/questionElement.model';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
+import * as shortid from 'shortid';
 
 @Component({
   selector: 'lg-left-side-bar',
@@ -14,27 +15,25 @@ export class LeftSideBarComponent implements OnInit {
   constructor(private readonly store: Store<AppState>) {}
 
   ngOnInit(): void {}
+
   addElementBlock(componentType: string) {
-    const sub = this.store
-      .select('builder')
-      .pipe(take(1))
+    const newBlockId = shortid.generate();
+    let form_id: string | null = '';
+    this.store
+      .select((state) => state.builder)
       .subscribe((builder) => {
-        const newBlockId = (Object.keys(builder.blocks).length + 1).toString();
-
-        const newBlock: QuestionElement = {
-          form_id: '1',
-          kind: componentType,
-          questLabel: '',
-          quest_id: newBlockId,
-          required: true,
-          quest_meta: { options: [] },
-        };
-
-        this.store.dispatch(addBlock({ blockId: newBlockId, newBlock }));
+        form_id = builder.form_id;
       });
-    sub.unsubscribe();
-  }
-  test() {
-    console.log('heloo');
+
+    const newBlock: QuestionElement = {
+      form_id: form_id,
+      kind: componentType,
+      questLabel: '',
+      quest_id: newBlockId,
+      required: true,
+      quest_meta: { options: [] },
+    };
+
+    this.store.dispatch(addBlock({ blockId: newBlockId, newBlock }));
   }
 }

@@ -10,46 +10,35 @@ import { ControlValueAccessor } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
 @Component({ template: '' })
-export class BaseControlComponent<TValue, TElement>
-  implements ControlValueAccessor, DoCheck
+export class BaseControlComponent<TValue, TElement=any>
+  implements ControlValueAccessor
 {
   public value?: TValue;
   public ThemeColor: string = '#7339ed';
 
-  public changeCommit = (val: TValue) => {
-    this.value = val;
-  };
-
-  onTouched = (evt: any) => {};
-
   constructor(
     private _renderer: Renderer2,
-    private _elementRef: ElementRef<TElement>,
-    readonly store: Store<AppState>
+    private _elementRef: ElementRef<TElement>
   ) {}
 
-  ngDoCheck(): void {}
-  ngOnInit(): void {
-    const sub = this.store.subscribe(({ builder }) => {
-      this.ThemeColor = builder.ThemeColor;
-    });
-
-    sub.unsubscribe();
-  }
-
-  public writeValue(val: TValue): void {
+  public onTouched = (evt: any) => {};
+  public changeCommit = (val: TValue) => {};
+ngOnInit(){
+  
+}
+  writeValue(val: TValue): void {
     this._renderer.setProperty(this._elementRef.nativeElement, 'value', val);
   }
 
-  public registerOnChange(fn: (v: TValue) => void): void {
+  registerOnChange(fn: (v: TValue) => void): void {
     this.changeCommit = fn;
   }
 
-  public registerOnTouched(fn: () => void): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
-  public setDisabledState?(isDisabled: boolean): void {
+  setDisabledState?(isDisabled: boolean): void {
     this._renderer.setProperty(
       this._elementRef.nativeElement,
       'disabled',

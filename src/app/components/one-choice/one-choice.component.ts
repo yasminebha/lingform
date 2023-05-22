@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, forwardRef } from '@angular/core';
 import { MultipleChoiceElementComponent, MultipleChoiceOption } from '../multiple-choice-element/multiple-choice-element.component';
-import { updateBlock } from '@/app/store/actions/builder.actions';
-import { debounce } from '@/shared/utils/timing';
+
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'lg-one-choice',
@@ -9,6 +9,13 @@ import { debounce } from '@/shared/utils/timing';
   styleUrls: [
     './one-choice.component.css',
     '../multiple-choice-element/multiple-choice-element.component.css',
+  ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => OneChoiceComponent),
+      multi: true,
+    },
   ],
 })
 export class OneChoiceComponent

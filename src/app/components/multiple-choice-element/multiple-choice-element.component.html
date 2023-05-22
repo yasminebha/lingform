@@ -1,6 +1,4 @@
-
 <div *ngIf="mode === 'edit'" class="container multiple-choice-container">
-  
   <div class="input-type-area">
     <lg-input-components
       icon="checkbox"
@@ -23,7 +21,12 @@
       ></lf-icon-button>
     </div>
   </div>
-  <lg-text-field (input)="updateQuestLabel($event)" [value]="value?.questLabel" class="title" placeholder="question label"></lg-text-field>
+  <lg-text-field
+    (input)="updateQuestLabel($event)"
+    [value]="value?.questLabel"
+    class="title"
+    placeholder="question label"
+  ></lg-text-field>
   <div class="checkbox-list">
     <div
       *ngFor="let o of value?.quest_meta?.options; let i = index"
@@ -70,9 +73,13 @@
       [ngStyle]="{
         display: 'flex',
         'align-items': 'center',
-        gap: '20px'}"
+        gap: '20px'
+      }"
     >
-      <lg-checkbox value="{{o.value}}" (change)="onValueChange(o.key, $event)"></lg-checkbox>
+      <lg-checkbox
+        value="{{ o.value }}"
+        (change)="onValueChange(o.key, $event)"
+      ></lg-checkbox>
       {{ o.value }}
     </label>
   </div>

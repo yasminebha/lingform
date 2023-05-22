@@ -1,0 +1,6 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div class="view-form">
+    <lg-form-builder [mode]="mode"></lg-form-builder>
+  </div>
+  <lf-button (click)="test()" type="submit" text="submit"></lf-button>
+</form>

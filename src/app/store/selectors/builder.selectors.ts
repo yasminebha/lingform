@@ -1,8 +1,9 @@
 import { createSelector } from '@ngrx/store';
 import { AppState } from '../reducers';
-import { QuestionElement } from '@/shared/models/questionElement.model';
 
-export const selectUser = (state: AppState) => state.builder;
-// export const getBlockById = createSelector((state) => {
-//   return null;
-// });
+export const getNextMode = createSelector(
+  (state: AppState) => state.builder.mode,
+  (mode) => {
+    return mode === 'edit' ? 'live' : 'edit';
+  }
+);

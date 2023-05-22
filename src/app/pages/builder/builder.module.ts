@@ -18,8 +18,8 @@ import { PhoneElementComponent } from '../../components/phone-element/phone-elem
 import { DateElementComponent } from '@/app/components/date-element/date-element.component';
 import { FormHeaderComponent } from '@/app/components/form-header/form-header.component';
 import { ParagraphElementComponent } from '@/app/components/paragraph-element/paragraph-element.component';
-
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ViewComponent } from './view/view.component';
 
 @NgModule({
   declarations: [
@@ -36,16 +36,15 @@ import { ParagraphElementComponent } from '@/app/components/paragraph-element/pa
     PhoneElementComponent,
     DateElementComponent,
     FormHeaderComponent,
-    ParagraphElementComponent
-   
+    ParagraphElementComponent,
+    ViewComponent,
   ],
   imports: [
-    
     CommonModule,
     FormsModule,
     BuilderRoutingModule,
     UIComponentsModule,
-   
-  ]
+  ],
+  schemas: [NO_ERRORS_SCHEMA],
 })
-export class BuilderModule { }
+export class BuilderModule {}

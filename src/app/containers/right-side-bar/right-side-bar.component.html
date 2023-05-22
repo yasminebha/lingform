@@ -4,7 +4,7 @@
       icon="eye"
       layout="outline"
       iconStyle="solid"
-      (click)="onSave()"
+      (click)="toggleMode()"
       title="preview"
     ></lf-icon-button>
     <lf-icon-button
@@ -13,7 +13,12 @@
       iconStyle="solid"
       title="add to favoris"
     ></lf-icon-button>
-    <lf-button type="submit" text="Save" layout="outline"></lf-button>
+    <lf-button
+      (click)="onSave()"
+      type="submit"
+      text="Save"
+      layout="outline"
+    ></lf-button>
     <lf-button text="Send" layout="primary"></lf-button>
   </div>
 

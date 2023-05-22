@@ -1,52 +1,57 @@
 <!-- <lg-right-side-bar></lg-right-side-bar> -->
 <!-- <lg-left-side-bar></lg-left-side-bar> -->
 
-<div class="form-builder" [ngStyle]="{'background-color': bgColor }">
-  <div class="container header">
-
+<form
+  #f="ngForm"
+  (ngSubmit)="onSubmit(f)"
+  class="form-builder"
+  [ngStyle]="{ 'background-color': bgColor }"
+>
+  <div *ngIf="mode === 'edit'" class="container header">
     <lg-text-field
       type="text"
       placeholder="Form title"
       class="title"
       [value]="title"
       fontSize="24"
-  
       (input)="updateBuilderTitle($event)"
-
     ></lg-text-field>
     <lg-text-field
       type="text"
       class="title"
       placeholder="form description"
- 
       [value]="description"
       (input)="updateBuilderDescription($event)"
- 
     ></lg-text-field>
   </div>
 
   <div *ngFor="let block of blocks">
     <lg-multiple-choice-element
+      [mode]="mode"
       *ngIf="block.kind === 'MultipleChoiceElementComponent'"
+      ngModel
       [value]="block"
-      name="multipleChoice"
+      [name]="block.quest_id"
     ></lg-multiple-choice-element>
     <lg-one-choice
+      [mode]="mode"
       *ngIf="block.kind === 'OneChoiceComponent'"
       [value]="block"
-      name="oneChoice"
+      [name]="block.quest_id"
+      ngModel
     ></lg-one-choice>
     <lg-email-element
+      [mode]="mode"
       *ngIf="block.kind === 'EmailElementComponent'"
- 
     ></lg-email-element>
     <lg-date-element
+      [mode]="mode"
       *ngIf="block.kind === 'DateElementComponent'"
     ></lg-date-element>
     <lg-short-answer
+      [mode]="mode"
       *ngIf="block.kind === 'ShortAnswerComponent'"
       name="shortAnswer"
     ></lg-short-answer>
-  
   </div>
-</div>
+</form>

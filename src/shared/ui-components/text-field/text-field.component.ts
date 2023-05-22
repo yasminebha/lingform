@@ -35,10 +35,10 @@ export class TextFieldComponent
   @Input()
   layout: string = 'text-field';
   @Input()
-  override value?: string | undefined;
+  override value?: string;
   @Input()
   isDisabled: boolean = false;
-
+  
 
   // onChange: any = () => {};
   // onTouched: any = () => {};
@@ -58,5 +58,5 @@ export class TextFieldComponent
   //   this.$el.nativeElement.disabled = isDisabled;
   // }
 
-  override ngOnInit(): void {}
+   override ngOnInit(): void {}
 }

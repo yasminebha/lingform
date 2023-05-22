@@ -1,6 +1,14 @@
-import { changeBgColor, changeColor } from '@/app/store/actions/builder.actions';
-import { Component, ElementRef, EventEmitter, OnInit, Output, } from '@angular/core';
-import { Store } from '@ngrx/store';
+import {
+  changeBgColor,
+  changeColor,
+  updateBuilder,
+} from '@/app/store/actions/builder.actions';
+import { AppState } from '@/app/store/reducers';
+import { getNextMode } from '@/app/store/selectors/builder.selectors';
+import { QuestionElement } from '@/shared/models/questionElement.model';
+import { QuestionService } from '@/shared/services/question.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'lg-right-side-bar',
@@ -8,7 +16,10 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./right-side-bar.component.css'],
 })
 export class RightSideBarComponent implements OnInit {
-  constructor(private readonly store: Store,private elementRef: ElementRef) {}
+  constructor(
+    private readonly store: Store<AppState>,
+    private questSevice: QuestionService
+  ) {}
   fontOptions: Array<{ key: any; label: string }> = [];
   headerFontSizes: Array<{ key: any; label: string }> = [];
   questionFontSizes: Array<{ key: any; label: string }> = [];
@@ -54,8 +65,32 @@ export class RightSideBarComponent implements OnInit {
   setFontSize(size: string) {
     this.fontSizeChanged.emit(size);
   }
+
+  async toggleMode() {
+    let mode;
+    await this.store.pipe(select(getNextMode)).subscribe((nextMode) => {
+      mode = nextMode;
+    });
+
+    if (mode) {
+      this.store.dispatch(updateBuilder({ mode }));
+    }
+  }
   onSave() {
-    console.log('=====');
+    this.store
+      .select((state) => state.builder.blocks)
+      .subscribe((blocks) => {
+        Object.values(blocks).forEach((block: any) => {
+          const newBlock: QuestionElement = {
+            quest_id: block.quest_id,
+            form_id: block.form_id,
+            kind: block.kind || null,
+            required: block.required || false,
+            quest_meta: block.quest_meta || {},
+          };
+          this.questSevice.addQuestionBlock(newBlock);
+        });
+      });
   }
   handleHeaderFont($event: any) {
     console.log($event.target.value);
@@ -66,7 +101,6 @@ export class RightSideBarComponent implements OnInit {
   }
 
   onColorChange(color: string) {
-
-    this.store.dispatch(changeColor({color: color }));
+    this.store.dispatch(changeColor({ color: color }));
   }
 }

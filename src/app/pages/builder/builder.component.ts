@@ -1,5 +1,11 @@
+import { addBlock } from '@/app/store/actions/builder.actions';
+import { AppState } from '@/app/store/reducers';
+import { Form } from '@/shared/models/form.model';
+import { FormService } from '@/shared/services/form.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'lg-builder',
@@ -7,9 +13,13 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./builder.component.css'],
 })
 export class BuilderComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private formService: FormService,
+    private store: Store<AppState>
+  ) {}
 
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<void> {}
 
   onSubmit(f: NgForm) {
     console.log(f.value); // { first: '', last: '' }

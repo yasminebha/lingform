@@ -6,7 +6,7 @@ import { ColorPaletteComponent } from './color-palette/color-palette.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { TextFieldComponent } from './text-field/text-field.component';
 import { ToggleComponent } from './toggle/toggle.component';
-import { BrowserModule } from '@angular/platform-browser';
+
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

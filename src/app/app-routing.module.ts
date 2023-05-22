@@ -7,7 +7,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 
 const routes: Routes = [
   {path:'forms',component:HomeComponent},
-  {path:'builder',component:BuilderComponent},
+  {path:'builder',loadChildren:()=>import("./pages/builder/builder.module").then(m=>m.BuilderModule)},
   {path:'account',loadChildren:()=>import("./pages/account/account.module").then(m=>m.AccountModule)},
   
 

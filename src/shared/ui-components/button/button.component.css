@@ -5,6 +5,14 @@
     padding-left: 13px;
     border-radius: 8px;
 }
+.btn:disabled{
+    cursor:not-allowed;
+}
+.btn:disabled:hover{
+    outline: none;
+    background-color: var(--primary-color);
+
+}
 
 .btn.primary {
     background-color: var(--primary-color);

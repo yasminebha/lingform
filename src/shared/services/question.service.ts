@@ -1,23 +1,34 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import supabase from '../../app/supabase';
 import { QuestionElement } from '../models/questionElement.model';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class QuestionService {
-
-  constructor() { }
-  async addNewQuestionElement(element:QuestionElement):Promise<void>{
-    const {error} = await supabase.from("question").insert({
-      type:element.type,
-      questLabel:element.questLabel,
-      required:element.required,
-      quest_meta:element.quest_meta
-    })
-    if(error){
-      throw error
+  constructor() {}
+  async addQuestionBlock(element: QuestionElement): Promise<void> {
+    const { error } = await supabase.from('question').upsert({
+      form_id: element.form_id,
+      quest_id: element.quest_id,
+      kind: element.kind,
+      questLabel: element.questLabel,
+      required: element.required,
+      quest_meta: element.quest_meta,
+    });
+    if (error) {
+      console.log(error);
     }
+  }
+  async getAllQuestionByFormId(formId: string): Promise<any> {
+    const { error, data } = await supabase
+      .from('question')
+      .select('*')
+      .eq('form_id', formId)
+      .order('created_at', { ascending: true });
 
+    if (error) console.log(error);
+    else {
+      return data;
+    }
   }
 }
