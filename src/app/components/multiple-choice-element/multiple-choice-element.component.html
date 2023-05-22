@@ -73,6 +73,7 @@
       [ngStyle]="{
         display: 'flex',
         'align-items': 'center',
+        'justify-content':'flex-start',
         gap: '20px'
       }"
     >
@@ -80,7 +81,11 @@
         value="{{ o.value }}"
         (change)="onValueChange(o.key, $event)"
       ></lg-checkbox>
-      {{ o.value }}
+      <lg-text-field
+      class="title"
+      [isDisabled]="true"
+      value="{{ o.value }}"
+    ></lg-text-field>
     </label>
   </div>
 </div>
