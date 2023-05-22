@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
       .subscribe(async (user) => {
         if (user.userId) {
           const formId = await this.userService.newForm(user.userId);
-          this.router.navigate(['builder', formId, 'edit']).then(() => {
+          this.router.navigate(['builder', formId]).then(() => {
             window.location.reload();
           });
         }
