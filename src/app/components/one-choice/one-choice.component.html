@@ -59,7 +59,7 @@
 </div>
 
 <div *ngIf="mode === 'live'" class="container multiple-choice-container">
-  <label for="">question text</label>
+  <label for="">{{value?.questLabel}}</label>
   <div class="checkbox-list">
     <div *ngFor="let o of value?.quest_meta?.options" class="checkbox-element">
       <div
