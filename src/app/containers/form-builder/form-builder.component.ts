@@ -27,7 +27,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   formId: string | null = '';
 
   @Input()
-  mode: 'live' | 'edit' = 'edit';
+  mode!: 'live' | 'edit' ;
 
   private form?: Form;
   private storeSubsription: any;

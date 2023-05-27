@@ -19,7 +19,7 @@ import { DateElementComponent } from '@/app/components/date-element/date-element
 import { FormHeaderComponent } from '@/app/components/form-header/form-header.component';
 import { ParagraphElementComponent } from '@/app/components/paragraph-element/paragraph-element.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ViewComponent } from './view/view.component';
+import { ViewComponent } from '../view/view.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +38,7 @@ import { ViewComponent } from './view/view.component';
     FormHeaderComponent,
     ParagraphElementComponent,
     ViewComponent,
+
   ],
   imports: [
     CommonModule,

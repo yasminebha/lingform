@@ -10,10 +10,11 @@ import { metaReducers, reducers } from './store/reducers';
 import { AccountModule } from './pages/account/account.module';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { UIComponentsModule } from '@/shared/ui-components/ui-components.module';
+import { ViewComponent } from './pages/view/view.component';
 
 
 @NgModule({
-  declarations: [AppComponent,PageNotFoundComponent],
+  declarations: [AppComponent,PageNotFoundComponent,    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

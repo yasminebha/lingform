@@ -1,34 +1,34 @@
-<!-- <lg-right-side-bar></lg-right-side-bar> -->
-<!-- <lg-left-side-bar></lg-left-side-bar> -->
 
-<form
+<div class="form-container" [ngStyle]="{ 'background-color': bgColor }">
+
+  <form
   #f="ngForm"
   (ngSubmit)="onSubmit(f)"
   class="form-builder"
-  [ngStyle]="{ 'background-color': bgColor }"
->
+  
+  >
   <div *ngIf="mode === 'edit'" class="container header">
     <lg-text-field
-      type="text"
+    type="text"
       placeholder="Form title"
       class="title"
       [value]="title"
       fontSize="24"
       (input)="updateBuilderTitle($event)"
-    ></lg-text-field>
-    <lg-text-field
+      ></lg-text-field>
+      <lg-text-field
       type="text"
       class="title"
       placeholder="form description"
       [value]="description"
       (input)="updateBuilderDescription($event)"
-    ></lg-text-field>
-  </div>
-
-  <div *ngIf="mode === 'live'" class="container header">
- 
+      ></lg-text-field>
+    </div>
+    
+    <div *ngIf="mode === 'live'" class="container header">
+      
     <lg-text-field
-      type="text"
+    type="text"
       class="title"
       [value]="title"
       fontSize="24"
@@ -37,27 +37,27 @@
     <hr>
     <lg-text-field
     *ngIf="description"
-      type="text"
-      class="title"
-      [value]="description"
-      [isDisabled]="true"
+    type="text"
+    class="title"
+    [value]="description"
+    [isDisabled]="true"
       fontSize="13"
     ></lg-text-field>
   </div>
 
   <div *ngFor="let block of blocks">
     <lg-multiple-choice-element
-      [mode]="mode"
-      *ngIf="block.kind === 'MultipleChoiceElementComponent'"
-      ngModel
+    [mode]="mode"
+    *ngIf="block.kind === 'MultipleChoiceElementComponent'"
+    ngModel
       [id]="block.quest_id"
       [kind]="block.kind"
       [label]="block.questLabel"
       [metaData]="block.quest_meta"
       [required]="block.required"
       [name]="block.quest_id"
-    ></lg-multiple-choice-element>
-    <lg-one-choice
+      ></lg-multiple-choice-element>
+      <lg-one-choice
       [mode]="mode"
       *ngIf="block.kind === 'OneChoiceComponent'"
       [id]="block.quest_id"
@@ -66,19 +66,19 @@
       [metaData]="block.quest_meta"
       [required]="block.required"
       [name]="block.quest_id"
- 
+      
       ngModel
     ></lg-one-choice>
     <lg-email-element
       [mode]="mode"
       *ngIf="block.kind === 'EmailElementComponent'"
-    ></lg-email-element>
-    <lg-date-element
+      ></lg-email-element>
+      <lg-date-element
       [mode]="mode"
       *ngIf="block.kind === 'DateElementComponent'"
     ></lg-date-element>
     <lg-short-answer
-      [mode]="mode"
+    [mode]="mode"
       *ngIf="block.kind === 'ShortAnswerComponent'"
       [id]="block.quest_id"
       [kind]="block.kind"
@@ -87,9 +87,11 @@
       [required]="block.required"
       [name]="block.quest_id"
       ngModel
-           
-     
-    ></lg-short-answer>
-  </div>
+      
+      
+      ></lg-short-answer>
+    </div>
   <lf-button *ngIf="mode==='live'" text="submit" type="submit"></lf-button>
 </form>
+
+  </div>
