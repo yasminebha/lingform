@@ -50,14 +50,23 @@
       [mode]="mode"
       *ngIf="block.kind === 'MultipleChoiceElementComponent'"
       ngModel
-      [value]="block"
+      [id]="block.quest_id"
+      [kind]="block.kind"
+      [label]="block.questLabel"
+      [metaData]="block.quest_meta"
+      [required]="block.required"
       [name]="block.quest_id"
     ></lg-multiple-choice-element>
     <lg-one-choice
       [mode]="mode"
       *ngIf="block.kind === 'OneChoiceComponent'"
-      [value]="block"
+      [id]="block.quest_id"
+      [kind]="block.kind"
+      [label]="block.questLabel"
+      [metaData]="block.quest_meta"
+      [required]="block.required"
       [name]="block.quest_id"
+ 
       ngModel
     ></lg-one-choice>
     <lg-email-element
@@ -71,7 +80,11 @@
     <lg-short-answer
       [mode]="mode"
       *ngIf="block.kind === 'ShortAnswerComponent'"
-      [value]="block"
+      [id]="block.quest_id"
+      [kind]="block.kind"
+      [label]="block.questLabel"
+      [metaData]="block.quest_meta"
+      [required]="block.required"
       [name]="block.quest_id"
       ngModel
            

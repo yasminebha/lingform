@@ -26,7 +26,7 @@
     class="title"
     placeholder="Question"
     (input)="updateQuestLabel($event)"
-    [value]="value?.questLabel"
+    [value]="label"
     ngModel
   ></lg-text-field>
   <lg-text-field
@@ -37,6 +37,10 @@
 </div>
 
 <div *ngIf="mode === 'live'" class="container">
-  <label for="">{{ value?.questLabel }}</label>
-  <lg-text-field class="title" placeholder="short answer"></lg-text-field>
+  <label for="">{{ label }}</label>
+  <lg-text-field
+    class="title"
+    placeholder="short answer"
+    (input)="changeAnswer($event)"
+  ></lg-text-field>
 </div>

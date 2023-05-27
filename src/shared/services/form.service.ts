@@ -9,15 +9,14 @@ import * as shortid from 'shortid';
 export class FormService {
   constructor() {}
 
-  
   async newForm(userId: string): Promise<string> {
     const { error, data } = await supabase
       .from('form')
       .insert({
-        form_id:shortid.generate(),
-        editeur_id:userId,
-        description:'',
-        title:'Untitled Form',
+        form_id: shortid.generate(),
+        editeur_id: userId,
+        description: '',
+        title: 'Untitled Form',
       })
       .select('form_id')
       .single();
@@ -41,14 +40,23 @@ export class FormService {
       return data;
     }
   }
-  async updateForm(formId: string|null, updatedForm: any): Promise<void> {
+  async updateForm(formId: string | null, updatedForm: any): Promise<void> {
     const { error } = await supabase
       .from('form')
       .update(updatedForm)
       .eq('form_id', formId);
-  
+
     if (error) {
       throw new Error(error.message);
     }
-}
+  }
+
+  async submitAnswers(answers: {quest_id:string,value:any}[]) {
+    for (const a of answers) {
+      await supabase.from('answer').insert({
+        data: { value: a.value },
+        quest_id:a.quest_id
+      });
+    }
+  }
 }

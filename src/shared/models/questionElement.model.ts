@@ -1,4 +1,4 @@
-export class QuestionElement<TMeta = Record<string, any>> {
+export class QuestionElement<TMeta =any> {
   quest_id!: string;
   form_id!: string|null;
   kind!: string|null;

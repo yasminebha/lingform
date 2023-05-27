@@ -18,29 +18,21 @@ import { QuestionElement } from '@/shared/models/questionElement.model';
   ],
 })
 export class ShortAnswerComponent
-  extends FormBlockComponent<QuestionElement>
+  extends FormBlockComponent<string>
   implements OnInit
 {
   public updateQuestLabel = debounce((evt: any) => {
     const updatedValue = evt.target.value;
-    console.log(this.value?.quest_id);
-    
+
     this.store.dispatch(
       updateBlock({
-        blockId: this.value?.quest_id as string,
+        blockId: this.id,
         questLabel: updatedValue,
       })
     );
   }, 1000);
 
-
-  
-  removeBlock(){
-    this.store.dispatch(
-      removeBlock({
-        blockId:this.value?.quest_id as string
-      })
-    )
-
+  changeAnswer(evt: any) {
+    this.changeCommit(evt.target.value);
   }
-} 
+}

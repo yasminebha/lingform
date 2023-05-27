@@ -55,10 +55,11 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       for (const q of this.form!.question) {
         this.store.dispatch(addBlock({ blockId: q.quest_id, newBlock: q }));
       }
-      if(this.form){
-        this.store.dispatch(updateBuilderTitle({title:this.form?.title}))
-        this.store.dispatch(updateBuilderDescription({Description:this.form?.description}))
-
+      if (this.form) {
+        this.store.dispatch(updateBuilderTitle({ title: this.form?.title }));
+        this.store.dispatch(
+          updateBuilderDescription({ Description: this.form?.description })
+        );
       }
 
       this.store.dispatch(
@@ -91,8 +92,34 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   }, 1000);
 
   onSubmit(f: NgForm) {
-    console.log(f.value);
+    const answers = [];
 
-    
+    for (const key of Object.keys(f.value)) {
+      answers.push({
+        quest_id: key,
+        value: f.value[key],
+      });
+    }
+
+    // const answers = Object.keys(f.value).reduce(
+    //   (
+    //     prev: {
+    //       quest_id: string;
+    //       value: string;
+    //     }[],
+    //     curr
+    //   ) => {
+    //     return [
+    //       ...prev,
+    //       {
+    //         quest_id: curr,
+    //         value: f.value[curr],
+    //       },
+    //     ];
+    //   },
+    //   []
+    // );
+
+    this.formService.submitAnswers(answers);
   }
 }

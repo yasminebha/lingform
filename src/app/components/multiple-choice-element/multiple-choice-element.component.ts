@@ -9,9 +9,9 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export class MultipleChoiceOption {
   constructor(val?: string) {
-    this.value = val;
+    if (val) this.value = val;
   }
-  value?: string;
+  value!: string;
   key: string = shortid.generate();
 }
 
@@ -28,23 +28,18 @@ export class MultipleChoiceOption {
   ],
 })
 export class MultipleChoiceElementComponent
-  extends FormBlockComponent<
-    QuestionElement<{ options?: MultipleChoiceOption[] }>
-  >
+  extends FormBlockComponent<string[], { options: MultipleChoiceOption[] }>
   implements OnInit
 {
-  onValueChange(key: string, evt: any) {
-    if (evt.target.checked && this.mode === 'live') {
-      const isSelected = evt.target.checked;
-      if (isSelected) console.log(evt.target.value);
-      // this.store.dispatch(updateBlock({
-      //   blockId:this.value?.quest_id as string,
-      //   quest_meta:{
-      //     options:[]
-      //   }
-      // }))
+  answers: string[] = [];
+  onValueChange(key: string) {
+    if (this.answers.includes(key)) {
+      this.answers = this.answers.filter((a) => a !== key);
+    } else {
+      this.answers.push(key);
     }
-    this.changeCommit([] as any);
+
+    this.changeCommit(this.answers);
   }
 
   override ngOnInit(): void {}
@@ -53,7 +48,7 @@ export class MultipleChoiceElementComponent
     const updatedValue = evt.target.value;
     this.store.dispatch(
       updateBlock({
-        blockId: this.value?.quest_id as string,
+        blockId: this.id,
         questLabel: updatedValue,
       })
     );
@@ -61,10 +56,10 @@ export class MultipleChoiceElementComponent
 
   addChoice() {
     const op = new MultipleChoiceOption();
-    const options = this.value?.quest_meta?.options || [];
+    const options = this.metaData?.options || [];
     this.store.dispatch(
       updateBlock({
-        blockId: this.value?.quest_id as string,
+        blockId: this.id,
         quest_meta: {
           options: [...options, op],
         },
@@ -72,7 +67,7 @@ export class MultipleChoiceElementComponent
     );
   }
   removeChoice(key: string) {
-    const options = this.value?.quest_meta?.options || [];
+    const options = this.metaData?.options || [];
 
     const updatedOptions = options.filter(
       (opt: MultipleChoiceOption) => opt.key !== key
@@ -80,7 +75,7 @@ export class MultipleChoiceElementComponent
 
     this.store.dispatch(
       updateBlock({
-        blockId: this.value?.quest_id as string,
+        blockId: this.id,
         quest_meta: {
           options: updatedOptions,
         },
@@ -89,7 +84,7 @@ export class MultipleChoiceElementComponent
   }
 
   debounceChoiceInput = debounce((key: string, value: string) => {
-    const options = this.value?.quest_meta?.options || [];
+    const options = this.metaData?.options || [];
 
     const newOptions = options.map((opt: MultipleChoiceOption) => {
       if (opt.key === key) {
@@ -101,7 +96,7 @@ export class MultipleChoiceElementComponent
 
     this.store.dispatch(
       updateBlock({
-        blockId: this.value?.quest_id as string,
+        blockId: this.id,
         quest_meta: {
           options: newOptions,
         },
@@ -112,13 +107,5 @@ export class MultipleChoiceElementComponent
   updateChoice(event: any, key: string) {
     const currentValue = event.target.value;
     this.debounceChoiceInput(key, currentValue);
-  }
-  removeBlock(){
-    this.store.dispatch(
-      removeBlock({
-        blockId:this.value?.quest_id as string
-      })
-    )
-
   }
 }

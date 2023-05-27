@@ -24,13 +24,13 @@
   </div>
   <lg-text-field
     (input)="updateQuestLabel($event)"
-    [value]="value?.questLabel"
+    [value]="label"
     class="title"
     placeholder="question label"
   ></lg-text-field>
   <div class="checkbox-list">
     <div
-      *ngFor="let o of value?.quest_meta?.options; let i = index"
+      *ngFor="let o of metaData?.options; let i = index"
       class="checkbox-element"
     >
       <div
@@ -65,11 +65,11 @@
   </div>
 </div>
 
-<div *ngIf="mode === 'live'&& value?.questLabel" class="container multiple-choice-container">
-  <label for="">{{value?.questLabel}}</label>
+<div *ngIf="mode === 'live'&& label" class="container multiple-choice-container">
+  <label for="">{{label}}</label>
   <div class="checkbox-list">
     <label
-      *ngFor="let o of value?.quest_meta?.options"
+      *ngFor="let o of metaData?.options"
       class="checkbox-element"
       [ngStyle]="{
         display: 'flex',
@@ -80,7 +80,7 @@
     >
       <lg-checkbox
         value="{{ o.value }}"
-        (change)="onValueChange(o.key, $event)"
+        (change)="onValueChange(o.value)"
       ></lg-checkbox>
       <lg-text-field
       class="title"
