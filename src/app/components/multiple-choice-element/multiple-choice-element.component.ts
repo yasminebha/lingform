@@ -49,7 +49,7 @@ export class MultipleChoiceElementComponent
 
   override ngOnInit(): void {}
 
-  updateQuestLabel = debounce((evt: any) => {
+  public updateQuestLabel = debounce((evt: any) => {
     const updatedValue = evt.target.value;
     this.store.dispatch(
       updateBlock({

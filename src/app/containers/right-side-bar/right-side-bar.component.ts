@@ -6,6 +6,7 @@ import {
 import { AppState } from '@/app/store/reducers';
 import { getNextMode } from '@/app/store/selectors/builder.selectors';
 import { QuestionElement } from '@/shared/models/questionElement.model';
+import { FormService } from '@/shared/services/form.service';
 import { QuestionService } from '@/shared/services/question.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store, select } from '@ngrx/store';
@@ -18,7 +19,8 @@ import { Store, select } from '@ngrx/store';
 export class RightSideBarComponent implements OnInit {
   constructor(
     private readonly store: Store<AppState>,
-    private questSevice: QuestionService
+    private questSevice: QuestionService,
+    private formService:FormService
   ) {}
   fontOptions: Array<{ key: any; label: string }> = [];
   headerFontSizes: Array<{ key: any; label: string }> = [];
@@ -76,24 +78,36 @@ export class RightSideBarComponent implements OnInit {
       this.store.dispatch(updateBuilder({ mode }));
     }
   }
-  onSave() {
+  async onSave() {
     this.store
-      .select((state) => state.builder.blocks)
-      .subscribe((blocks) => {
+      .select((state) => state.builder)
+      .subscribe(async ({ blocks, title, description, form_id }) => {
+  
+        // Save blocks
         Object.values(blocks).forEach((block: any) => {
           const newBlock: QuestionElement = {
             quest_id: block.quest_id,
             form_id: block.form_id,
             kind: block.kind || null,
-            questLabel:block.questLabel,
+            questLabel: block.questLabel,
             required: block.required || false,
             quest_meta: block.quest_meta || {},
           };
           this.questSevice.addQuestionBlock(newBlock);
         });
+  
+        // Update form with formId, title, and description
+        const updatedForm = {
+          title: title,
+          description: description
+        };
+        await this.formService.updateForm(form_id, updatedForm);
       });
-      alert('form has been saved')
+  
+    alert('Form has been saved');
   }
+  
+  
   handleHeaderFont($event: any) {
     console.log($event.target.value);
   }

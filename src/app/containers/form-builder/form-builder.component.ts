@@ -55,6 +55,11 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       for (const q of this.form!.question) {
         this.store.dispatch(addBlock({ blockId: q.quest_id, newBlock: q }));
       }
+      if(this.form){
+        this.store.dispatch(updateBuilderTitle({title:this.form?.title}))
+        this.store.dispatch(updateBuilderDescription({Description:this.form?.description}))
+
+      }
 
       this.store.dispatch(
         changeFormId({

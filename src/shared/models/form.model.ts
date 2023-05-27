@@ -7,7 +7,7 @@ export class Form {
   title: string = 'Untitled form';
   color: string = '#FFFFF';
   bgColor: string = '#FFFFF';
-  description?: string;
+  description: string='';
   headingFontSize: string = '18';
   headingFontFamily: string = 'Roboto';
   questionFontSize: string = '9';
