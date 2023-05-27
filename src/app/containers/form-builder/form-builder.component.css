@@ -17,3 +17,6 @@
         width: 80%;
     }
 }
+hr{
+    border: var(--border);
+}

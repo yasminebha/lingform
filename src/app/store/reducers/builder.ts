@@ -79,7 +79,11 @@ export const builderReducer = createReducer(
     };
   }),
   on(BuilderActions.removeBlock, (currentState, { blockId }) => {
-    delete currentState.blocks[blockId];
-    return currentState;
+    const newBlocks = { ...currentState.blocks };
+    delete newBlocks[blockId];
+    return {
+      ...currentState,
+      blocks: newBlocks
+    };
   })
 );

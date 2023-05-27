@@ -2,7 +2,7 @@ export class QuestionElement<TMeta = Record<string, any>> {
   quest_id!: string;
   form_id!: string|null;
   kind!: string|null;
-  questLabel?: string;
+  questLabel: string="";
   required: boolean = false;
   quest_meta?: TMeta;
 

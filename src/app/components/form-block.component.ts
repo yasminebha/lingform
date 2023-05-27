@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/reducers';
 import { BaseControlComponent } from '@/shared/ui-components/base-control.component';
+import { QuestionService } from '@/shared/services/question.service';
 
 @Component({
   template: '',
@@ -14,10 +15,14 @@ export class FormBlockComponent<TValue>
   mode: 'edit' | 'live' = 'live';
   @Input()
   override value?: TValue;
+
+  
+
   constructor(
     _renderer: Renderer2,
     _elementRef: ElementRef<any>,
-    protected store: Store<AppState>
+    protected store: Store<AppState>,
+    questService:QuestionService
   ) {
     super(_renderer, _elementRef);
   }

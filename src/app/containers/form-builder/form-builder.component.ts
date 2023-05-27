@@ -92,5 +92,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   onSubmit(f: NgForm) {
     console.log(f.value);
+
+    
   }
 }

@@ -2,7 +2,7 @@ import { QuestionElement } from '@/shared/models/questionElement.model';
 import { Component, OnInit, forwardRef } from '@angular/core';
 import * as shortid from 'shortid';
 import { FormBlockComponent } from '../form-block.component';
-import { updateBlock } from '@/app/store/actions/builder.actions';
+import { removeBlock, updateBlock } from '@/app/store/actions/builder.actions';
 import { debounce } from '@/shared/utils/timing';
 
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -111,7 +111,14 @@ export class MultipleChoiceElementComponent
 
   updateChoice(event: any, key: string) {
     const currentValue = event.target.value;
-
     this.debounceChoiceInput(key, currentValue);
+  }
+  removeBlock(){
+    this.store.dispatch(
+      removeBlock({
+        blockId:this.value?.quest_id as string
+      })
+    )
+
   }
 }

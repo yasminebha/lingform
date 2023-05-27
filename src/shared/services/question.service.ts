@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import supabase from '../../app/supabase';
 import { QuestionElement } from '../models/questionElement.model';
+import { AppState } from '@/app/store/reducers';
+import { Store } from '@ngrx/store';
+import { removeBlock } from '@/app/store/actions/builder.actions';
 @Injectable({
   providedIn: 'root',
 })
 export class QuestionService {
-  constructor() {}
+  constructor(private store:Store<AppState>) {}
   async addQuestionBlock(element: QuestionElement): Promise<void> {
     const { error } = await supabase.from('question').upsert({
       form_id: element.form_id,
@@ -31,4 +34,6 @@ export class QuestionService {
       return data;
     }
   }
+
+  
 }

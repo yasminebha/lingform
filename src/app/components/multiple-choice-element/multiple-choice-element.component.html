@@ -18,6 +18,7 @@
         iconStyle="solid"
         layout="row-icon"
         class="icon"
+        (click)="removeBlock()"
       ></lf-icon-button>
     </div>
   </div>
@@ -64,7 +65,7 @@
   </div>
 </div>
 
-<div *ngIf="mode === 'live'" class="container multiple-choice-container">
+<div *ngIf="mode === 'live'&& value?.questLabel" class="container multiple-choice-container">
   <label for="">{{value?.questLabel}}</label>
   <div class="checkbox-list">
     <label

@@ -2,7 +2,7 @@ import { Component, OnInit, forwardRef } from '@angular/core';
 import { FormBlockComponent } from '../form-block.component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { debounce } from '@/shared/utils/timing';
-import { updateBlock } from '@/app/store/actions/builder.actions';
+import { removeBlock, updateBlock } from '@/app/store/actions/builder.actions';
 import { QuestionElement } from '@/shared/models/questionElement.model';
 
 @Component({
@@ -25,11 +25,22 @@ export class ShortAnswerComponent
     const updatedValue = evt.target.value;
     console.log(this.value?.quest_id);
     
-    // this.store.dispatch(
-    //   updateBlock({
-    //     blockId: this.value?.quest_id as string,
-    //     questLabel: updatedValue,
-    //   })
-    // );
+    this.store.dispatch(
+      updateBlock({
+        blockId: this.value?.quest_id as string,
+        questLabel: updatedValue,
+      })
+    );
   }, 1000);
+
+
+  
+  removeBlock(){
+    this.store.dispatch(
+      removeBlock({
+        blockId:this.value?.quest_id as string
+      })
+    )
+
+  }
 } 

@@ -25,6 +25,26 @@
     ></lg-text-field>
   </div>
 
+  <div *ngIf="mode === 'live'" class="container header">
+ 
+    <lg-text-field
+      type="text"
+      class="title"
+      [value]="title"
+      fontSize="24"
+      [isDisabled]="true"
+    ></lg-text-field>
+    <hr>
+    <lg-text-field
+    *ngIf="description"
+      type="text"
+      class="title"
+      [value]="description"
+      [isDisabled]="true"
+      fontSize="13"
+    ></lg-text-field>
+  </div>
+
   <div *ngFor="let block of blocks">
     <lg-multiple-choice-element
       [mode]="mode"
@@ -51,7 +71,12 @@
     <lg-short-answer
       [mode]="mode"
       *ngIf="block.kind === 'ShortAnswerComponent'"
-      name="shortAnswer"
+      [value]="block"
+      [name]="block.quest_id"
+      ngModel
+           
+     
     ></lg-short-answer>
   </div>
+  <lf-button *ngIf="mode==='live'" text="submit" type="submit"></lf-button>
 </form>

@@ -40,23 +40,6 @@ export class TextFieldComponent
   isDisabled: boolean = false;
   
 
-  // onChange: any = () => {};
-  // onTouched: any = () => {};
-
-  // writeValue(value: string): void {
-  //   this.value = value;
-  //   this.$el.nativeElement.value = value;
-  // }
-  // registerOnChange(fn: any): void {
-  //   this.onChange = fn;
-  // }
-  // registerOnTouched(fn: any): void {
-  //   this.onTouched = fn;
-  // }
-  // setDisabledState?(isDisabled: boolean): void {
-  //   if(isDisabled)
-  //   this.$el.nativeElement.disabled = isDisabled;
-  // }
 
    override ngOnInit(): void {}
 }
