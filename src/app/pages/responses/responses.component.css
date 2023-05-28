@@ -1,0 +1,19 @@
+.container {
+    width: 50%;
+    margin-top: 3%;
+    position: relative;
+   
+}
+.responses-number{
+    color: var(--secondary-color);
+    font-weight: 600;
+
+
+}
+button{
+    color: var(--secondary-color);
+    text-align: end;
+    position: absolute;
+    top:15px;
+    right:15px;
+}

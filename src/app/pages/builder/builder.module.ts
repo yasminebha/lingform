@@ -21,6 +21,7 @@ import { ParagraphElementComponent } from '@/app/components/paragraph-element/pa
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ViewComponent } from '../view/view.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { ResponsesComponent } from '../responses/responses.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
     ParagraphElementComponent,
     ViewComponent,
     NavbarComponent,
+    ResponsesComponent,
 
   ],
   imports: [
