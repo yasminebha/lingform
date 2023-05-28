@@ -27,6 +27,7 @@ export class AppComponent {
             login({
               isLoggedIn: true,
               userId: user.id,
+              username:user.user_metadata['first_name']+" "+user.user_metadata['last_name']
             })
           );
         }
@@ -34,5 +35,7 @@ export class AppComponent {
       .catch((e) => {
         console.log(e);
       });
+      // console.log(this.userService.getUser());
   }
+  
 }

@@ -4,21 +4,24 @@ import * as userActions from '../actions/user.actions';
 export interface UserState {
   isLoggedIn:boolean;
   userId:string|undefined;
+  username:string
 }
 
 const initialState: UserState = {
     isLoggedIn:false,
-    userId:''
+    userId:'',
+    username:''
 };
 
 export const userReducer = createReducer(
   initialState,
   on(
     userActions.login,
-    (currentState, {isLoggedIn,userId}) => ({
+    (currentState, {isLoggedIn,userId,username}) => ({
       ...currentState,
       isLoggedIn: isLoggedIn,
-      userId:userId
+      userId:userId,
+      username:username
     })
   )
  
