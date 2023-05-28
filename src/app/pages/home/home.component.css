@@ -3,14 +3,13 @@
     flex-direction: column;
     justify-content: center;
 
-    width: 400vh;
     height: 100vh;
     background-color: #F9F9FC;
 }
 
 .centerbar {
     margin-top: 2%;
-    margin-block-end: 800px;
+   
 }
 
 .center {
@@ -27,13 +26,7 @@
     border-top-left-radius: 8px;
 }
 
-.lg-text-field {
-    border-radius: 8px;
-    width: 613px;
-    margin-left: 5%;
-    margin-top: 2%;
-    border-color: #7339ED;
-}
+
 
 img {
     margin-left: 2%;
@@ -54,13 +47,13 @@ header {
 
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    width: 1100px;
+
     height: 150px;
     text-align: center;
     margin-top: 7%;
     background: #fff;
     padding-bottom: 25px;
-    margin-left: 310px;
+ 
 
 
 }

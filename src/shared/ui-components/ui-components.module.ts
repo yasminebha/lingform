@@ -13,22 +13,35 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseControlComponent } from './base-control.component';
 import { CommonModule } from '@angular/common';
 
-const declarations = [
-  BaseControlComponent,
-  ButtonComponent,
-  IconButtonComponent,
-  ColorPaletteComponent,
-  DropdownComponent,
-  TextFieldComponent,
-  ToggleComponent,
-  DraggableDirective,
-  CheckboxComponent,
-  FileUploadComponent,
-];
-
 @NgModule({
-  imports: [ FormsModule,CommonModule, ReactiveFormsModule],
-  declarations: [...declarations],
-  exports: [...declarations],
+  declarations: [
+    BaseControlComponent,
+    ButtonComponent,
+    IconButtonComponent,
+    ColorPaletteComponent,
+    DropdownComponent,
+    TextFieldComponent,
+    ToggleComponent,
+    DraggableDirective,
+    CheckboxComponent,
+    FileUploadComponent,
+  ],
+  imports:[
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule
+    ],
+  exports: [
+    BaseControlComponent,
+    ButtonComponent,
+    IconButtonComponent,
+    ColorPaletteComponent,
+    DropdownComponent,
+    TextFieldComponent,
+    ToggleComponent,
+    DraggableDirective,
+    CheckboxComponent,
+    FileUploadComponent,
+  ],
 })
 export class UIComponentsModule {}
