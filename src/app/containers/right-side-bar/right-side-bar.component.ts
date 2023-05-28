@@ -26,6 +26,7 @@ export class RightSideBarComponent implements OnInit {
   headerFontSizes: Array<{ key: any; label: string }> = [];
   questionFontSizes: Array<{ key: any; label: string }> = [];
   textFontSizes: Array<{ key: any; label: string }> = [];
+  form_id:string=""
   ngOnInit(): void {
     this.fontOptions = [
       { key: 'roboto', label: 'Roboto' },
@@ -56,6 +57,12 @@ export class RightSideBarComponent implements OnInit {
       { key: '11', label: '11' },
       { key: '12', label: '12' },
     ];
+    this.store
+    .select((state) => state.builder).subscribe(({form_id})=>{
+      if(form_id)
+      this.form_id=form_id
+    })
+
   }
   @Output() fontChanged = new EventEmitter<string>();
   @Output() fontSizeChanged = new EventEmitter<string>();
@@ -82,7 +89,7 @@ export class RightSideBarComponent implements OnInit {
     this.store
       .select((state) => state.builder)
       .subscribe(async ({ blocks, title, description, form_id }) => {
-  
+        
         // Save blocks
         Object.values(blocks).forEach((block: any) => {
           const newBlock: QuestionElement = {
