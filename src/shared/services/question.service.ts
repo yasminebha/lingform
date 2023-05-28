@@ -3,7 +3,7 @@ import supabase from '../../app/supabase';
 import { QuestionElement } from '../models/questionElement.model';
 import { AppState } from '@/app/store/reducers';
 import { Store } from '@ngrx/store';
-import { removeBlock } from '@/app/store/actions/builder.actions';
+
 @Injectable({
   providedIn: 'root',
 })
