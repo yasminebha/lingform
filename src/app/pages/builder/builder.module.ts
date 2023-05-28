@@ -22,6 +22,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ViewComponent } from '../view/view.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ResponsesComponent } from '../responses/responses.component';
+import { ModalComponent } from '../../components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ResponsesComponent } from '../responses/responses.component';
     ViewComponent,
     NavbarComponent,
     ResponsesComponent,
+    ModalComponent,
 
   ],
   imports: [

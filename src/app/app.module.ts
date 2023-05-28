@@ -10,11 +10,11 @@ import { metaReducers, reducers } from './store/reducers';
 import { AccountModule } from './pages/account/account.module';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { UIComponentsModule } from '@/shared/ui-components/ui-components.module';
-import { ViewComponent } from './pages/view/view.component';
 
+import { HomeModule } from './pages/home/home.module';
 
 @NgModule({
-  declarations: [AppComponent,PageNotFoundComponent,    ],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,7 +22,8 @@ import { ViewComponent } from './pages/view/view.component';
     ReactiveFormsModule,
     BuilderModule,
     AccountModule,
-   UIComponentsModule,
+    UIComponentsModule,
+    HomeModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),

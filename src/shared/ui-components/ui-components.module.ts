@@ -12,6 +12,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseControlComponent } from './base-control.component';
 import { CommonModule } from '@angular/common';
+import { FormListItemComponent } from './form-list-item/form-list-item.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CommonModule } from '@angular/common';
     DraggableDirective,
     CheckboxComponent,
     FileUploadComponent,
+    FormListItemComponent,
   ],
   imports:[
     FormsModule,
@@ -42,6 +44,7 @@ import { CommonModule } from '@angular/common';
     DraggableDirective,
     CheckboxComponent,
     FileUploadComponent,
+    FormListItemComponent,
   ],
 })
 export class UIComponentsModule {}

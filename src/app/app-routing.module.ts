@@ -17,11 +17,11 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () =>
-      import('./pages/account/account.module').then((m) => m.AccountModule),
+    import('./pages/account/account.module').then((m) => m.AccountModule),
   },
   { path: 'forms/:id/viewform', component: ViewComponent },
   { path: '', redirectTo: 'forms', pathMatch: 'full' },
-
+  
   // { path: '**', component: PageNotFoundComponent },
 ];
 

@@ -1,4 +1,5 @@
 <div class="side-bar d-flex">
+  <app-modal *ngIf="showModal"></app-modal>
   <div class="d-flex buttons-block">
     <a href="forms/{{form_id}}/viewform" target="_blank">
       <lf-icon-button
@@ -22,7 +23,7 @@
       text="Save"
       layout="outline"
     ></lf-button>
-    <lf-button text="Send" layout="primary"></lf-button>
+    <lf-button text="Send" (click)="openModal()" layout="primary"></lf-button>
   </div>
 
   <label
@@ -90,14 +91,5 @@
     [palette]="['#E9E4FD', '#C6C0DF', '#CEC3F8', '#D6D1E8']"
   ></lf-color-palette>
 
-  <!-- <lf-icon-button
-    icon="clone"
-    iconStyle="regular"
-    layout="link"
-  ></lf-icon-button>
-
-  <lf-icon-button icon="trash" layout="link"></lf-icon-button>
-  <div draggable>Drag Me</div> -->
-
-  <!-- <lg-draggable></lg-draggable> -->
+ 
 </div>

@@ -21,12 +21,14 @@ export class RightSideBarComponent implements OnInit {
     private readonly store: Store<AppState>,
     private questSevice: QuestionService,
     private formService:FormService
-  ) {}
-  fontOptions: Array<{ key: any; label: string }> = [];
+    ) {}
+    fontOptions: Array<{ key: any; label: string }> = [];
   headerFontSizes: Array<{ key: any; label: string }> = [];
   questionFontSizes: Array<{ key: any; label: string }> = [];
   textFontSizes: Array<{ key: any; label: string }> = [];
   form_id:string=""
+
+  showModal:boolean= false;
   ngOnInit(): void {
     this.fontOptions = [
       { key: 'roboto', label: 'Roboto' },
@@ -62,7 +64,7 @@ export class RightSideBarComponent implements OnInit {
       if(form_id)
       this.form_id=form_id
     })
-
+    
   }
   @Output() fontChanged = new EventEmitter<string>();
   @Output() fontSizeChanged = new EventEmitter<string>();
@@ -74,7 +76,14 @@ export class RightSideBarComponent implements OnInit {
   setFontSize(size: string) {
     this.fontSizeChanged.emit(size);
   }
-
+  
+  openModal() {
+    this.showModal = true;
+  }
+  closeModal(){
+    this.showModal=false
+  }
+  
   async toggleMode() {
     let mode;
     await this.store.pipe(select(getNextMode)).subscribe((nextMode) => {

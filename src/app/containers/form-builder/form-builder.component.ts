@@ -121,5 +121,6 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     // );
 
     this.formService.submitAnswers(answers);
+    alert("response submited")
   }
 }

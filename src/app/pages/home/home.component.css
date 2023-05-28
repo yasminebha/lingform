@@ -1,177 +1,113 @@
-.body {
+.forms-list{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding: 30px;
 
-    height: 100vh;
-    background-color: #F9F9FC;
+    
 }
-
-.centerbar {
-    margin-top: 2%;
-   
-}
-
-.center {
-    background: #fff;
-    height: 780px;
-    border-bottom-right-radius: 8px;
-}
-
-.SR {
+.body {
     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #F9F9FC;
+  }
+  
+  .sidebar {
+    padding: 37px 25px 0 26px;
+    width: 80%;
+    height: 100%;
+  
+    background-color: white;
+    border-radius: 10px;
+ 
+    font-size: 12px;
+    margin-top: 30px;
+  }
+  
+  .SR {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 20px;
     margin-right: 10px;
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
-}
-
-
-
-img {
-    margin-left: 2%;
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  
+  
+  .search-icon {
     width: 26px;
     height: 28px;
+  }
+  .search-icon:hover {
+    background-color:#E9E4FD;
+    border-radius: 25px;
+  }
+  .search-icon:active {
+    color:#E9E4FD;
+  } 
+  lg-text-field {
+    border-radius: 8%;
+    margin-left: 5%;
     margin-top: 2%;
-}
+    border-color: #7339ED;
+  }
 
-.img {
-    margin-left: 30%;
-    width: 60px;
-    height: 60px;
-    margin-top: 2%;
-}
-
-header {
-
-
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-
-    height: 150px;
-    text-align: center;
-    margin-top: 7%;
-    background: #fff;
-    padding-bottom: 25px;
  
-
-
-}
-
-p {
+  p {
+    margin-top: 3%;
     width: 120px;
     height: 27px;
     font-size: 13px;
     color: #000000;
-    font-weight: bold;
-}
-
-.barmots {
     display: flex;
-    gap: 300px;
-}
-
-.Lastupdated {
+    align-items: center;
+    text-decoration: none;
+    color: #48484A;
+   border: 20px;
+  }
+  
+  
+  .barmots {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .Lastupdated {
     display: flex;
     gap: 40px;
-}
-
-.Ownedbyanyone {
+  }
+  
+  .Ownedbyanyone {
     display: flex;
-    gap: 20px;
-}
-
-.imgarrowdown {
+    align-items: center;
+  }
+  
+  .Ownedbyanyone svg {
+    margin-right: 5px; /* Adjust the margin as needed */
+  }
+  
+  .Ownedbyanyone p {
+    margin-left: 5px; /* Adjust the margin as needed */
+  }
+  
+  
+  .imgarrowdown svg {
+    margin-right: 5px; /* Adjust the margin as needed */
+  }
+  
+  .imgarrowdown {
     width: 13px;
     height: 7px;
-}
+  }
 
-.imgGroup {
+  
+  .imgGroup {
     width: 20px;
     height: 13px;
-}
-.sidebar{
-    background-color: #F3F1FF;
-    margin: 0;
-    padding: 0;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    box-sizing: border-box;
-    
-    }
-    nav{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        height: 100%;
-        left: 0;
-        background: #fff;
-        width: 260px;
-        overflow: hidden;
-        transition: width 0.2s linear;
-        box-shadow: 0 20px 35px rgba(0,0, 0, 0.1);
-       margin: 30px;
-       border-radius: 20px;
-      
-    }
-    .buttons{
-
-    }
-    a{
-        position: relative;
-        color: rgba(85,83, 83);
-        font-size: 14px;
-        width: 350px;
-        padding:10px ;
-        text-decoration: none; 
-        justify-content: space-between;
-        margin-left: 10px;
-        margin-bottom: 20px;
-    }
-    .nav-item{
-        text-decoration: none;  
-    }
-    img{
-        position: relative;
-        width: 24px;
-        height: 24px;
-        top: 14px;
-        font-size: 20px;
-        text-align: center;
-    }
-    .nav-item{
-     position: relative;
-     top: 12px;
-     margin-left: 10px;   
-    
-    }
-    .logo{
-        width: 167px;
-        height: 40px;
-        margin-bottom: 50px;
-        margin-top: 10px;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    .img{
-        width: 167px;
-        height: 40px;
-        text-align: center;
-        margin-left: 20px;
-    }
-    .button{
-        margin-bottom: 50px;
-      
-    
-    }
-    a:hover {
-        background-color:#E9E4FD;
-        border-radius: 8px;
-      
-      
-      }
-      
-      a:active {
-        color:#E9E4FD;
-      }
+  }

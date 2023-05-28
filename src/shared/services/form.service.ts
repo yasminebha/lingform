@@ -59,13 +59,22 @@ export class FormService {
       });
     }
   }
-  async getAnswersByForm(formId: string):Promise<any> {
+  async getAnswersByForm(formId: string): Promise<any> {
     const { error, data } = await supabase
       .from('form')
-      .select(`question(questLabel,answer(data,created_at))`).eq('form_id',formId);
-      if(!error)
-      return data
-      else
-      throw new Error(error.message)
+      .select(`question(questLabel,answer(data,created_at))`)
+      .eq('form_id', formId);
+    if (!error) return data;
+    else throw new Error(error.message);
+  }
+  async getFormByUserId(userId: string):Promise<any>{
+    if (userId) {
+      const { error, data } = await supabase
+        .from('form')
+        .select('form_id,title,created_at,editeur_id')
+        .eq('editeur_id', userId);
+        if(!error)return data
+        else throw new Error(error.message);
+    }
   }
 }
