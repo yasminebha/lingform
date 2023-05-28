@@ -51,12 +51,21 @@ export class FormService {
     }
   }
 
-  async submitAnswers(answers: {quest_id:string,value:any}[]) {
+  async submitAnswers(answers: { quest_id: string; value: any }[]) {
     for (const a of answers) {
       await supabase.from('answer').insert({
         data: { value: a.value },
-        quest_id:a.quest_id
+        quest_id: a.quest_id,
       });
     }
+  }
+  async getAnswersByForm(formId: string):Promise<any> {
+    const { error, data } = await supabase
+      .from('form')
+      .select(`question(questLabel,answer(data,created_at))`).eq('form_id',formId);
+      if(!error)
+      return data
+      else
+      throw new Error(error.message)
   }
 }
