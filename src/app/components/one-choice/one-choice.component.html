@@ -65,7 +65,7 @@
       <div
         [ngStyle]="{ display: 'flex', 'align-items': 'center', gap: '20px' }"
       >
-        <lg-checkbox type="radio"></lg-checkbox>
+        <lg-checkbox type="radio" (change)="onValueChange(o.value)"></lg-checkbox>
         <lg-text-field
           class="title"
           [isDisabled]="true"
