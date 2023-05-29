@@ -30,6 +30,8 @@ export class HomeComponent implements OnInit {
   }
   async loadForms(): Promise<void> {
     this.forms = await this.formService.getFormByUserId(this.userid);
+    console.log(this.forms);
+    
   }
 
   createForm() {
@@ -49,5 +51,12 @@ export class HomeComponent implements OnInit {
     this.userService.logout()
     this.router.navigate(['account/login'])
     
+  }
+  displayForm(formid:string){
+    this.router.navigate(['builder',formid]).then(()=>{
+      window.location.reload();
+
+    })
+
   }
 }

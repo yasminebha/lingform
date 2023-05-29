@@ -86,10 +86,11 @@
     </div>
 
     <div class="forms-list">
-      <lg-form-list-item
+      <lg-form-list-item 
         *ngFor="let f of forms"
         [createdAt]="f.created_at"
         [formTitle]="f.title"
+        (click)="displayForm(f.form_id)"
       ></lg-form-list-item>
     </div>
   </div>
