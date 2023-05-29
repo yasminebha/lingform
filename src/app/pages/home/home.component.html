@@ -2,50 +2,95 @@
   <app-home-side-bar></app-home-side-bar>
   <div class="sidebar">
     <div class="SR">
+      <div class="btn">
+        <lf-button
+          text="create form"
+          (click)="createForm()"
+          layout="outline"
+        ></lf-button>
+      </div>
       <div class="search-container">
-        <lg-text-field type="search" placeholder="search my forms"></lg-text-field>
-      <!-- </lg-text-field> -->
-        <svg class="search-icon" width="26" height="29" viewBox="0 0 26 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9.58221 20.9091C4.30031 20.9091 0 16.4111 0 10.8864C0 5.36165 4.30031 0.863647 9.58221 0.863647C14.8641 0.863647 19.1644 5.36165 19.1644 10.8864C19.1644 16.4111 14.8641 20.9091 9.58221 20.9091ZM9.58221 2.33039C5.06689 2.33039 1.40227 6.17325 1.40227 10.8864C1.40227 15.5995 5.06689 19.4424 9.58221 19.4424C14.0975 19.4424 17.7621 15.5995 17.7621 10.8864C17.7621 6.17325 14.0975 2.33039 9.58221 2.33039Z" fill="#4F2ECB"/>
-          <path d="M23.5031 28.7045C22.9822 28.7045 22.4613 28.5039 22.05 28.074L19.3083 25.2084L16.5667 22.3427C15.7716 21.5116 15.7716 20.1361 16.5667 19.305C17.3617 18.474 18.6778 18.474 19.4728 19.305L24.9562 25.0364C25.7513 25.8675 25.7513 27.243 24.9562 28.074C24.545 28.5039 24.0241 28.7045 23.5031 28.7045Z" fill="#4F2ECB"/>
+        <lg-text-field
+          type="search"
+          placeholder="search my forms"
+        ></lg-text-field>
+        <!-- </lg-text-field> -->
+        <svg
+          class="search-icon"
+          width="26"
+          height="29"
+          viewBox="0 0 26 29"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.58221 20.9091C4.30031 20.9091 0 16.4111 0 10.8864C0 5.36165 4.30031 0.863647 9.58221 0.863647C14.8641 0.863647 19.1644 5.36165 19.1644 10.8864C19.1644 16.4111 14.8641 20.9091 9.58221 20.9091ZM9.58221 2.33039C5.06689 2.33039 1.40227 6.17325 1.40227 10.8864C1.40227 15.5995 5.06689 19.4424 9.58221 19.4424C14.0975 19.4424 17.7621 15.5995 17.7621 10.8864C17.7621 6.17325 14.0975 2.33039 9.58221 2.33039Z"
+            fill="#4F2ECB"
+          />
+          <path
+            d="M23.5031 28.7045C22.9822 28.7045 22.4613 28.5039 22.05 28.074L19.3083 25.2084L16.5667 22.3427C15.7716 21.5116 15.7716 20.1361 16.5667 19.305C17.3617 18.474 18.6778 18.474 19.4728 19.305L24.9562 25.0364C25.7513 25.8675 25.7513 27.243 24.9562 28.074C24.545 28.5039 24.0241 28.7045 23.5031 28.7045Z"
+            fill="#4F2ECB"
+          />
         </svg>
       </div>
-  
-    
-          <div class="img">
-              <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="22.5" cy="22.5" r="22.5" fill="#C2B6EE" fill-opacity="0.97"/>
-                  <path d="M22.1675 21.9628C24.9846 21.9628 27.2683 19.6182 27.2683 16.7261C27.2683 13.8339 24.9846 11.4894 22.1675 11.4894C19.3504 11.4894 17.0667 13.8339 17.0667 16.7261C17.0667 19.6182 19.3504 21.9628 22.1675 21.9628Z" fill="#C2B6EE" fill-opacity="0.97" stroke="#4D1FF7" stroke-opacity="0.94699" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M30.9306 32.4361C30.9306 28.3829 27.003 25.1047 22.1675 25.1047C17.3319 25.1047 13.4043 28.3829 13.4043 32.4361" fill="#C2B6EE" fill-opacity="0.97"/>
-                  <path d="M30.9306 32.4361C30.9306 28.3829 27.003 25.1047 22.1675 25.1047C17.3319 25.1047 13.4043 28.3829 13.4043 32.4361" stroke="#4D1FF7" stroke-opacity="0.94699" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  
-          </div>
-        </div>
-       
-    <div class="barmots">
-      <p>Previous 7 days</p>
-      <div class="Ownedbyanyone" style="margin-top: 3%;">
-        <p>Owned by anyone</p>
-        <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6.49999 6.9718C5.97504 6.9718 5.45009 6.75286 5.05263 6.32307L0.16311 1.03594C-0.0543699 0.800777 -0.0543699 0.411539 0.16311 0.176374C0.380589 -0.0587913 0.740555 -0.0587913 0.958035 0.176374L5.84755 5.4635C6.20752 5.85274 6.79246 5.85274 7.15243 5.4635L12.042 0.176374C12.2594 -0.0587913 12.6194 -0.0587913 12.8369 0.176374C13.0544 0.411539 13.0544 0.800777 12.8369 1.03594L7.94735 6.32307C7.54989 6.75286 7.02494 6.9718 6.49999 6.9718Z" fill="#292D32"/>
-          </svg>
+      <lf-button *ngIf="userid !== null" text="logout" (click)="logout()"></lf-button>
+    </div>
 
-      </div>
-      <div class="Lastupdated" style="margin-top: 3%;">
-        <p >Last updated</p>
-        <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1 1H20" stroke="#48484A" stroke-width="2" stroke-linecap="round"/>
-          <path d="M4.16669 7.35242H16.8334" stroke="#48484A" stroke-width="2" stroke-linecap="round"/>
-          <path d="M8.38892 13.7047H12.6111" stroke="#48484A" stroke-width="2" stroke-linecap="round"/>
+    <div class="barmots">
+      
+      <p>Previous 7 days</p>
+      <div class="Ownedbyanyone" style="margin-top: 3%">
+        <p>Owned by anyone</p>
+        <svg
+          width="13"
+          height="7"
+          viewBox="0 0 13 7"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.49999 6.9718C5.97504 6.9718 5.45009 6.75286 5.05263 6.32307L0.16311 1.03594C-0.0543699 0.800777 -0.0543699 0.411539 0.16311 0.176374C0.380589 -0.0587913 0.740555 -0.0587913 0.958035 0.176374L5.84755 5.4635C6.20752 5.85274 6.79246 5.85274 7.15243 5.4635L12.042 0.176374C12.2594 -0.0587913 12.6194 -0.0587913 12.8369 0.176374C13.0544 0.411539 13.0544 0.800777 12.8369 1.03594L7.94735 6.32307C7.54989 6.75286 7.02494 6.9718 6.49999 6.9718Z"
+            fill="#292D32"
+          />
         </svg>
-       
+      </div>
+      <div class="Lastupdated" style="margin-top: 3%">
+        <p>Last updated</p>
+        <svg
+          width="21"
+          height="15"
+          viewBox="0 0 21 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 1H20"
+            stroke="#48484A"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <path
+            d="M4.16669 7.35242H16.8334"
+            stroke="#48484A"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <path
+            d="M8.38892 13.7047H12.6111"
+            stroke="#48484A"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
       </div>
     </div>
 
     <div class="forms-list">
-      <lg-form-list-item *ngFor="let f of forms" [createdAt]="f.created_at" [formTitle]="f.title"></lg-form-list-item>
-    
+      <lg-form-list-item
+        *ngFor="let f of forms"
+        [createdAt]="f.created_at"
+        [formTitle]="f.title"
+      ></lg-form-list-item>
     </div>
+  </div>
 </div>
-

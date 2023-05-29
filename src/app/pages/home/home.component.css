@@ -36,10 +36,11 @@
     display: flex;
     align-items: center;
     gap: 20px;
+
   }
-  
-  
-  
+::ng-deep .btn{
+  width: 130px !important;
+}
   .search-icon {
     width: 26px;
     height: 28px;
@@ -51,12 +52,7 @@
   .search-icon:active {
     color:#E9E4FD;
   } 
-  lg-text-field {
-    border-radius: 8%;
-    margin-left: 5%;
-    margin-top: 2%;
-    border-color: #7339ED;
-  }
+ 
 
  
   p {

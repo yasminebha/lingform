@@ -31,7 +31,10 @@ export class LoginComponent implements OnInit {
     }
     else {
      
-      this.router.navigate(['/forms'])
+      this.router.navigate(['/forms']).then(()=>{
+        window.location.reload();
+      })
+   
     }
   }
 

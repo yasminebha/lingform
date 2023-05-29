@@ -44,4 +44,10 @@ export class HomeComponent implements OnInit {
         }
       });
   }
+  logout(){
+    if(this.userid !== null)
+    this.userService.logout()
+    this.router.navigate(['account/login'])
+    
+  }
 }

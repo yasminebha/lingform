@@ -22,7 +22,10 @@ export class UserService {
     if (this.getUser() !== null) return true;
     return false;
   }
-  logout(){
-    
+  async logout() {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      throw new Error(error.message);
+    }
   }
 }
