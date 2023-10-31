@@ -1,0 +1,29 @@
+::ng-deep .checkbox-element>.checkbox input:disabled {
+    outline: none;
+
+
+}
+
+
+
+::ng-deep .checkbox-list>.add-choice-btn button {
+    width: 100% !important;
+    background-color: var(--bg-color) !important;
+    color: var(--darker-gray) !important;
+
+
+}
+
+.checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.checkbox-element {
+    display: flex;
+    justify-content: space-between;
+    background: var(--bg-color);
+    border-radius: var(--border-radius);
+    padding: 10px 15px;
+}

@@ -1,0 +1,12 @@
+::ng-deep .title .text-field>input {
+    border: none !important;
+    border-bottom: 1px var(--gray) solid!important;
+    border-radius: 0 !important;
+    width: 100% !important;
+ 
+ }
+ ::ng-deep .title .text-field>input:disabled {
+     border: none!important;
+     border-radius: 0 !important;
+ }
+ 

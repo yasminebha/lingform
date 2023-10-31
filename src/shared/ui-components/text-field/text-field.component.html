@@ -1,0 +1,14 @@
+<div class="text-field">
+  <label *ngIf="label">{{ label }}</label>
+  <input
+    type="{{ type }}"
+    placeholder="{{ placeholder }}"
+    [ngStyle]="{ 'font-size': fontSize + 'px' }"
+    [(ngModel)]="value"
+    [disabled]="isDisabled"
+    (blur)="onTouched($event)"
+    (ngModelChange)="changeCommit($event)"
+  />
+</div>
+
+<!-- <textarea class="text-field"></textarea> -->

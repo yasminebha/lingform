@@ -1,6 +1,6 @@
 .default{
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height:90px;
     background-color: var( --input-btn-bg-color);
     text-align: center;
     display: flex;
@@ -17,11 +17,7 @@
 
  
 }
-.default.icon{
-   width: 50%;
-   height: 50%;
-   
-}
+
 
 p{
     font-size: 80%;
@@ -48,7 +44,8 @@ p{
     gap: 9px;
     color: var(--secondary-color);
     font-size: large;
-   
+    padding: 0;
+
     cursor: default;
 
 }
@@ -58,12 +55,14 @@ p{
     height: 40px;
 
     position: relative;
-
     border-radius: var(--border-radius);
-
+    
+    
 }
 .second-layout>.icon>img{
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 12px;
+    right: 12px;
+    width: 15px;
+    height: 15px;
 }

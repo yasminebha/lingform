@@ -1,0 +1,22 @@
+.form-builder {
+    padding: 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: auto;
+ 
+}
+
+.header {
+    margin: 0 !important;
+    border-top: 5px solid var(--secondary-color);
+}
+
+@media only screen and (min-width: 1400px) {
+    [class*="form-builder"] {
+        width: 80%;
+    }
+}
+hr{
+    border: var(--border);
+}

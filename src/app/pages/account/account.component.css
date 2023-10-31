@@ -1,0 +1,39 @@
+
+.main{
+    display: flex;
+
+   
+}
+.left-half {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100vh;
+    background-color: #f3f1ff;
+    color: #48484A;
+    padding: 100px 90px;
+    gap: 50px;
+    width: 50%;
+   
+}
+.right-half{
+    width: 50%;
+    padding: 100px 90px;
+}
+img {
+    max-width: 400px;
+    width:80%;
+    height: auto;
+}
+
+p{
+    font-size:300%;
+   
+
+
+}
+span{ 
+    font-size: 100%;
+
+    font-weight: 900;
+}

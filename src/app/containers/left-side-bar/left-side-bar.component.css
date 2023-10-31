@@ -1,9 +1,10 @@
 .sidebar{
-    width: 26%;
-    padding:30px 15px ;
+    padding: 30px 20px 0 26px;
     overflow-y: scroll;
-    height: 100vh;
+    height: 100%;
     max-width:400px ;
+    background-color: white;
+
 
 }
 .bloc{
@@ -11,9 +12,8 @@
     margin-bottom: 20px;
     display: flex;
     margin: auto;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 7px;
     margin-bottom: 30px;
     margin-top: 20px;
 
@@ -30,16 +30,3 @@ p{
     
    
 }
-::-webkit-scrollbar {
-    width: 5px;
-}
-::-webkit-scrollbar-track {
-    background:var(--gray);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--secondary-color);
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }

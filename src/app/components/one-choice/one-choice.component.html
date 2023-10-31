@@ -1,0 +1,77 @@
+<div *ngIf="mode === 'edit'" class="container">
+  <div class="input-type-area">
+    <lg-input-components
+      icon="radio"
+      title="one Choice"
+      layout="second-layout"
+    ></lg-input-components>
+    <div class="tools">
+      <lf-toggle></lf-toggle>
+      <lf-icon-button
+        icon="copy"
+        iconStyle="regular"
+        layout="row-icon"
+        class="icon"
+      ></lf-icon-button>
+      <lf-icon-button
+        icon="trash"
+        iconStyle="solid"
+        layout="row-icon"
+        class="icon"
+      ></lf-icon-button>
+    </div>
+  </div>
+  <lg-text-field class="title" [value]="label" (input)="updateQuestLabel($event)" placeholder="question label"></lg-text-field>
+  <div class="checkbox-list">
+    <div
+      *ngFor="let o of metaData?.options; let i = index"
+      class="checkbox-element"
+    >
+      <div
+        [ngStyle]="{ display: 'flex', 'align-items': 'center', gap: '20px' }"
+      >
+        <lg-checkbox
+          type="radio"
+          class="checkbox"
+          [isDisabled]="true"
+        ></lg-checkbox>
+        <lg-text-field
+          placeholder="{{ 'choice ' + (i + 1) }}"
+          class="title"
+          [value]="o.value"
+          (input)="updateChoice($event, o.key)"
+        ></lg-text-field>
+      </div>
+      <lf-icon-button
+        (click)="removeChoice(o.key)"
+        icon="xmark"
+        iconStyle="solid"
+        layout="row-icon"
+      ></lf-icon-button>
+    </div>
+
+    <lf-button
+      (click)="addChoice()"
+      class="add-choice-btn"
+      text="Add choice"
+    ></lf-button>
+  </div>
+</div>
+
+<div *ngIf="mode === 'live'" class="container multiple-choice-container">
+  <label for="">{{label}}</label>
+  <div class="checkbox-list">
+    <div *ngFor="let o of metaData?.options" class="checkbox-element">
+      <div
+        [ngStyle]="{ display: 'flex', 'align-items': 'center', gap: '20px' }"
+      >
+        <lg-checkbox type="radio" (change)="onValueChange(o.value)"></lg-checkbox>
+        <lg-text-field
+          class="title"
+          [isDisabled]="true"
+          value="{{ o.value }}"
+        ></lg-text-field>
+      </div>
+    </div>
+  </div>
+</div>

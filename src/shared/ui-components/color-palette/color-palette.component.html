@@ -1,0 +1,13 @@
+<div class="palette">
+  <button
+    *ngFor="let color of palette"
+    class="bubble"
+    [ngStyle]="{ 'background-color': color }"
+    (click)="handleColorChange(color)"
+    
+  ></button>
+  <button class="bubble plus">
+    <i class="fa-solid fa-plus"></i>
+    <input type="color" (change)="onColorChange($event)" />
+  </button>
+</div>

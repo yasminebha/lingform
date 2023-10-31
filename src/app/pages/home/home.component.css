@@ -1,0 +1,109 @@
+.forms-list{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+
+    
+}
+.body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #F9F9FC;
+  }
+  
+  .sidebar {
+    padding: 37px 25px 0 26px;
+    width: 80%;
+    height: 100%;
+  
+    background-color: white;
+    border-radius: 10px;
+ 
+    font-size: 12px;
+    margin-top: 30px;
+  }
+  
+  .SR {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-right: 10px;
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+  }
+::ng-deep .btn{
+  width: 130px !important;
+}
+  .search-icon {
+    width: 26px;
+    height: 28px;
+  }
+  .search-icon:hover {
+    background-color:#E9E4FD;
+    border-radius: 25px;
+  }
+  .search-icon:active {
+    color:#E9E4FD;
+  } 
+ 
+
+ 
+  p {
+    margin-top: 3%;
+    width: 120px;
+    height: 27px;
+    font-size: 13px;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #48484A;
+   border: 20px;
+  }
+  
+  
+  .barmots {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .Lastupdated {
+    display: flex;
+    gap: 40px;
+  }
+  
+  .Ownedbyanyone {
+    display: flex;
+    align-items: center;
+  }
+  
+  .Ownedbyanyone svg {
+    margin-right: 5px; /* Adjust the margin as needed */
+  }
+  
+  .Ownedbyanyone p {
+    margin-left: 5px; /* Adjust the margin as needed */
+  }
+  
+  
+  .imgarrowdown svg {
+    margin-right: 5px; /* Adjust the margin as needed */
+  }
+  
+  .imgarrowdown {
+    width: 13px;
+    height: 7px;
+  }
+
+  
+  .imgGroup {
+    width: 20px;
+    height: 13px;
+  }

@@ -1,0 +1,14 @@
+.heading-container {
+    border-top: var(--secondary-color) solid 5px;
+}
+
+.form {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+
+::ng-deep .title .text-field>input {
+    border: none !important;
+}

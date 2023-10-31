@@ -1,0 +1,22 @@
+.text-field>input {
+    border-radius: 15px;
+    border: 1px solid var(--gray);
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    outline: none;
+    background-color: inherit;
+    position: relative;
+
+
+}
+.text-field{
+    width: 100%;
+}
+
+.text-field>input:focus {
+    border-color: var(--primary-color) !important;
+    outline-color: var(--primary-color);
+    outline-width: 2px;
+    transition: 0.2s;
+}

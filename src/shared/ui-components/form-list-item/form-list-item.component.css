@@ -1,0 +1,37 @@
+.list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0px 10px 0;
+    font-size: small;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 9px;
+    border-bottom: var(--separation-border);
+}
+
+.list:hover {
+    background-color: rgba(128, 128, 128, 0.178);
+
+}
+
+.list-container {
+    padding: 30px 30px;
+}
+
+.form-title {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 30%
+}
+
+.owned-by {
+    margin: auto;
+}
+
+.date {
+
+    width: 30%;
+    align-self: end;
+}

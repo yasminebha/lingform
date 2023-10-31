@@ -1,0 +1,71 @@
+
+  
+    <div class="wrapper">
+      <h1>Sign up</h1>
+        <form class="form" #f="ngForm" (ngSubmit)="register(f)">
+          <div class="Fullname">
+            <div>
+              <lg-text-field
+                id="input1"
+                type="text"
+                placeholder="Frist name"
+                layout="outline"
+                ngModel
+                name="firstNameControl"
+               
+              ></lg-text-field>
+            </div>
+            <div>
+              <lg-text-field
+              id="input2"
+              type="text"
+              placeholder="Last name"
+              layout="outline"
+              ngModel
+              name="lastNameControl"
+             
+              ></lg-text-field>
+            </div>
+          </div>
+          <div class="input">
+            <div class="input3">
+              <lg-text-field
+              type="email"
+              placeholder="Email@gmail.com"
+              layout="outline"
+              ngModel
+              name="emailControl"
+              
+              ></lg-text-field>
+            </div>
+            <div class="input3">
+              <lg-text-field
+             
+              type="password"
+              placeholder="Password"
+              layout="outline"
+              ngModel
+              name="passwordControl"
+             
+              ></lg-text-field>
+            </div>
+            <div class="input3">
+              <lg-text-field
+              type="password"
+              placeholder="confirm Password"
+              layout="outline"
+              ngModel
+              name="confirmControl"
+             
+              ></lg-text-field>
+            </div>
+          </div>
+          <lf-button *ngIf="isSubmitting===false" text="register" type="submit" layout="primary" ></lf-button>
+          <lf-button *ngIf="isSubmitting===true" text="loading..." type="submit" layout="primary" [isDisabled]="isSubmitting===true"></lf-button>
+        </form>
+      <div class="member"> 
+        Already a member? <a href="account/login"> <span>Login Here</span> </a>
+      </div>
+    </div>
+
+
