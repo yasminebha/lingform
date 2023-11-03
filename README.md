@@ -1,5 +1,5 @@
 # Lingform
-## description
+## Description
 Form building web application 
 
 ## Screenshots
