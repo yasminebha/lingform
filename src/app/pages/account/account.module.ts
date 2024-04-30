@@ -6,13 +6,15 @@ import { AccountComponent } from './account.component';
 import { LoginComponent } from './login/login.component';
 import { UIComponentsModule } from '@/shared/ui-components/ui-components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
 
 
 @NgModule({
   declarations: [
     AccountComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    UpdatePasswordComponent
     
   ],
   imports: [
