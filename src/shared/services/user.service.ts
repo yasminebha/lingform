@@ -6,26 +6,33 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
   constructor() {}
-  async getUser() {
-    const {
-      error,
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (user) {
-      return user;
-    }
-    console.log(error);
 
-    return null;
+  async getUser() {
+    try {
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        throw new Error(error.message);
+      }
+      return data?.user || null;
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      return null;
+    }
   }
-  isLoggedIn(): boolean {
-    if (this.getUser() !== null) return true;
-    return false;
+
+  async isLoggedIn(): Promise<boolean> {
+    const user = await this.getUser();
+    return !!user;
   }
+
   async logout() {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      throw new Error(error.message);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        throw new Error(error.message);
+      }
+    } catch (error) {
+      console.error('Error logging out:', error);
     }
   }
 }

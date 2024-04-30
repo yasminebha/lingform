@@ -20,7 +20,7 @@ const routes: Routes = [
     import('./pages/account/account.module').then((m) => m.AccountModule),
   },
   { path: 'forms/:id/viewform', component: ViewComponent },
-  { path: '', redirectTo: 'forms', pathMatch: 'full' },
+  { path: '', redirectTo: 'account/login', pathMatch: 'full' },
   
   // { path: '**', component: PageNotFoundComponent },
 ];
