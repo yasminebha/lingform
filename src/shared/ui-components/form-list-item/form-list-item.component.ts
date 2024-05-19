@@ -1,5 +1,6 @@
 import { AppState } from '@/app/store/reducers';
 import { FormService } from '@/shared/services/form.service';
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -7,23 +8,26 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'lg-form-list-item',
   templateUrl: './form-list-item.component.html',
-  styleUrls: ['./form-list-item.component.css']
+  styleUrls: ['./form-list-item.component.css'],
+  providers: [DatePipe]
 })
 export class FormListItemComponent implements OnInit {
 
   constructor( private store: Store<AppState>,
-    private router: Router, private formService: FormService) { }
+    private router: Router, private formService: FormService,private datePipe: DatePipe) { }
     @Input()
     formTitle:string='Untitled Form'
     @Input()
     formID:string=''
     @Input()
-    createdAt:string='mon 12 2023'
+    createdAt:string=''
     @ViewChild('svgIcon', { static: false }) svgIcon!: ElementRef;
     @ViewChild('menu', { static: false }) menu!: ElementRef;
     showMenu: boolean = false;
     menuStyle: { [key: string]: string } = {};
   ngOnInit(): void {
+    
+    this.createdAt = this.datePipe.transform(this.createdAt, 'dd/MM/yyyy') || '';
   }
   toggleMenu(): void {
     this.showMenu = !this.showMenu;

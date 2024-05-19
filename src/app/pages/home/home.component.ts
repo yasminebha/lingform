@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 export class HomeComponent implements OnInit {
   userid: string = '';
   forms: any;
+  p: number = 1;
   constructor(
     private formService: FormService,
     private userService: UserService,

@@ -14,7 +14,7 @@
           type="search"
           placeholder="search my forms"
         ></lg-text-field>
-        <!-- </lg-text-field> -->
+      
         <svg
           class="search-icon"
           width="26"
@@ -87,7 +87,7 @@
 
     <div class="forms-list">
       <lg-form-list-item 
-        *ngFor="let f of forms"
+        *ngFor="let f of forms | paginate: { itemsPerPage: 15, currentPage: p }"
         [createdAt]="f.created_at"
         [formTitle]="f.title"
         [formID]="f.form_id"
@@ -96,3 +96,15 @@
     </div>
   </div>
 </div>
+<pagination-controls 
+  (pageChange)="p = $event" 
+  class="pagination-container" 
+  previousLabel="Previous" 
+  nextLabel="Next"
+  containerClass="pagination-controls"
+  previousButtonClass="pagination-button"
+  nextButtonClass="pagination-button"
+  pageLinkClass="pagination-button"
+  currentPageClass="current"
+  disabledClass="pagination-disabled">
+</pagination-controls>

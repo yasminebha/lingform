@@ -24,6 +24,7 @@
     "autoprefixer": "^10.4.14",
     "file-saver": "^2.0.5",
     "formik": "^2.2.9",
+    "ngx-pagination": "^6.0.3",
     "postcss": "^8.4.23",
     "rxjs": "~7.5.0",
     "shortid": "^2.2.16",

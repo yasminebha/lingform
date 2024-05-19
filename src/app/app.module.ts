@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { UIComponentsModule } from '@/shared/ui-components/ui-components.module';
 
 import { HomeModule } from './pages/home/home.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -24,6 +25,7 @@ import { HomeModule } from './pages/home/home.module';
     AccountModule,
     UIComponentsModule,
     HomeModule,
+    NgxPaginationModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
