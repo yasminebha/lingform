@@ -1,5 +1,6 @@
 import { AppState } from '@/app/store/reducers';
-import { Component, Input, OnInit } from '@angular/core';
+import { FormService } from '@/shared/services/form.service';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -11,26 +12,58 @@ import { Store } from '@ngrx/store';
 export class FormListItemComponent implements OnInit {
 
   constructor( private store: Store<AppState>,
-    private router: Router) { }
+    private router: Router, private formService: FormService) { }
     @Input()
     formTitle:string='Untitled Form'
     @Input()
     formID:string=''
     @Input()
     createdAt:string='mon 12 2023'
+    @ViewChild('svgIcon', { static: false }) svgIcon!: ElementRef;
+    @ViewChild('menu', { static: false }) menu!: ElementRef;
     showMenu: boolean = false;
+    menuStyle: { [key: string]: string } = {};
   ngOnInit(): void {
   }
   toggleMenu(): void {
     this.showMenu = !this.showMenu;
+    if (this.showMenu) {
+      this.setPosition();
+    }
   }
 
+  setPosition(): void {
+    const rect = this.svgIcon.nativeElement.getBoundingClientRect();
+    this.menuStyle = {
+      top: `${rect.top + window.scrollY}px`,
+      left: `${rect.left + window.scrollX - 150}px`,
+      position: 'absolute'
+    };
+  }
+  @HostListener('document:click', ['$event'])
+  onClick(event: Event): void {
+    const clickedInside = this.svgIcon.nativeElement.contains(event.target) || this.menu.nativeElement.contains(event.target);
+    if (!clickedInside) {
+      this.showMenu = false;
+    }
+  }
   openInNewTab(): void {
     // Logic to open the form in a new tab
   }
 
-  deleteForm(): void {
-    // Logic to delete the form
+  async deleteForm(formId: string): Promise<void> {
+    if (confirm('Are you sure you want to delete this form?')) {
+      try {
+        await this.formService.deleteForm(formId);
+        console.log('Form deleted successfully');
+        this.showMenu = false; 
+        window.location.reload();
+      } catch (error) {
+        console.error('Error deleting form:', error);
+      }
+    } else {
+      console.log('Form deletion cancelled');
+    }
   }
   displayForm(formid:string){
     this.router.navigate(['builder',formid]).then(()=>{
@@ -39,4 +72,5 @@ export class FormListItemComponent implements OnInit {
     })
 
   }
+
 }

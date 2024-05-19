@@ -77,4 +77,32 @@ export class FormService {
         else throw new Error(error.message);
     }
   }
+  async deleteForm(formId: string): Promise<void> {
+    try {
+      // Get question IDs related to the form
+      const questionsData = (await supabase.from('question').select('quest_id').eq('form_id', formId)).data;
+      const questionIds = questionsData ? questionsData.map(q => q.quest_id) : [];
+  
+      // Delete answers related to questions of the form
+      const answersQuery = supabase.from('answer').delete().in('quest_id', questionIds);
+      const { error: answerError } = await answersQuery;
+      if (answerError) throw answerError;
+  
+      // Delete questions related to the form
+      const questionsQuery = supabase.from('question').delete().eq('form_id', formId);
+      const { error: questionError } = await questionsQuery;
+      if (questionError) throw questionError;
+  
+      // Delete the form itself
+      const formQuery = supabase.from('form').delete().eq('form_id', formId);
+      const { error: formError } = await formQuery;
+      if (formError) throw formError;
+  
+      console.log('Form and related data deleted successfully');
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
+
 }

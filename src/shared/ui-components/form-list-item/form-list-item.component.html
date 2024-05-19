@@ -21,16 +21,16 @@
      </div>
         <div class="owned-by">me</div>
         <div class="date">{{createdAt}}</div>
-        <svg (click)="toggleMenu()" width="5" height="14" viewBox="0 0 5 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg #svgIcon (click)="toggleMenu()" width="5" height="14" viewBox="0 0 5 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 11.4005C1 12.1155 1.63055 12.7006 2.40122 12.7006C3.17189 12.7006 3.80244 12.1155 3.80244 11.4005C3.80244 10.6855 3.17189 10.1004 2.40122 10.1004C1.63055 10.1004 1 10.6855 1 11.4005Z" fill="#48484A" stroke="#48484A"/>
             <path d="M1 2.30003C1 3.01507 1.63055 3.6001 2.40122 3.6001C3.17189 3.6001 3.80244 3.01507 3.80244 2.30003C3.80244 1.58499 3.17189 0.999962 2.40122 0.999962C1.63055 0.999962 1 1.58499 1 2.30003Z" fill="#48484A" stroke="#48484A"/>
             <path d="M1 6.85032C1 7.56536 1.63055 8.15039 2.40122 8.15039C3.17189 8.15039 3.80244 7.56536 3.80244 6.85032C3.80244 6.13529 3.17189 5.55026 2.40122 5.55026C1.63055 5.55026 1 6.13529 1 6.85032Z" fill="#48484A" stroke="#48484A"/>
-        </svg>
-        <div class="menu">
-        
+          </svg>
+          
+          <div class="menu" #menu [ngStyle]="menuStyle" *ngIf="showMenu">
             <div class="menu-item" (click)="openInNewTab()">Open in new tab</div>
-            <div class="menu-item" (click)="deleteForm()">Delete</div>
-        </div>   
+            <div class="menu-item" (click)="deleteForm(formID)">Delete</div>
+          </div>
     </div>
 
 

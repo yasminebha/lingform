@@ -52,11 +52,5 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['account/login'])
     
   }
-  displayForm(formid:string){
-    this.router.navigate(['builder',formid]).then(()=>{
-      window.location.reload();
-
-    })
-
-  }
+  
 }
