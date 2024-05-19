@@ -1,8 +1,10 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   forwardRef,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -38,8 +40,10 @@ export class TextFieldComponent
   override value?: string;
   @Input()
   isDisabled: boolean = false;
-  
+  @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
 
-
-   override ngOnInit(): void {}
+  emitValueChange(value: string): void {
+    this.valueChange.emit(value);
+  }
+ override ngOnInit(): void {}
 }
