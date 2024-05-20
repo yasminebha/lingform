@@ -72,6 +72,13 @@
     <lg-email-element
       [mode]="mode"
       *ngIf="block.kind === 'EmailElementComponent'"
+      [id]="block.quest_id"
+      [kind]="block.kind"
+      [label]="block.questLabel"
+      [metaData]="block.quest_meta"
+      [required]="block.required"
+      [name]="block.quest_id"
+      ngModel
       ></lg-email-element>
       <lg-date-element
       [mode]="mode"
@@ -88,8 +95,22 @@
       [name]="block.quest_id"
       ngModel
       
-      
       ></lg-short-answer>
+      <lg-phone-element
+      [mode]="mode"
+      *ngIf="block.kind === 'PhoneElementComponent'"
+      [id]="block.quest_id"
+      [kind]="block.kind"
+      [label]="block.questLabel"
+      [metaData]="block.quest_meta"
+      [required]="block.required"
+      [name]="block.quest_id"
+      ngModel
+      
+      
+      >
+        
+      </lg-phone-element>
     </div>
   <lf-button *ngIf="mode==='live'" text="submit" type="submit"></lf-button>
 </form>
