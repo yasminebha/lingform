@@ -27,7 +27,7 @@
             <path d="M1 6.85032C1 7.56536 1.63055 8.15039 2.40122 8.15039C3.17189 8.15039 3.80244 7.56536 3.80244 6.85032C3.80244 6.13529 3.17189 5.55026 2.40122 5.55026C1.63055 5.55026 1 6.13529 1 6.85032Z" fill="#48484A" stroke="#48484A"/>
           </svg>
           
-          <div class="menu" #menu [ngStyle]="menuStyle" *ngIf="showMenu">
+          <div #menu class="menu"  [ngStyle]="menuStyle" *ngIf="showMenu">
             <div class="menu-item" (click)="openInNewTab()">Open in new tab</div>
             <div class="menu-item" (click)="deleteForm(formID)">Delete</div>
           </div>

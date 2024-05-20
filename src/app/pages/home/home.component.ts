@@ -14,12 +14,15 @@ export class HomeComponent implements OnInit {
   userid: string = '';
   forms: any;
   p: number = 1;
+  filteredForms: any = [];
+  searchTerm: string = '';
+
   constructor(
     private formService: FormService,
     private userService: UserService,
     private store: Store<AppState>,
     private router: Router
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     await this.userService.getUser().then((user) => {
@@ -27,12 +30,30 @@ export class HomeComponent implements OnInit {
     });
 
     await this.loadForms();
-  
+
   }
   async loadForms(): Promise<void> {
     this.forms = await this.formService.getFormByUserId(this.userid);
-    console.log(this.forms);
-    
+    this.filteredForms = this.forms;
+
+  }
+  filterForms(): void {
+    if (this.searchTerm.trim() === '') {
+
+      this.filteredForms = this.forms;
+    } else {
+
+      this.filteredForms = this.forms.filter((form: { title: string }) =>
+        form.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
+
+  onSearch(searchTerm: string): void {
+    this.searchTerm = searchTerm;
+    console.log(searchTerm);
+
+    this.filterForms();
   }
 
   createForm() {
@@ -47,11 +68,11 @@ export class HomeComponent implements OnInit {
         }
       });
   }
-  logout(){
-    if(this.userid !== null)
-    this.userService.logout()
+  logout() {
+    if (this.userid !== null)
+      this.userService.logout()
     this.router.navigate(['account/login'])
-    
+
   }
-  
+
 }

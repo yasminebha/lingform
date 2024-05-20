@@ -40,10 +40,13 @@ export class TextFieldComponent
   override value?: string;
   @Input()
   isDisabled: boolean = false;
-  @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() 
+  valueChange: EventEmitter<string> = new EventEmitter<string>();
 
   emitValueChange(value: string): void {
     this.valueChange.emit(value);
+    console.log(value);
+    
   }
  override ngOnInit(): void {}
 }

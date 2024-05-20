@@ -10,6 +10,7 @@
     flex-direction: row;
     justify-content: space-around;
     background-color: #F9F9FC;
+    height: 100%;
   }
   
   .sidebar {
@@ -72,6 +73,7 @@
   .barmots {
     display: flex;
     justify-content: space-between;
+    padding: 30px;
   }
   
   .Lastupdated {
@@ -134,5 +136,16 @@
   .pagination-disabled {
     color: #aaa;
     cursor: not-allowed;
+  }
+
+  .no-forms-message {
+    text-align: center;
+    color: var(--secondary-color); 
+    font-size: 24px; 
+    font-weight: bold;
+
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
   }
   
