@@ -12,6 +12,8 @@ import { Store } from '@ngrx/store';
 })
 export class LoginComponent implements OnInit {
   isSubmitting: boolean = false;
+  errorMsg:string=""
+  invalidControl:boolean=false;
 
   constructor(private router: Router,private store:Store<AppState>) { }
 
@@ -27,7 +29,8 @@ export class LoginComponent implements OnInit {
     });
     this.isSubmitting = false;
     if (error){
-      alert(error.message)
+      this.errorMsg=error.message
+      this.invalidControl= true;
     }
     else {
      

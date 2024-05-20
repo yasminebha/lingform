@@ -24,10 +24,10 @@ import { BaseControlComponent } from '../base-control.component';
 })
 export class TextFieldComponent
   extends BaseControlComponent<string, HTMLInputElement>
-  implements OnInit
-{
+  implements OnInit {
   @Input()
   type: string = 'text';
+
   @Input()
   label?: string = undefined;
   @Input()
@@ -40,13 +40,21 @@ export class TextFieldComponent
   override value?: string;
   @Input()
   isDisabled: boolean = false;
-  @Output() 
+  @Input()
+  errorMsg: string = ""
+  @Input()
+  invalidControl: boolean = false;
+  @Output()
   valueChange: EventEmitter<string> = new EventEmitter<string>();
 
   emitValueChange(value: string): void {
     this.valueChange.emit(value);
-    console.log(value);
-    
+   
+
   }
- override ngOnInit(): void {}
+  override ngOnInit(): void { }
+
+  isInvalid(): boolean {
+    return this.invalidControl;
+  }
 }

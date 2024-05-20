@@ -12,12 +12,14 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   isSubmitting: boolean = false;
+  errorMsg:string=""
+  invalidControl:boolean=false;
   ngOnInit(): void {}
 constructor(private router: Router){
 
 }
   onSubmit(f: NgForm) {
-    console.log(f.value); // { first: '', last: '' }
+    console.log(f.value);
   }
 
   async register(f: NgForm): Promise<void> {
@@ -35,7 +37,11 @@ constructor(private router: Router){
       },
     });
     this.isSubmitting = false;
-    if (error) console.log(error);
+    if (error){
+      this.errorMsg=error.message
+      this.invalidControl= true;
+     
+    } 
     else {
       alert('user added succesfully');
       this.router.navigate(['/account/login'])

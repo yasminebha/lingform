@@ -10,6 +10,8 @@
           layout="outline"
           ngModel
           name="emailControl"
+          [invalidControl]="invalidControl"
+          errorMsg="{{errorMsg}}"
         ></lg-text-field>
       </div>
 
@@ -19,6 +21,8 @@
           placeholder="Password"
           layout="outline"
           ngModel
+          errorMsg="{{errorMsg}}"
+          [invalidControl]="invalidControl"
           name="passwordControl"
         ></lg-text-field>
       </div>

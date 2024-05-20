@@ -20,3 +20,21 @@
     outline-width: 2px;
     transition: 0.2s;
 }
+.text-field {
+    position: relative;
+  }
+  
+  .invalid input {
+    border: 1px solid red;
+  }
+  
+  .errorMsg {
+    display: block;
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    
+    
+  }
+  
+  
