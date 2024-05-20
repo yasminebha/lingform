@@ -83,6 +83,13 @@
       <lg-date-element
       [mode]="mode"
       *ngIf="block.kind === 'DateElementComponent'"
+      [id]="block.quest_id"
+      [kind]="block.kind"
+      [label]="block.questLabel"
+      [metaData]="block.quest_meta"
+      [required]="block.required"
+      [name]="block.quest_id"
+      ngModel
     ></lg-date-element>
     <lg-short-answer
     [mode]="mode"
