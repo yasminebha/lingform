@@ -29,6 +29,8 @@ export class RightSideBarComponent implements OnInit {
   form_id:string=""
 
   showModal:boolean= false;
+  @Output() fontChanged = new EventEmitter<string>();
+  @Output() fontSizeChanged = new EventEmitter<string>();
   ngOnInit(): void {
     this.fontOptions = [
       { key: 'roboto', label: 'Roboto' },
@@ -66,8 +68,7 @@ export class RightSideBarComponent implements OnInit {
     })
     
   }
-  @Output() fontChanged = new EventEmitter<string>();
-  @Output() fontSizeChanged = new EventEmitter<string>();
+  
 
   setFont(font: string) {
     this.fontChanged.emit(font);
@@ -80,8 +81,9 @@ export class RightSideBarComponent implements OnInit {
   openModal() {
     this.showModal = true;
   }
-  closeModal(){
-    this.showModal=false
+
+  closeModal() {
+    this.showModal = false;
   }
   
   async toggleMode() {

@@ -1,90 +1,120 @@
 .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 600px;
-    height: 595px;
-    transform: translate(-50%, -50%);
-    background-color: #FFFFFF;
-    padding: 20px;
-    border-radius: 8%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .title {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 600px;
+  height: auto;
+  max-height: 90vh;
+  transform: translate(-50%, -50%);
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
 
-    margin-right: 50%;
-  }
-  
+.title {
+  text-align: center;
+  margin-bottom: 10px;
+}
 
 .ligne1 {
-    display: flex;
-    align-items: center;
-}
-.ligne1 div {
-    margin-right: 90%;
-  }
-  h3{
-    
-    margin: 0;
-  }
-
-h1 {
-    margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
+.ligne1 h3 {
+  margin: 0;
+}
 
 .ligne2 {
-    display: flex;
-    align-items: center;
-   
-}
-.ligne2 div {
- margin-right: 10%;
-  }
- 
-.ligne3 div {
-    margin-right: 40px;
-  }
-  .ligne3{
-    display: flex;
-    align-items: center;
-   flex-direction: column;
-   gap: 15px;
-   width: 250px;}
-   .corps{
-    display: flex;   
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-    .input{
-        display: flex;
-       flex-direction: column;
-       gap: 20px;
-       width: 500px;
-    margin-left: 95%;}
-       .p{ margin-right: 70%;
-       }
-    
-       .ligne4 {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 100px;
-      }
-      
-      .ligne4 lf-button:not(:last-child) {
-        margin-right: 10px;
-      }
-      
-       .svg {
-        display: flex;
-        align-items: center;
-    }
-       .svg div{
-        margin-right: 30%;
-       }
-       .fb{
-        margin-left:90%;
-       }
+.ligne2 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: none;
+  background: none;
+}
+
+.ligne2 .svg {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.ligne2 .svg button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: none;
+  background: none;
+}
+
+.ligne3 {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 20px auto;
+}
+
+.input {
+  width: 100%;
+}
+
+.p {
+  margin: 0;
+}
+
+.ligne4 {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .modal {
+      width: 95%;
+      padding: 15px;
+  }
+
+  .ligne1 {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+  }
+
+  .title {
+      margin-right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .ligne2 {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .ligne3 {
+      width: 100%;
+  }
+}

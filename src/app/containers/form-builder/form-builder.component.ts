@@ -101,24 +101,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       });
     }
 
-    // const answers = Object.keys(f.value).reduce(
-    //   (
-    //     prev: {
-    //       quest_id: string;
-    //       value: string;
-    //     }[],
-    //     curr
-    //   ) => {
-    //     return [
-    //       ...prev,
-    //       {
-    //         quest_id: curr,
-    //         value: f.value[curr],
-    //       },
-    //     ];
-    //   },
-    //   []
-    // );
+  
 
     this.formService.submitAnswers(answers);
     alert("response submited")
