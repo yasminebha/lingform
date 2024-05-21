@@ -29,9 +29,6 @@
   margin-bottom: 20px;
 }
 
-.ligne1 h3 {
-  margin: 0;
-}
 
 .ligne2 {
   display: flex;
@@ -77,12 +74,9 @@
   margin: 0 auto 20px auto;
 }
 
-.input {
-  width: 100%;
-}
-
 .p {
-  margin: 0;
+font-size: small;
+color: gray;
 }
 
 .ligne4 {
@@ -117,4 +111,7 @@
   .ligne3 {
       width: 100%;
   }
+}
+link.active svg path {
+  stroke: #4F2ECB !important; 
 }

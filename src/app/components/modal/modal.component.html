@@ -20,11 +20,11 @@
         </div>
 
         <div class="svg">
-
+            <!-- email -->
 
             <div>
 
-                <button> <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button (click)="setContent('email')" > <svg width="28" height="22" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M20.2542 20.8214H7.41807C3.56723 20.8214 1 19.0725 1 14.9916V6.82983C1 2.74895 3.56723 1 7.41807 1H20.2542C24.105 1 26.6723 2.74895 26.6723 6.82983V14.9916C26.6723 19.0725 24.105 20.8214 20.2542 20.8214Z"
                             stroke="#4F2ECB" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
@@ -36,8 +36,9 @@
 
 
             </div>
+            <!-- link -->
             <div>
-                <button><svg width="34" height="20" viewBox="0 0 34 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button (click)="setContent('link')" [ngClass]="{'active': isActiveSVG('link')}" ><svg width="34" height="20" viewBox="0 0 34 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M21.9611 18.75H24.3977C29.2709 18.75 33.2727 14.7643 33.2727 9.875C33.2727 5.00182 29.287 1 24.3977 1H21.9611"
                             stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" />
@@ -47,9 +48,9 @@
                         <path d="M10.6818 9.87514H23.5909" stroke="#292D32" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg></button>
-                <!--  -->
+                
             </div>
-            <div> <button><svg width="27" height="25" viewBox="0 0 27 25" fill="none"
+            <div> <button (click)="setContent('embed-HTML')" [ngClass]="{'active': isActiveSVG('embed-HTML')}"><svg width="27" height="25" viewBox="0 0 27 25" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M9.74999 13.4821C8.92499 13.8566 8.23749 14.4126 7.72499 15.1048C7.43749 15.5019 7.43749 16.0012 7.72499 16.3984C8.23749 17.0905 8.92499 17.6466 9.74999 18.021"
@@ -79,14 +80,16 @@
 
         </div>
     </div>
-    <!-- ligne -->
+
     <div> <button><svg width="532" height="5" viewBox="0 0 532 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line x1="0.996244" y1="4.50001" x2="531.996" y2="0.510747" stroke="#D9D9D9" />
             </svg>
         </button>
     </div>
-    <div class="ligne3">
-        <p class="p">Email </p>
+
+<div *ngIf="content==='email'">
+    <div class="ligne3" >
+        <p >Email </p>
         <p class="p">to</p>
 
         <lg-text-field class="input" type="email" placeholder="" layout="outline"></lg-text-field>
@@ -94,11 +97,31 @@
         <lg-text-field class="input" type="text" placeholder="" layout="outline"></lg-text-field>
         <p class="p">Message</p>
         <lg-text-field class="input" type="text" placeholder="" layout="outline"></lg-text-field>
+        <div></div>
     </div>
+    
     <div class="ligne4">
         <lf-button (click)="closeModal()" text="Cancel" layout="outline"></lf-button>
         <lf-button text="Send"  layout="primary"></lf-button>
-
     </div>
+
+</div>
+
+
+
+
+<div *ngIf="content==='link'">
+    <div class="ligne3" >
+        <p >Link </p>
+        <lg-text-field class="input"  class="title" type="email"  value="{{dynamicLink}}"></lg-text-field>
+     
+    </div>
+    
+    <div class="ligne4">
+        <lf-button (click)="closeModal()" text="Cancel" layout="outline"></lf-button>
+        <lf-button text="Copy" (click)="copyLink()"  layout="primary"></lf-button>
+    </div>
+
+</div>
 
 </div>

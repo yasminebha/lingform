@@ -1,125 +1,44 @@
-
 <div class="form-container" [ngStyle]="{ 'background-color': bgColor }">
 
-  <form
-  #f="ngForm"
-  (ngSubmit)="onSubmit(f)"
-  class="form-builder"
-  
-  >
-  <div *ngIf="mode === 'edit'" class="container header">
-    <lg-text-field
-    type="text"
-      placeholder="Form title"
-      class="title"
-      [value]="title"
-      fontSize="24"
-      (input)="updateBuilderTitle($event)"
-      ></lg-text-field>
-      <lg-text-field
-      type="text"
-      class="title"
-      placeholder="form description"
-      [value]="description"
-      (input)="updateBuilderDescription($event)"
-      ></lg-text-field>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form-builder">
+    <div *ngIf="mode === 'edit'" class="container header">
+      <lg-text-field type="text" placeholder="Form title" class="title" [value]="title" fontSize="24"
+        (input)="updateBuilderTitle($event)"></lg-text-field>
+      <lg-text-field type="text" class="title" placeholder="form description" [value]="description"
+        (input)="updateBuilderDescription($event)"></lg-text-field>
     </div>
-    
-    <div *ngIf="mode === 'live'" class="container header">
-      
-    <lg-text-field
-    type="text"
-      class="title"
-      [value]="title"
-      fontSize="24"
-      [isDisabled]="true"
-    ></lg-text-field>
-    <hr>
-    <lg-text-field
-    *ngIf="description"
-    type="text"
-    class="title"
-    [value]="description"
-    [isDisabled]="true"
-      fontSize="13"
-    ></lg-text-field>
-  </div>
 
-  <div *ngFor="let block of blocks">
-    <lg-multiple-choice-element
-    [mode]="mode"
-    *ngIf="block.kind === 'MultipleChoiceElementComponent'"
-    ngModel
-      [id]="block.quest_id"
-      [kind]="block.kind"
-      [label]="block.questLabel"
-      [metaData]="block.quest_meta"
-      [required]="block.required"
-      [name]="block.quest_id"
-      ></lg-multiple-choice-element>
-      <lg-one-choice
-      [mode]="mode"
-      *ngIf="block.kind === 'OneChoiceComponent'"
-      [id]="block.quest_id"
-      [kind]="block.kind"
-      [label]="block.questLabel"
-      [metaData]="block.quest_meta"
-      [required]="block.required"
-      [name]="block.quest_id"
-      
-      ngModel
-    ></lg-one-choice>
-    <lg-email-element
-      [mode]="mode"
-      *ngIf="block.kind === 'EmailElementComponent'"
-      [id]="block.quest_id"
-      [kind]="block.kind"
-      [label]="block.questLabel"
-      [metaData]="block.quest_meta"
-      [required]="block.required"
-      [name]="block.quest_id"
-      ngModel
-      ></lg-email-element>
-      <lg-date-element
-      [mode]="mode"
-      *ngIf="block.kind === 'DateElementComponent'"
-      [id]="block.quest_id"
-      [kind]="block.kind"
-      [label]="block.questLabel"
-      [metaData]="block.quest_meta"
-      [required]="block.required"
-      [name]="block.quest_id"
-      ngModel
-    ></lg-date-element>
-    <lg-short-answer
-    [mode]="mode"
-      *ngIf="block.kind === 'ShortAnswerComponent'"
-      [id]="block.quest_id"
-      [kind]="block.kind"
-      [label]="block.questLabel"
-      [metaData]="block.quest_meta"
-      [required]="block.required"
-      [name]="block.quest_id"
-      ngModel
-      
-      ></lg-short-answer>
-      <lg-phone-element
-      [mode]="mode"
-      *ngIf="block.kind === 'PhoneElementComponent'"
-      [id]="block.quest_id"
-      [kind]="block.kind"
-      [label]="block.questLabel"
-      [metaData]="block.quest_meta"
-      [required]="block.required"
-      [name]="block.quest_id"
-      ngModel
-      
-      
-      >
-        
+    <div *ngIf="mode === 'live'" class="container header">
+
+      <lg-text-field type="text" class="title" [value]="title" fontSize="24" [isDisabled]="true"></lg-text-field>
+      <hr>
+      <lg-text-field *ngIf="description" type="text" class="title" [value]="description" [isDisabled]="true"
+        fontSize="13"></lg-text-field>
+    </div>
+
+    <div *ngFor="let block of blocks">
+      <lg-multiple-choice-element [mode]="mode" *ngIf="block.kind === 'MultipleChoiceElementComponent'" ngModel
+        [id]="block.quest_id" [kind]="block.kind" [label]="block.questLabel" [metaData]="block.quest_meta"
+        [required]="block.required" [name]="block.quest_id"></lg-multiple-choice-element>
+      <lg-one-choice [mode]="mode" *ngIf="block.kind === 'OneChoiceComponent'" [id]="block.quest_id" [kind]="block.kind"
+        [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required" [name]="block.quest_id"
+        ngModel></lg-one-choice>
+      <lg-email-element [mode]="mode" *ngIf="block.kind === 'EmailElementComponent'" [id]="block.quest_id"
+        [kind]="block.kind" [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required"
+        [name]="block.quest_id" ngModel></lg-email-element>
+      <lg-date-element [mode]="mode" *ngIf="block.kind === 'DateElementComponent'" [id]="block.quest_id"
+        [kind]="block.kind" [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required"
+        [name]="block.quest_id" ngModel></lg-date-element>
+      <lg-short-answer [mode]="mode" *ngIf="block.kind === 'ShortAnswerComponent'" [id]="block.quest_id"
+        [kind]="block.kind" [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required"
+        [name]="block.quest_id" ngModel></lg-short-answer>
+      <lg-phone-element [mode]="mode" *ngIf="block.kind === 'PhoneElementComponent'" [id]="block.quest_id"
+        [kind]="block.kind" [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required"
+        [name]="block.quest_id" ngModel>
       </lg-phone-element>
     </div>
-  <lf-button *ngIf="mode==='live'" text="submit" type="submit"></lf-button>
-</form>
+  
+    <lf-button *ngIf="mode==='live'" text="submit" type="submit"></lf-button>
+  </form>
 
-  </div>
+</div>
