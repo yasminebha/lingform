@@ -46,10 +46,14 @@ export class FormListItemComponent implements OnInit {
   }
   @HostListener('document:click', ['$event'])
   onClick(event: Event): void {
-    const clickedInside = this.svgIcon.nativeElement.contains(event.target) || this.menu.nativeElement.contains(event.target);
-    if (!clickedInside) {
-      this.showMenu = false;
+    if(this.svgIcon){
+      const clickedInside = this.svgIcon.nativeElement.contains(event.target) ;
+      if (!clickedInside) {
+        this.showMenu = false;
+      }
     }
+ 
+    
   }
   openInNewTab(): void {
     // Logic to open the form in a new tab
