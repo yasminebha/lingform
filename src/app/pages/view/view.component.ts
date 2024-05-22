@@ -1,7 +1,7 @@
 import { updateBuilder } from '@/app/store/actions/builder.actions';
 import { AppState } from '@/app/store/reducers';
 '@/shared/services/form.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 

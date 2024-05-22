@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   errorMsg:string=""
   invalidControl:boolean=false;
 
-  constructor(private router: Router,private store:Store<AppState>) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
