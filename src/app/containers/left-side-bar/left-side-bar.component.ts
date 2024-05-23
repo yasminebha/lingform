@@ -3,7 +3,6 @@ import { AppState } from '@/app/store/reducers';
 import { QuestionElement } from '@/shared/models/questionElement.model';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { take } from 'rxjs/operators';
 import * as shortid from 'shortid';
 
 @Component({
