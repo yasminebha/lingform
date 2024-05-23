@@ -13,13 +13,14 @@
         layout="row-icon"
         class="icon"
       ></lf-icon-button>
-      <lf-icon-button
-        icon="trash"
-        iconStyle="solid"
-        layout="row-icon"
-        class="icon"
-        (click)="removeBlock()"
-      ></lf-icon-button>
+        <lf-icon-button
+        
+          icon="trash"
+          iconStyle="solid"
+          layout="row-icon"
+          class="icon"
+          (click)="removeBlock($event,id)"
+        ></lf-icon-button>
     </div>
   </div>
   <lg-text-field

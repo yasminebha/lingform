@@ -17,9 +17,9 @@ export class FormBlockComponent<TValue, TMeta=any>
   @Input()
   override value?: TValue;
   @Input()
-  id!: string;
+  id: string="";
   @Input()
-  kind!: string;
+  kind: string="";
   @Input()
   required: boolean = false;
   @Input()
@@ -31,18 +31,16 @@ export class FormBlockComponent<TValue, TMeta=any>
   constructor(
     _renderer: Renderer2,
     _elementRef: ElementRef<any>,
-    protected store: Store<AppState>
+    protected store: Store<AppState>, private readonly questionService: QuestionService
   ) {
     super(_renderer, _elementRef);
   }
 
   override ngOnInit(): void {}
-  removeBlock(){
-    this.store.dispatch(
-      removeBlock({
-        blockId:this.id as string
-      })
-    )
-
+  async removeBlock(event: Event, blockId: string) {
+    event.stopPropagation();
+    event.preventDefault();
+    await this.questionService.removeQuestionBlock(blockId);
+    this.store.dispatch(removeBlock({ blockId }));
   }
 }

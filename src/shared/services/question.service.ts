@@ -34,6 +34,19 @@ export class QuestionService {
       return data;
     }
   }
+  async removeQuestionBlock(blockId: string): Promise<void> {
+    const { error } = await supabase
+      .from('question')
+      .delete()
+      .eq('quest_id', blockId);
+    if (error) {
+      console.log(error);
+    }
+    else{
+      console.log("block deleted from database");
+      
+    }
+  }
 
   
 }

@@ -21,6 +21,7 @@ export class ShortAnswerComponent
   extends FormBlockComponent<string>
   implements OnInit
 {
+
   public updateQuestLabel = debounce((evt: any) => {
     const updatedValue = evt.target.value;
 
