@@ -1,6 +1,7 @@
 import {
   addBlock,
   changeFormId,
+  updateBlockOrder,
   updateBuilderDescription,
   updateBuilderTitle,
 } from '@/app/store/actions/builder.actions';
@@ -26,7 +27,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   description: string = '';
   bgColor: string | undefined = '#FFF';
   blocks: QuestionElement[] = [];
-  formId: string | null = '';
+  formId: string = '';
 
   @Input()
   mode!: 'live' | 'edit' ;
@@ -42,6 +43,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    const formId = this.route.snapshot.paramMap.get('id');
     this.storeSubsription = this.store
     .select((state) => state.builder)
     .pipe(distinctUntilChanged())
@@ -52,30 +54,34 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       this.blocks = Object.values(blocks);
       this.title = title;
       this.description = description;
-      this.autoSave();
+    //  this.autoSave();
     });
 
-    const formId = this.route.snapshot.paramMap.get('id');
+    
 
-    if (formId) {
-      this.form = await this.formService.getFormById(formId);
- 
-      for (const q of this.form!.question) {
-        this.store.dispatch(addBlock({ blockId: q.quest_id, newBlock: q }));
-      }
-      if (this.form) {
-        this.store.dispatch(updateBuilderTitle({ title: this.form?.title }));
-        this.store.dispatch(
-          updateBuilderDescription({ Description: this.form?.description })
-        );
-      }
+  if(formId){
 
+    this.form = await this.formService.getFormById(formId);
+    this.store.dispatch(
+      changeFormId({
+        id: this.form!.form_id,
+      })
+    );
+    for (const q of this.form!.question) {
+      this.store.dispatch(addBlock({ blockId: q.quest_id, newBlock: q }));
+    }
+    if (this.form) {
+      this.store.dispatch(updateBuilderTitle({ title: this.form?.title }));
       this.store.dispatch(
-        changeFormId({
-          id: this.form!.form_id,
-        })
+        updateBuilderDescription({ Description: this.form?.description })
       );
     }
+    console.log(formId);
+    
+   this.loadBlockOrder(formId)
+  }
+      
+    
   }
   ngOnDestroy() {
     this.storeSubsription.unsubscribe();
@@ -138,5 +144,33 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
     console.log('Form auto-saved');
   }, 2000); 
+
+  async loadBlockOrder(formID:string) {
+     if(formID)
+      try {
+        const blockOrder = await this.formService.getBlockOrder(formID);
+        this.store.dispatch(updateBlockOrder({ blockOrder }));
+       console.log("test test");
+       
+        
+      } catch (error) {
+        console.log(error);
+        
+      }
+     
+    
+  }
+  
+  async saveBlockOrder(blockOrder: string[]) {
+    if(this.formId){
+    try {
+      await this.formService.updateBlockOrder(this.formId, blockOrder);
+      this.store.dispatch(updateBlockOrder({ blockOrder }));
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+}
 }
 

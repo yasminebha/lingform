@@ -52,3 +52,8 @@ export const swapBlock = createAction(
   'BUILDER/SWAP_BLOCKS',
   props<{ blockId: string; direction: 'up' | 'down' }>()
 );
+
+export const updateBlockOrder = createAction(
+  'BUILDER/UPDATE_BLOCK_ORDER',
+  props<{ blockOrder: string[] }>()
+);  

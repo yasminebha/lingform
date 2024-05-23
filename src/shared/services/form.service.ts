@@ -106,6 +106,32 @@ export class FormService {
       console.log(error)
     }
   }
+  async getBlockOrder(formId: string): Promise<string[]> {
+    const { data, error } = await supabase
+      .from('form')
+      .select('blockOrder')
+      .eq('form_id', "formId")
+      .single();
+
+    if (error) {
+      console.error('Error fetching block order:', error.message);
+      throw error;
+    }
+
+    return data ? data.blockOrder : [];
+  }
+
+  async updateBlockOrder(formId: string, blockOrder: string[]): Promise<void> {
+    const { error } = await supabase
+      .from('form')
+      .update({ blockOrder: blockOrder })
+      .eq('form_id', formId);
+
+    if (error) {
+      console.error('Error updating block order:', error.message);
+      throw error;
+    }
+  }
   
 
 }
