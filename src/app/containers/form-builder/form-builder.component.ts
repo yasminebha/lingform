@@ -28,6 +28,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   bgColor: string | undefined = '#FFF';
   blocks: QuestionElement[] = [];
   formId: string = '';
+  blockOrder:string[]=[]
 
   @Input()
   mode!: 'live' | 'edit' ;
@@ -48,17 +49,16 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     .select((state) => state.builder)
     .pipe(distinctUntilChanged())
     
-    .subscribe(async({ blocks, title, description,mode,backgroundColor}) => {
+    .subscribe(async({ blocks, title, description,mode,backgroundColor,blockOrder}) => {
       this.mode = mode;
       this.bgColor = backgroundColor;
-      this.blocks = Object.values(blocks);
+      this.blocks = blockOrder.map((id) => blocks[id]).filter(block => block);
       this.title = title;
       this.description = description;
-    //  this.autoSave();
-    });
-
-    
-
+      this.blockOrder = blockOrder;
+     this.autoSave();
+    })
+   
   if(formId){
 
     this.form = await this.formService.getFormById(formId);
@@ -70,15 +70,15 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     for (const q of this.form!.question) {
       this.store.dispatch(addBlock({ blockId: q.quest_id, newBlock: q }));
     }
-    if (this.form) {
-      this.store.dispatch(updateBuilderTitle({ title: this.form?.title }));
-      this.store.dispatch(
-        updateBuilderDescription({ Description: this.form?.description })
-      );
-    }
-    console.log(formId);
+   
+      if (this.form) {
+        this.store.dispatch(updateBuilderTitle({ title: this.form?.title }));
+        this.store.dispatch(updateBuilderDescription({ Description: this.form?.description }));
+        this.store.dispatch(updateBlockOrder({ blockOrder: this.form?.blockOrder || [] }));
+      }
+    console.log(this.form?.blockOrder);
     
-   this.loadBlockOrder(formId)
+
   }
       
     
@@ -121,7 +121,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.store
       .select((state) => state.builder)
       .pipe(distinctUntilChanged())
-      .subscribe(async ({ blocks, title, description, form_id }) => {
+      .subscribe(async ({ blocks, title, description, form_id,blockOrder }) => {
       
         Object.values(blocks).forEach((block: any) => {
           const newBlock: QuestionElement = {
@@ -131,6 +131,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             questLabel: block.questLabel,
             required: block.required || false,
             quest_meta: block.quest_meta || {},
+            
           };
           this.questService.addQuestionBlock(newBlock);
         });
@@ -138,6 +139,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         const updatedForm = {
           title: title,
           description: description,
+          blockOrder:blockOrder
         };
         await this.formService.updateForm(form_id, updatedForm);
       });
@@ -145,32 +147,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     console.log('Form auto-saved');
   }, 2000); 
 
-  async loadBlockOrder(formID:string) {
-     if(formID)
-      try {
-        const blockOrder = await this.formService.getBlockOrder(formID);
-        this.store.dispatch(updateBlockOrder({ blockOrder }));
-       console.log("test test");
-       
-        
-      } catch (error) {
-        console.log(error);
-        
-      }
-     
-    
-  }
   
-  async saveBlockOrder(blockOrder: string[]) {
-    if(this.formId){
-    try {
-      await this.formService.updateBlockOrder(this.formId, blockOrder);
-      this.store.dispatch(updateBlockOrder({ blockOrder }));
-    } catch (error) {
-      console.log(error);
-      
-    }
-  }
-}
+  
 }
 

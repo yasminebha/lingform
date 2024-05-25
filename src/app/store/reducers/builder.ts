@@ -85,7 +85,8 @@ export const builderReducer = createReducer(
     delete newBlocks[blockId];
     return {
       ...currentState,
-      blocks: newBlocks
+      blocks: newBlocks,
+      blockOrder: currentState.blockOrder.filter(id => id !== blockId),
     };
   }),
   on(BuilderActions.updateBlockOrder, (currentState, { blockOrder }) => ({

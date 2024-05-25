@@ -15,7 +15,7 @@ export class Form {
   textFontSize: string = '12';
   textFontFamily: string = 'Roboto';
   question: QuestionElement[] = [];
-
+  blockOrder:string[]=[]
   constructor(editeurId: string) {
     this.editeur_id = editeurId;
   }
