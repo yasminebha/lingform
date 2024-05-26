@@ -1,6 +1,7 @@
 import {
   addBlock,
   changeFormId,
+  swapBlock,
   updateBlockOrder,
   updateBuilderDescription,
   updateBuilderTitle,
@@ -11,6 +12,7 @@ import { QuestionElement } from '@/shared/models/questionElement.model';
 import { FormService } from '@/shared/services/form.service';
 import { QuestionService } from '@/shared/services/question.service';
 import { debounce } from '@/shared/utils/timing';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -21,6 +23,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
   selector: 'lg-form-builder',
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.css'],
+ 
 })
 export class FormBuilderComponent implements OnInit, OnDestroy {
   title: string = 'untitled Form';
@@ -76,9 +79,6 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         this.store.dispatch(updateBuilderDescription({ Description: this.form?.description }));
         this.store.dispatch(updateBlockOrder({ blockOrder: this.form?.blockOrder || [] }));
       }
-    console.log(this.form?.blockOrder);
-    
-
   }
       
     
@@ -148,6 +148,17 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   }, 2000); 
 
   
+  drop(event: CdkDragDrop<QuestionElement[]>) {
+    if(this.mode==="edit"){
+      moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
+      const newOrder = this.blocks.map(block => block.quest_id);
+  
+      
+      this.store.dispatch(updateBlockOrder({ blockOrder: newOrder }));
+    }
+  
+  }
+
   
 }
 

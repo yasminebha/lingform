@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../store/reducers';
 import { BaseControlComponent } from '@/shared/ui-components/base-control.component';
 import { QuestionService } from '@/shared/services/question.service';
-import { removeBlock } from '../store/actions/builder.actions';
+import { removeBlock, updateBlockOrder } from '../store/actions/builder.actions';
 
 @Component({
   template: '',
@@ -42,5 +42,6 @@ export class FormBlockComponent<TValue, TMeta=any>
     event.preventDefault();
     await this.questionService.removeQuestionBlock(blockId);
     this.store.dispatch(removeBlock({ blockId }));
+
   }
 }

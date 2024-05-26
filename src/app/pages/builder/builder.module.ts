@@ -23,6 +23,7 @@ import { ViewComponent } from '../view/view.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ResponsesComponent } from '../responses/responses.component';
 import { ModalComponent } from '../../components/modal/modal.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -45,12 +46,14 @@ import { ModalComponent } from '../../components/modal/modal.component';
     ResponsesComponent,
     ModalComponent,
 
+
   ],
   imports: [
     CommonModule,
     FormsModule,
     BuilderRoutingModule,
     UIComponentsModule,
+    DragDropModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

@@ -21,3 +21,28 @@
 hr{
     border: var(--border);
 }
+.block-list {
+ 
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .block {
+    cursor: grabbing;
+    margin-bottom: 10px; 
+  }
+  
+  .block.cdk-drag-preview {
+    background-color: #e0e0e0; 
+    border-color: #bdbdbd;
+    
+  }
+  
+  .block.cdk-drag-placeholder {
+    opacity: 0.5;
+  }
+  
+  .block.cdk-drag-animating {
+    transition: transform 250ms ease; 
+  }
+  
