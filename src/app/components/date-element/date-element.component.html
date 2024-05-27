@@ -22,13 +22,14 @@
         ></lf-icon-button>
       </div>
     </div>
-    <lg-text-field class="title" placeholder="question label" ></lg-text-field>
+    <lg-text-field class="title" placeholder="question label"   (input)="updateQuestLabel($event)"
+    [value]="label" ></lg-text-field>
       <lg-text-field class="title" type="date" [isDisabled]="true"></lg-text-field>
  
 
   </div>
   
   <div *ngIf="mode==='live'" class="container"> 
-      <label for="">date</label>
-      <lg-text-field class="title" type="date"></lg-text-field>
+      <label for="">{{label}}</label>
+      <lg-text-field class="title" type="date" (input)="changeAnswer($event)"></lg-text-field>
     </div>

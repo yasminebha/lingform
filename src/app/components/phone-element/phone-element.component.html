@@ -23,15 +23,17 @@
         ></lf-icon-button>
       </div>
     </div>
-    <lg-text-field class="title" placeholder="question" ></lg-text-field>
+    <lg-text-field class="title" placeholder="question" (input)="updateQuestLabel($event)"
+    [value]="label"
+    ngModel></lg-text-field>
     <lg-text-field  class="title" placeholder="phone number" [isDisabled]="true"></lg-text-field>
   </div>
   
   
   
   <div *ngIf="mode==='live'" class="container"> 
-      <label for="">question text</label>
-      <lg-text-field class="title" type="text" placeholder="phone number" ></lg-text-field>
+      <label for="">{{label}}</label>
+      <lg-text-field class="title" type="text" placeholder="phone number" (input)="changeAnswer($event)"></lg-text-field>
       
       
     </div>

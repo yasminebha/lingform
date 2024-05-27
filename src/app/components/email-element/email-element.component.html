@@ -22,14 +22,22 @@
         ></lf-icon-button>
       </div>
     </div>
-    <lg-text-field placeholder="questionLabel" class="title"></lg-text-field>
-    <lg-text-field class="title" placeholder="short answer" [isDisabled]="true"></lg-text-field>
+    <lg-text-field 
+    placeholder="Question" class="title"
+    (input)="updateQuestLabel($event)"
+    [value]="label"
+    ></lg-text-field>
+    <lg-text-field class="title" placeholder="tap here" [isDisabled]="true"></lg-text-field>
   </div>
   
   
   
   <div *ngIf="mode==='live'" class="container"> 
-      <label for="">Email address</label><!-- needs binding to retrieve questLabel -->
-      <lg-text-field class="title" type="email" placeholder="email" ></lg-text-field>
+      <label for="">{{label}}</label>
+      <lg-text-field 
+      class="title" 
+      type="email"
+       placeholder="email" 
+      (input)="changeAnswer($event)" ></lg-text-field>
     </div>
   

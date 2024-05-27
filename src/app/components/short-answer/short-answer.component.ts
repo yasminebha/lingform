@@ -2,8 +2,8 @@ import { Component, OnInit, forwardRef } from '@angular/core';
 import { FormBlockComponent } from '../form-block.component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { debounce } from '@/shared/utils/timing';
-import { removeBlock, updateBlock } from '@/app/store/actions/builder.actions';
-import { QuestionElement } from '@/shared/models/questionElement.model';
+import { updateBlock } from '@/app/store/actions/builder.actions';
+
 
 @Component({
   selector: 'lg-short-answer',

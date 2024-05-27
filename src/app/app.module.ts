@@ -13,7 +13,6 @@ import { UIComponentsModule } from '@/shared/ui-components/ui-components.module'
 
 import { HomeModule } from './pages/home/home.module';
 import { NgxPaginationModule } from 'ngx-pagination';
-
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
   imports: [

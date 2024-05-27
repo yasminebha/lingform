@@ -28,7 +28,7 @@ hr{
   }
   
   .block {
-    cursor: grabbing;
+    cursor:move;
     margin-bottom: 10px; 
   }
   

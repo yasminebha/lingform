@@ -17,16 +17,34 @@
     </div>
     <div  class="block-list" cdkDropList (cdkDropListDropped)="drop($event)">
       <div  class="block" *ngFor="let block of blocks" cdkDrag  [cdkDragData]="block">
-        <lg-multiple-choice-element [mode]="mode" *ngIf="block.kind === 'MultipleChoiceElementComponent'" ngModel
-        [id]="block.quest_id" [kind]="block.kind" [label]="block.questLabel" [metaData]="block.quest_meta"
-        [required]="block.required" [name]="block.quest_id"></lg-multiple-choice-element>
+        <lg-multiple-choice-element 
+        [mode]="mode"
+         *ngIf="block.kind === 'MultipleChoiceElementComponent'"
+          ngModel
+        [id]="block.quest_id" 
+        [kind]="block.kind"
+         [label]="block.questLabel"
+          [metaData]="block.quest_meta"
+        [required]="block.required" 
+        [name]="block.quest_id"></lg-multiple-choice-element>
 
-        <lg-one-choice [mode]="mode" *ngIf="block.kind === 'OneChoiceComponent'" [id]="block.quest_id" [kind]="block.kind"
+        <lg-one-choice [mode]="mode" 
+        *ngIf="block.kind === 'OneChoiceComponent'" 
+        [id]="block.quest_id" [kind]="block.kind"
+
         [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required" [name]="block.quest_id"
         ngModel></lg-one-choice>
-        <lg-email-element [mode]="mode" *ngIf="block.kind === 'EmailElementComponent'" [id]="block.quest_id"
-        [kind]="block.kind" [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required"
-        [name]="block.quest_id" ngModel></lg-email-element>
+        <lg-email-element
+         [mode]="mode" 
+        *ngIf="block.kind === 'EmailElementComponent'"
+         [id]="block.quest_id"
+        [kind]="block.kind"
+         [label]="block.questLabel" 
+        [metaData]="block.quest_meta"
+         [required]="block.required"
+        [name]="block.quest_id"
+         ngModel
+         ></lg-email-element>
         <lg-date-element [mode]="mode" *ngIf="block.kind === 'DateElementComponent'" [id]="block.quest_id"
         [kind]="block.kind" [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required"
         [name]="block.quest_id" ngModel></lg-date-element>
