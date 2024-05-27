@@ -86,16 +86,8 @@ export class RightSideBarComponent implements OnInit {
     this.showModal = false;
   }
   
-  async toggleMode() {
-    let mode;
-    await this.store.pipe(select(getNextMode)).subscribe((nextMode) => {
-      mode = nextMode;
-    });
-
-    if (mode) {
-      this.store.dispatch(updateBuilder({ mode }));
-    }
-  }
+  
+  
   async onSave() {
     this.store
       .select((state) => state.builder)

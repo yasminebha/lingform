@@ -48,6 +48,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     const formId = this.route.snapshot.paramMap.get('id');
+
     this.storeSubsription = this.store
     .select((state) => state.builder)
     .pipe(distinctUntilChanged())

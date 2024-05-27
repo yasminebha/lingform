@@ -19,7 +19,7 @@ export class ViewComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
       this.store.dispatch(updateBuilder({ 
-        mode:this.mode 
+        mode:this.mode
       }));
     
   }
