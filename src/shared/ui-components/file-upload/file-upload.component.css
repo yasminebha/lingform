@@ -1,4 +1,4 @@
-input::-webkit-file-upload-button{
+/* input::-webkit-file-upload-button{
    
     padding:15px 30px ;
     margin-right: 15px;
@@ -22,4 +22,41 @@ input::-webkit-file-upload-button:focus{
     outline-color: var(--secondary-color);
     transition: 0.2s ;
     }
+   */
+   .file-upload > input {
+    display: none;
+  }
+  
+  .file-upload > .file-name {
+    border-radius: 15px;
+    border: 1px solid var(--gray);
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    background-color: inherit;
+    position: relative;
+  }
+  
+  .file-upload {
+    width: 100%;
+    position: relative;
+  }
+  
+  .file-upload > .file-name:focus {
+    border-color: var(--primary-color) !important;
+    outline-color: var(--primary-color);
+    outline-width: 2px;
+    transition: 0.2s;
+  }
+  
+  .invalid .file-name {
+    border: 1px solid red;
+  }
+  
+  .errorMsg {
+    display: block;
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
   

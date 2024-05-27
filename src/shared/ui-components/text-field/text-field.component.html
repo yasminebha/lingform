@@ -1,15 +1,15 @@
-<div class="text-field" [class.invalid]="isInvalid()" >
-  <label *ngIf="label">{{ label }}</label>
-  <input
-    type="{{ type }}"
-    placeholder="{{ placeholder }}"
-    
-    [ngStyle]="{ 'font-size': fontSize + 'px' }"
-    [(ngModel)]="value"
-    [disabled]="isDisabled"
-    (blur)="onTouched($event)"
-    (ngModelChange)="changeCommit($event); emitValueChange($event)"
-  />
-  <span class="errorMsg">{{errorMsg}}</span>
-</div>
+  <div class="text-field" [class.invalid]="isInvalid()" >
+    <label *ngIf="label">{{ label }}</label>
+    <input
+      type="{{ type }}"
+      placeholder="{{ placeholder }}"
+      
+      [ngStyle]="{ 'font-size': fontSize + 'px' }"
+      [(ngModel)]="value"
+      [disabled]="isDisabled"
+      (blur)="onTouched($event)"
+      (ngModelChange)="changeCommit($event); emitValueChange($event)"
+    />
+    <span class="errorMsg">{{errorMsg}}</span>
+  </div>
 

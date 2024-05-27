@@ -24,6 +24,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ResponsesComponent } from '../responses/responses.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FileUploadElementComponent } from '../../components/file-upload-element/file-upload-element.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NavbarComponent,
     ResponsesComponent,
     ModalComponent,
+    FileUploadElementComponent,
 
 
   ],
