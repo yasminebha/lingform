@@ -30,6 +30,9 @@ export class FileUploadComponent
   @Input() isDisabled: boolean = false;
   @Input() errorMsg: string = "";
   @Input() invalidControl: boolean = false;
+  @Input() isMultiple:boolean = false;
+  @Input() fileNumber:number=1;
+  @Input() fileTypes:string[]=[];
   @Output() valueChange: EventEmitter<File | null> = new EventEmitter<File | null>();
 
   selectedFileName?: string;

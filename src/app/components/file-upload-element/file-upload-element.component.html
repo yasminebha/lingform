@@ -1,4 +1,4 @@
-<div *ngIf="mode === 'edit'" class="container file-upload-container">
+<div *ngIf="mode === 'edit'" class="container ">
     <div class="input-type-area">
       <lg-input-components
         icon="file"
@@ -28,19 +28,12 @@
       class="title"
       placeholder="Question label"
     ></lg-text-field>
-    <lg-file-upload
-      (valueChange)="onFileSelected($event)"
-      [errorMsg]="fileName ? '' : 'Please upload a file'"
-    ></lg-file-upload>
+
     <div *ngIf="fileName" class="file-name-display">{{ fileName }}</div>
+  </div>
+  <div *ngIf="mode === 'live'"  class="container">
+    <label for="">{{ label }}</label>
+    <lg-file-upload ></lg-file-upload>
   </div>
   
-  <div *ngIf="mode === 'live'" class="container file-upload-container">
-    <label for="">{{ label }}</label>
-    <lg-file-upload
-      (valueChange)="onFileSelected($event)"
-      [errorMsg]="fileName ? '' : 'Please upload a file'"
-    ></lg-file-upload>
-    <div *ngIf="fileName" class="file-name-display">{{ fileName }}</div>
-  </div>
   
