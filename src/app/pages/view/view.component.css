@@ -1,3 +1,4 @@
 ::ng-deep.form-builder{
-width: 60%;
+width: 60% !important;
+height: 100vh !important;
 } 
