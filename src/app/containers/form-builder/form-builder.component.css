@@ -45,4 +45,6 @@ hr{
   .block.cdk-drag-animating {
     transition: transform 250ms ease; 
   }
-  
+.block.cdkDragDisabled{
+  cursor: auto;
+}

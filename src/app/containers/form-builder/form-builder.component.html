@@ -12,7 +12,7 @@
     </div>
 
     <div class="block-list" cdkDropList (cdkDropListDropped)="drop($event)">
-      <div class="block" *ngFor="let block of blocks" cdkDrag [cdkDragData]="block">
+      <div class="block" *ngFor="let block of blocks" cdkDrag [cdkDragDisabled]="mode==='live'" [cdkDragData]="block">
         <lg-multiple-choice-element
           [mode]="mode"
           *ngIf="block.kind === 'MultipleChoiceElementComponent'"

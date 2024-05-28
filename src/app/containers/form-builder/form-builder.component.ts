@@ -154,7 +154,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
       const newOrder = this.blocks.map(block => block.quest_id);
   
-      
+      if(this.blocks.length>1)
       this.store.dispatch(updateBlockOrder({ blockOrder: newOrder }));
     }
   
