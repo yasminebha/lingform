@@ -12,7 +12,7 @@
     </div>
 
     <div class="block-list" cdkDropList (cdkDropListDropped)="drop($event)">
-      <div class="block" *ngFor="let block of blocks" cdkDrag [cdkDragDisabled]="mode==='live'" [cdkDragData]="block">
+      <div class="block" *ngFor="let block of blocks"  [cdkDrag]="mode==='edit'" [cdkDragDisabled]="mode==='live'" [cdkDragData]="block">
         <lg-multiple-choice-element
           [mode]="mode"
           *ngIf="block.kind === 'MultipleChoiceElementComponent'"
@@ -89,13 +89,13 @@
         <lg-file-upload-element
           [mode]="mode"
           *ngIf="block.kind === 'FileUploadElementComponent'"
-          ngModel
           [id]="block.quest_id"
           [kind]="block.kind"
           [label]="block.questLabel"
           [metaData]="block.quest_meta"
           [required]="block.required"
           [name]="block.quest_id"
+          ngModel
         ></lg-file-upload-element>
       </div>
     </div>

@@ -28,7 +28,7 @@ hr{
   }
   
   .block {
-    cursor:move;
+ 
     margin-bottom: 10px; 
   }
   
@@ -45,6 +45,3 @@ hr{
   .block.cdk-drag-animating {
     transition: transform 250ms ease; 
   }
-.block.cdkDragDisabled{
-  cursor: auto;
-}

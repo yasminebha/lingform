@@ -26,4 +26,6 @@
     background: var(--bg-color);
     border-radius: var(--border-radius);
     padding: 10px 15px;
+    align-items: center;
+
 }
