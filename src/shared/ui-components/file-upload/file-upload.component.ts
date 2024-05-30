@@ -1,66 +1,31 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  forwardRef,
-} from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BaseControlComponent } from '../base-control.component';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'lg-file-upload',
   templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.css'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FileUploadComponent),
-      multi: true,
-    },
-  ],
+  styleUrls: ['./file-upload.component.css']
 })
-export class FileUploadComponent
-  extends BaseControlComponent<File | null, HTMLInputElement>
-  implements OnInit {
+export class FileUploadComponent {
+  @Input() isMultiple = true;
+  @Input() isDisabled = false;
 
-  @Input() label?: string;
-  @Input() isDisabled: boolean = false;
-  @Input() errorMsg: string = "";
-  @Input() invalidControl: boolean = false;
-  @Input() isMultiple:boolean = false;
-  @Input() fileNumber:number=1;
-  @Input() fileTypes:string[]=[];
-  @Output() valueChange: EventEmitter<File | null> = new EventEmitter<File | null>();
-
-  selectedFileName?: string;
-
-  override ngOnInit(): void {}
+  selectedFiles: File[] = [];
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.value = input.files[0];
-      this.selectedFileName = this.value.name;
-      this.emitValueChange(this.value);
-    } else {
-      this.clearFile();
+    if (input.files) {
+      const newFiles = Array.from(input.files);
+      if (this.isMultiple) {
+        this.selectedFiles.push(...newFiles);
+      } else {
+        this.selectedFiles = newFiles;
+      }
     }
   }
 
-  clearFile(): void {
-    this.value = null;
-    this.selectedFileName = undefined;
-    this.emitValueChange(this.value);
-  }
-
-  emitValueChange(value: File | null): void {
-    this.valueChange.emit(value);
-  }
-
-  isInvalid(): boolean {
-    return this.invalidControl;
+  removeFile(index: number, event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.selectedFiles.splice(index, 1);
   }
 }

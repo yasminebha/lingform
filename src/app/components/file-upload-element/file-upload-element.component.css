@@ -17,10 +17,28 @@
   .title {
     margin-top: 10px;
   }
-  
-  .file-name-display {
+ */ 
+  /* .file-name-display {
     margin-top: 10px;
     font-size: 14px;
     color: var(--primary-color);
-  } */
+  } 
+   */
+   .file-names {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 20px;
+    gap: 6px;
+  }
+  
+   .file-names span {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    border: 1px solid var(--primary-color);
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: small;
+  }
   

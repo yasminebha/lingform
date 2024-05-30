@@ -1,6 +1,6 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import * as shortid from 'shortid';
+
 import { FormBlockComponent } from '../form-block.component';
 import { debounce } from '@/shared/utils/timing';
 import { updateBlock } from '@/app/store/actions/builder.actions';
@@ -18,7 +18,7 @@ import { updateBlock } from '@/app/store/actions/builder.actions';
   ],
 })
 export class FileUploadElementComponent
-  extends FormBlockComponent<File | null, { fileName: string }>
+  extends FormBlockComponent<File| null, { fileName: string }>
   implements OnInit {
   fileName: string = '';
 

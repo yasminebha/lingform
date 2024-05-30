@@ -1,7 +1,8 @@
 .file-container {
   margin-top: 10px;
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
 }
 
 .file-input {
@@ -19,21 +20,53 @@
 }
 
 .custom-file-button button {
+  display: flex;
+  align-items: center;
   padding: 10px 20px;
   font-size: 16px;
-
   color: var(--primary-color);
   border: solid 1px var(--primary-color);
   border-radius: 4px;
   cursor: pointer;
+  background-color: white;
 }
 
 .custom-file-button button:hover {
-  background-color: #0056b3;
+  background-color: #f0f0f0;
 }
 
 .custom-file-button button:disabled {
   background-color: #d3d3d3;
   cursor: not-allowed;
+}
+
+ .file-names {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 20px;
+  gap: 6px;
+}
+
+ .file-names span {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  border: 1px solid var(--primary-color);
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: small;
+}
+
+ .file-names .remove-file {
+  margin-left: 10px;
+  cursor: pointer !important;
+  color: var(--primary-color);
+  font-weight: bold;
+ 
+}
+.material-symbols-outlined{
+  color:var(--primary-color);
+  margin-right: 6px;
 }
 
