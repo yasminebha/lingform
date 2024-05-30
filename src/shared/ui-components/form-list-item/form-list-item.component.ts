@@ -55,9 +55,6 @@ export class FormListItemComponent implements OnInit {
  
     
   }
-  openInNewTab(): void {
-    // Logic to open the form in a new tab
-  }
 
   async deleteForm(formId: string): Promise<void> {
     if (confirm('Are you sure you want to delete this form?')) {
@@ -74,11 +71,8 @@ export class FormListItemComponent implements OnInit {
     }
   }
   displayForm(formid:string){
-    this.router.navigate(['builder',formid]).then(()=>{
-      window.location.reload();
-
-    })
-
+    const url = this.router.createUrlTree(['builder', formid]).toString();
+    window.open(url, '_blank');
   }
 
 }

@@ -28,7 +28,7 @@
           </svg>
           
           <div #menu class="menu"  [ngStyle]="menuStyle" *ngIf="showMenu">
-            <div class="menu-item" (click)="openInNewTab()">Open in new tab</div>
+            <div class="menu-item" (click)="displayForm(formID)">Open in new tab</div>
             <div class="menu-item" (click)="deleteForm(formID)">Delete</div>
           </div>
     </div>
