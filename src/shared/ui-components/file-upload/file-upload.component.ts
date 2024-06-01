@@ -1,25 +1,44 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BaseControlComponent } from '../base-control.component';
 
 @Component({
   selector: 'lg-file-upload',
   templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.css']
+  styleUrls: ['./file-upload.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FileUploadComponent),
+      multi: true,
+    },
+  ],
 })
-export class FileUploadComponent {
+export class FileUploadComponent extends BaseControlComponent<File[], HTMLInputElement> {
+  selectedFiles: File[] = [];
   @Input() isMultiple = true;
   @Input() isDisabled = false;
+  @Output() valueChange: EventEmitter<File[]> = new EventEmitter<File[]>();
+  
+  override writeValue(value: File[] | null): void {
+    if (value) {
+      this.selectedFiles = value;
+      this.emitValueChange(value);
+    } else {
+      this.selectedFiles = [];
+    }
+  }
 
-  selectedFiles: File[] = [];
+  emitValueChange(value: File[]): void {
+    this.valueChange.emit(value);
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       const newFiles = Array.from(input.files);
-      if (this.isMultiple) {
-        this.selectedFiles.push(...newFiles);
-      } else {
-        this.selectedFiles = newFiles;
-      }
+      this.selectedFiles = this.isMultiple ? [...this.selectedFiles, ...newFiles] : [newFiles[0]];
+      this.emitValueChange(this.selectedFiles);
     }
   }
 
@@ -27,5 +46,6 @@ export class FileUploadComponent {
     event.preventDefault();
     event.stopPropagation();
     this.selectedFiles.splice(index, 1);
+    this.emitValueChange(this.selectedFiles);
   }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-
 import { FormBlockComponent } from '../form-block.component';
 import { debounce } from '@/shared/utils/timing';
 import { updateBlock } from '@/app/store/actions/builder.actions';
@@ -17,29 +16,33 @@ import { updateBlock } from '@/app/store/actions/builder.actions';
     },
   ],
 })
-export class FileUploadElementComponent
-  extends FormBlockComponent<File| null, { fileName: string }>
-  implements OnInit {
-  fileName: string = '';
-
+export class FileUploadElementComponent extends FormBlockComponent<File[] | null, { fileNames: string[] }> implements OnInit {
+  fileNames: string[] = [];
+  files:File[]=[]
   override ngOnInit(): void {}
 
-  onFileSelected(file: File | null): void {
-    if (file) {
-      this.fileName = file.name;
-    } else {
-      this.fileName = '';
-    }
+  onFileSelected(files: File[] | null): void {
+    if (files) {
+      this.files=files
+      this.fileNames = Array.from(files).map(file => file.name);
+    } 
 
-    this.changeCommit(file);
-    this.store.dispatch(
-      updateBlock({
-        blockId: this.id,
-        quest_meta: {
-          fileName: this.fileName,
-        },
-      })
-    );
+  }
+  upload():void{
+    
+    // this.store.dispatch(
+    //   updateBlock({
+    //     blockId: this.id,
+    //     quest_meta: {
+    //       fileNames: this.fileNames,
+    //     },
+    //   })
+    // );
+     this.changeCommit(this.files);
+      console.log(this.files);
+
+      console.log(this.fileNames);
+      
   }
 
   public updateQuestLabel = debounce((evt: any) => {
