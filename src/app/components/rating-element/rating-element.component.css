@@ -1,0 +1,23 @@
+.rating-container {
+    display: flex;
+    margin-top: 20px;
+  }
+  .rating-container.edit {
+  padding: 12px 20px;
+  }
+  .rating-container .material-symbols-outlined{
+    cursor: pointer !important;
+
+  }
+#drag.material-symbols-outlined{
+ 
+    cursor: move !important;
+}
+.material-symbols-outlined.filled {
+    color: #ffd700;  
+    font-size: 30px;
+
+  }
+.material-symbols-outlined.disabled{
+    cursor:auto !important
+}

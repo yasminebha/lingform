@@ -97,7 +97,20 @@
           [name]="block.quest_id"
           ngModel
         ></lg-file-upload-element>
+        <lg-rating-element
+        [mode]="mode"
+        *ngIf="block.kind === 'RatingElementComponent'"
+        [id]="block.quest_id"
+        [kind]="block.kind"
+        [label]="block.questLabel"
+        [metaData]="block.quest_meta"
+        [required]="block.required"
+        [name]="block.quest_id"
+        ngModel>
+          
+        </lg-rating-element>
       </div>
+      
     </div>
 
     <lf-button *ngIf="mode === 'live'" text="submit" type="submit"></lf-button>
