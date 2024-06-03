@@ -63,7 +63,7 @@ export class ResponsesComponent implements OnInit {
     for (let i = 0; i < maxAnswerCount; i++) {
       const row = csvData.map((data) => `"${data[i] || ''}"`).join(',');
       const timestamp = new Date(
-        data[0].question[0].answer[i].created_at
+        // data[0].question[0].answer[i].created_at
       ).toISOString();
       const csvLine = `${timestamp},${row}`;
       csvContent += csvLine + '\n';

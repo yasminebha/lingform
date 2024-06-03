@@ -50,7 +50,15 @@ export class FormService {
       throw new Error(error.message);
     }
   }
-
+  async uploadFile(file: File, path: string): Promise<string> {
+    const { data, error } = await supabase.storage.from('uploads/files').upload(path, file);
+    if (error) throw new Error(error.message);
+    return data.path;
+  }
+  getPublicUrl(path: string): string {
+    const {data } = supabase.storage.from('uploads/files').getPublicUrl(path);
+    return data.publicUrl;
+  }
   async submitAnswers(answers: { quest_id: string; value: any }[]) {
     for (const a of answers) {
       

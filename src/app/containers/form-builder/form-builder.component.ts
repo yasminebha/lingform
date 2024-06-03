@@ -1,3 +1,4 @@
+import { FileUploadElementComponent } from '@/app/components/file-upload-element/file-upload-element.component';
 import {
   addBlock,
   changeFormId,
@@ -13,7 +14,7 @@ import { FormService } from '@/shared/services/form.service';
 import { QuestionService } from '@/shared/services/question.service';
 import { debounce } from '@/shared/utils/timing';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -38,7 +39,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   private form?: Form;
   private storeSubsription: any;
-
+  @ViewChildren(FileUploadElementComponent) fileUploadComponents?: QueryList<FileUploadElementComponent>;
   constructor(
     private readonly store: Store<AppState>,
     private readonly formService: FormService,
@@ -106,18 +107,41 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     );
   }, 1000);
 
-  onSubmit(f: NgForm) {
-    const answers = [];
 
+
+  async onSubmit(f: NgForm): Promise<void> {
+    const answers = [];
     for (const key of Object.keys(f.value)) {
       answers.push({
         quest_id: key,
         value: f.value[key],
       });
     }
-     this.formService.submitAnswers(answers);
-    alert("response submited")
+    if(this.fileUploadComponents)
+    for (const component of this.fileUploadComponents.toArray()) {
+      if (component.files.length > 0) {
+        try {
+          const uploadedPaths = await Promise.all(component.files.map(file => this.formService.uploadFile(file, `${file.name}`)));
+          answers.push({
+            quest_id: component.id,
+            value: uploadedPaths.join(', '), 
+          });
+        } catch (error) {
+          console.error('Error uploading files:', error);
+          return;
+        }
+      }
+    }
+    try {
+      await this.formService.submitAnswers(answers);
+      alert('Response submitted');
+    } catch (error) {
+      console.error('Error submitting answers:', error);
+    }
+  
   }
+
+
   private autoSave = debounce(async () => {
     this.store
       .select((state) => state.builder)
