@@ -1,7 +1,7 @@
 import { AppState } from '@/app/store/reducers';
 import { FormService } from '@/shared/services/form.service';
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -25,10 +25,22 @@ export class FormListItemComponent implements OnInit {
     @ViewChild('menu', { static: false }) menu!: ElementRef;
     showMenu: boolean = false;
     menuStyle: { [key: string]: string } = {};
+
+
+    @Input() showCheckbox: boolean=false;
+    @Input() isChecked: boolean=false;
+    @Output() selectionChange = new EventEmitter<{ formID: string, isChecked: boolean }>();
+  
+    
   ngOnInit(): void {
     
-    this.createdAt = this.datePipe.transform(this.createdAt, 'dd/MM/yyyy') || '';
+    this.createdAt = this.datePipe.transform(this.createdAt, 'MMM d, y, h:mm:ss a') || '';
   }
+ onFormSelectionChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    this.selectionChange.emit({ formID: this.formID, isChecked: checkbox.checked });
+  }
+
   toggleMenu(): void {
     this.showMenu = !this.showMenu;
     if (this.showMenu) {

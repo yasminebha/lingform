@@ -39,6 +39,8 @@ export class CheckboxComponent
   override value:string=''
   @Input()
   isDisabled: boolean = false;
+  @Input() 
+  checked:boolean=false;
 
   override ngOnInit(): void {
     if (this.type == 'radio') {

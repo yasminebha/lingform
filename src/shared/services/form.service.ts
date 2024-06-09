@@ -140,7 +140,15 @@ export class FormService {
       throw error;
     }
   }
-  
+  async deleteMultipleForms(formIds:string[]):Promise<void>{
+    const { error } = await supabase.rpc('delete_multiple_forms', { form_ids: formIds });
+    if(error){
+      console.log(error)
+      throw error;
+    }
+        
+    
+  }
   
 
 }

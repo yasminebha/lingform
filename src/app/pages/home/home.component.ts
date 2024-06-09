@@ -1,7 +1,10 @@
 import { AppState } from '@/app/store/reducers';
+import supabase from '@/app/supabase';
+import { Form } from '@/shared/models/form.model';
 import { FormService } from '@/shared/services/form.service';
 import { UserService } from '@/shared/services/user.service';
 import { Component, OnInit } from '@angular/core';
+
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -14,9 +17,11 @@ export class HomeComponent implements OnInit {
   userid: string = '';
   forms: any;
   p: number = 1;
-  filteredForms: any = [];
+  filteredForms: Form[] = [];
   searchTerm: string = '';
-
+  selectAll: boolean = false
+  selectedForms: Set<string> = new Set();
+  showCheckbox: boolean = false
   constructor(
     private formService: FormService,
     private userService: UserService,
@@ -73,6 +78,41 @@ export class HomeComponent implements OnInit {
       this.userService.logout()
     this.router.navigate(['account/login'])
 
+  }
+
+  onSelectAll(event: Event): void {
+    this.showCheckbox = true
+    const checkbox = event.target as HTMLInputElement;
+    this.selectAll = checkbox.checked;
+    this.selectedForms.clear();
+    if (this.selectAll) {
+      this.filteredForms.forEach((f: Form) => this.selectedForms.add(f.form_id)); // Specify Form type for 'f'
+    }
+  }
+
+  onFormSelectionChange(event: { formID: string, isChecked: boolean }): void {
+    if (event.isChecked) {
+      this.selectedForms.add(event.formID);
+    } else {
+      this.selectedForms.delete(event.formID);
+    }
+    console.log(this.selectedForms);
+
+  }
+  async deleteAll(): Promise<void> {
+    const confirmed = window.confirm("Are you sure you want to delete the selected forms?");
+    if (confirmed) {
+      try {
+        const formIdsToDelete = Array.from(this.selectedForms)
+        this.formService.deleteMultipleForms(formIdsToDelete)
+        this.selectedForms.clear();
+        this.selectAll = false;
+        this.showCheckbox = false
+        await this.loadForms();
+      } catch (error) {
+        console.error('Error deleting forms:', error);
+      }
+    }
   }
 
 }
