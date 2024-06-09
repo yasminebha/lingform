@@ -9,7 +9,7 @@
         layout="second-layout"
       ></lg-input-components>
       <div class="tools">
-        <lf-toggle></lf-toggle>
+        <lf-toggle ></lf-toggle>
         <lf-icon-button
           icon="copy"
           iconStyle="regular"
@@ -35,7 +35,7 @@
   
   <div *ngIf="mode==='live'" class="container"> 
       <label for="">{{label}}</label>
-      <lg-text-field class="title" type="text" placeholder="phone number" (input)="changeAnswer($event)"></lg-text-field>
+      <lg-text-field class="title" type="text" placeholder="(+216)00000000" (input)="changeAnswer($event)"></lg-text-field>
       
       
     </div>

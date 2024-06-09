@@ -47,7 +47,8 @@ button, [type='button'], [type='reset'], [type='submit'] {
         --navbar-bg-color: #F9F9FC;
         --input-btn-bg-color: #F3F1FF;
         --box-shadow: 1px 1px 10px var(--shadow-color);
-        --avatar-bg:#C2B6EE
+        --avatar-bg:#C2B6EE;
+        --hover-bg:#E9E4FD
     
     }
 

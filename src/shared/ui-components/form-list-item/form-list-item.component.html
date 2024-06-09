@@ -1,5 +1,7 @@
 
     <div class="list">
+      
+    <lg-checkbox [checked]="isChecked" (change)="onFormSelectionChange($event)"></lg-checkbox>
      <div class="form-title" (click)="displayForm(formID)">
         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M5.02715 21H16.207C21.454 21 20.9895 18.9 20.9895 13.65V7.35C20.9895 2.1 21.454 0 16.207 0H5.02715C-0.219888 0 0.00133789 2.1 0.00133789 7.35V13.65C0.00133789 18.9 -0.219888 21 5.02715 21Z" fill="#7339ED"/>
@@ -16,7 +18,7 @@
             <path d="M3.88892 15.5555H4.14907H4.37729" fill="white"/>
             <path d="M3.88892 15.5555H4.14907H4.37729" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            {{formTitle}} 
+            <p>{{formTitle}}</p> 
            
      </div>
         <div class="owned-by">me</div>
