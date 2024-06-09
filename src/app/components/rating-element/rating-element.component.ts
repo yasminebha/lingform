@@ -34,6 +34,8 @@ export class RatingElementComponent  extends FormBlockComponent<{"rating":number
   }, 1000);
   selectStar(rating: number): void {
     this.stars = this.stars.map((_, index) => index < rating);
+    console.log(this.required);
+    
     this.changeCommit({rating});
   }
 
