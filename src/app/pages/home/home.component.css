@@ -1,151 +1,173 @@
-.forms-list{
+.forms-list {
     display: flex;
     flex-direction: column;
-    padding: 30px;
-
-    
+    padding: 20px 20px;
+    height: 90%;
 }
+
+
 .body {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    background-color: #F9F9FC;
-    height: 100%;
-  }
-  
-  .sidebar {
-    padding: 37px 25px 0 26px;
-    width: 80%;
-    height: 100%;
-  
-    background-color: white;
-    border-radius: 10px;
- 
-    font-size: 12px;
-    margin-top: 30px;
-  }
-  
-  .SR {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    margin-right: 10px;
-  }
-  
-  .search-container {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-  }
-::ng-deep .btn{
-  width: 130px !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #F9F9FC;
+  height: 100vh;
+  gap: 20px;
+  padding:3% 2% 0;
 }
-  .search-icon {
-    width: 26px;
-    height: 28px;
-  }
-  .search-icon:hover {
-    background-color:#E9E4FD;
-    border-radius: 25px;
-  }
-  .search-icon:active {
-    color:#E9E4FD;
-  } 
- 
 
- 
-  p {
-    margin-top: 3%;
-    width: 120px;
-    height: 27px;
-    font-size: 13px;
-    color: #000000;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #48484A;
-   border: 20px;
-  }
+.right-sidebar {
+  padding: 37px 25px 0 26px;
+  width: 80%;
   
-  
-  .barmots {
-    display: flex;
-    justify-content: space-between;
-    padding: 30px;
-  }
-  
-  .Lastupdated {
-    display: flex;
-    gap: 40px;
-  }
-  
-  .Ownedbyanyone {
-    display: flex;
-    align-items: center;
-  }
-  
-  .Ownedbyanyone svg {
-    margin-right: 5px; /* Adjust the margin as needed */
-  }
-  
-  .Ownedbyanyone p {
-    margin-left: 5px; /* Adjust the margin as needed */
-  }
-  
-  
-  .imgarrowdown svg {
-    margin-right: 5px; /* Adjust the margin as needed */
-  }
-  
-  .imgarrowdown {
-    width: 13px;
-    height: 7px;
-  }
+  background-color: white;
+  border-radius: 10px;
+  font-size: 12px;
+  max-height: 90%;
+  min-width: 750px;
+}
 
-  
-  .imgGroup {
-    width: 20px;
-    height: 13px;
-  }
-  .pagination-container {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .pagination-button {
-    background-color: var(--primary-color);
-    color: white;
-    border: 1px solid var(--primary-color);
-    border-radius: 4px;
-    padding: 5px 10px;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .pagination-button:hover {
-    background-color: var(--primary-color);
-  }
-  
-  .pagination-button.current {
-    background-color: var(--primary-color);
-  }
-  
-  .pagination-disabled {
-    color: #aaa;
-    cursor: not-allowed;
-  }
+.SR {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-right: 10px;
+}
 
-  .no-forms-message {
-    text-align: center;
-    color: var(--secondary-color); 
-    font-size: 24px; 
-    font-weight: bold;
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
-  }
+}
+
+/* ::ng-deep .btn{
+  width: 130px !important;
+} */
+.search-icon {
+  width: 26px;
+  height: 28px;
+}
+
+.search-icon:hover {
+  background-color: #E9E4FD;
+  border-radius: 25px;
+}
+
+.search-icon:active {
+  color: #E9E4FD;
+}
+
+
+
+p {
+
+  font-size: 13px;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #48484A;
+  border: 20px;
+}
+
+
+.barmots {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+.Lastupdated {
+  display: flex;
+  gap: 40px;
+}
+
+.Ownedbyanyone {
+  display: flex;
+  gap: 5px;
+  align-items: baseline;
+}
+
+
+
+
+
+
+.imgarrowdown svg {
+  margin-right: 5px;
+  /* Adjust the margin as needed */
+}
+
+.imgarrowdown {
+  width: 13px;
+  height: 7px;
+}
+
+
+.imgGroup {
+  width: 20px;
+  height: 13px;
+}
+
+.pagination-container {
+
+  align-self: center;
+}
+
+.pagination-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-button:hover {
+  background-color: var(--primary-color);
+}
+
+.pagination-button.current {
+  background-color: var(--primary-color);
+}
+
+.pagination-disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.no-forms-message {
+  text-align: center;
+  color: var(--secondary-color);
+  font-size: 24px;
+  font-weight: bold;
+
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.selectAll {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 15px 30px;
   
+}
+
+.selectAll span {
+  margin-left: 20px;
+}
+
+.selectAll div {
+  display: flex;
+  align-items: center;
+}
+.selectAll #span2{
+  background-color:var(--hover-bg);
+  
+}

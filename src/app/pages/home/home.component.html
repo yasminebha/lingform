@@ -1,6 +1,6 @@
 <div class="body">
   <app-home-side-bar></app-home-side-bar>
-  <div class="sidebar">
+  <div class="right-sidebar">
     <div class="SR">
       <div class="btn">
         <lf-button text="create form" (click)="createForm()" layout="outline"></lf-button>
@@ -26,7 +26,7 @@
       <div class="barmots">
 
         <p>Previous 7 days</p>
-        <div class="Ownedbyanyone" style="margin-top: 3%">
+        <div class="Ownedbyanyone">
           <p>Owned by anyone</p>
           <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -34,7 +34,7 @@
               fill="#292D32" />
           </svg>
         </div>
-        <div class="Lastupdated" style="margin-top: 3%">
+        <div class="Lastupdated">
           <p>Last updated</p>
           <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1H20" stroke="#48484A" stroke-width="2" stroke-linecap="round" />
@@ -43,13 +43,25 @@
           </svg>
         </div>
       </div>
+      <div class="selectAll">
+        <div>
+          <lg-checkbox [selectAll]="selectAll" (change)="onSelectAll($event)"></lg-checkbox>
+          <span id="span1">Select All</span>
+          <span id="span2" *ngIf="selectedForms.size>0">{{selectedForms.size}} selected</span>
+
+        </div>
+        <lf-icon-button *ngIf="selectedForms.size>0" icon="trash" (click)="deleteAll()"
+          layout="outline"></lf-icon-button>
+      </div>
       <div *ngIf="filteredForms.length === 0" class="no-forms-message">
         No forms found!
       </div>
 
       <div *ngIf="filteredForms.length > 0" class="forms-list">
-        <lg-form-list-item *ngFor="let f of filteredForms | paginate: { itemsPerPage: 15, currentPage: p }"
-          [createdAt]="f.created_at" [formTitle]="f.title" [formID]="f.form_id"></lg-form-list-item>
+        <lg-form-list-item *ngFor="let f of filteredForms | paginate: { itemsPerPage: 11, currentPage: p }"
+          [createdAt]="f.created_at" [formTitle]="f.title" [formID]="f.form_id" [selectAll]="selectAll"
+          [isChecked]="selectedForms.has(f.form_id)"
+          (selectionChange)="onFormSelectionChange($event)"></lg-form-list-item>
       </div>
       <pagination-controls (pageChange)="p = $event" class="pagination-container" previousLabel="Previous"
         nextLabel="Next" containerClass="pagination-controls" previousButtonClass="pagination-button"
