@@ -57,10 +57,15 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     .subscribe(async({ blocks, title, description,mode,backgroundColor,blockOrder}) => {
       this.mode = mode;
       this.bgColor = backgroundColor;
-      this.blocks = blockOrder.map((id) => blocks[id]).filter(block => block);
+   
+       if (Array.isArray(blockOrder)) {
+        this.blockOrder = blockOrder;
+        this.blocks = this.blockOrder
+          .map((id) => blocks[id])
+          .filter((block) => block !== undefined && block !== null);
+      } 
       this.title = title;
       this.description = description;
-      this.blockOrder = blockOrder;
      this.autoSave();
     })
    
@@ -82,9 +87,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         this.store.dispatch(updateBlockOrder({ blockOrder: this.form?.blockOrder || [] }));
       }
   }
-      
-    
+  
   }
+    
   ngOnDestroy() {
     this.storeSubsription.unsubscribe();
   }
