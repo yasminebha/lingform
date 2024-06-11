@@ -159,8 +159,10 @@ p {
   
 }
 
-.selectAll span {
+.selectAll
+ span {
   margin-left: 20px;
+  font-size: 13px;
 }
 
 .selectAll div {
@@ -169,5 +171,7 @@ p {
 }
 .selectAll #span2{
   background-color:var(--hover-bg);
+  padding: 6px;
+  border-radius: 5px;
   
 }

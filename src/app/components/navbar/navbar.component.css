@@ -1,6 +1,6 @@
 .nav-container {
     display: flex;
-    height: 80px;
+    height: 10vh;
     background-color: var(--navbar-bg-color);
     padding: 20px 50px;
     border-bottom: 1px solid var(--gray);

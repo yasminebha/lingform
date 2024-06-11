@@ -50,8 +50,12 @@
           <span id="span2" *ngIf="selectedForms.size>0">{{selectedForms.size}} selected</span>
 
         </div>
-        <lf-icon-button *ngIf="selectedForms.size>0" icon="trash" (click)="deleteAll()"
-          layout="outline"></lf-icon-button>
+        <lf-icon-button *ngIf="selectedForms.size>0"
+          icon="trash"
+          iconStyle="solid"
+          layout="outline"
+          class="icon" (click)="deleteAll()"
+          ></lf-icon-button>
       </div>
       <div *ngIf="filteredForms.length === 0" class="no-forms-message">
         No forms found!
