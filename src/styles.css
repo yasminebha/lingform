@@ -63,7 +63,20 @@ button, [type='button'], [type='reset'], [type='submit'] {
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
+}   
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  
+  .invalid-block {
+    border: red solid 1px;
+    animation: shake 0.5s;
+  }
 
 .material-symbols-outlined {
     color:var(--gray) ;
@@ -76,6 +89,11 @@ button, [type='button'], [type='reset'], [type='submit'] {
     border-bottom: 1px solid var(--gray);
     padding-bottom: 15px;
     margin-bottom: 15px;
+}
+.required-sign{
+    padding: 4px;
+   color: red;
+   font-size: 20px;
 }
 .title .text-field>input {
     width: 100% !important;
@@ -115,6 +133,11 @@ button, [type='button'], [type='reset'], [type='submit'] {
 
 .d-flex {
     display: flex;
+}
+
+.builder{
+    overflow-y: scroll;
+    width: 60%;
 }
 /* pagination controls */
 

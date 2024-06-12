@@ -8,7 +8,7 @@
         layout="second-layout"
       ></lg-input-components>
       <div class="tools">
-        <lf-toggle></lf-toggle>
+        <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
         <lf-icon-button
           icon="copy"
           iconStyle="regular"
@@ -34,7 +34,10 @@
 
   </div>
   <div *ngIf="mode === 'live'" class="container">
-    <label for="">{{ label }}</label>
+    <label for="">{{ label }}
+      <span class="required-sign" *ngIf="required">*</span>
+      
+    </label>
     <lg-file-upload (valueChange)="onFileSelected($event)"></lg-file-upload>
    <button *ngIf="files.length>0" (click)="upload()">upload</button>
   </div>

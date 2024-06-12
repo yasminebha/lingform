@@ -8,8 +8,9 @@
         title="Phone"
         layout="second-layout"
       ></lg-input-components>
+     
       <div class="tools">
-        <lf-toggle ></lf-toggle>
+        <lf-toggle (click)="onToggle()" [required]="required" ></lf-toggle>
         <lf-icon-button
           icon="copy"
           iconStyle="regular"
@@ -35,8 +36,13 @@
   
   
   
-  <div *ngIf="mode==='live'" class="container"> 
-      <label for="">{{label}}</label>
+  <div *ngIf="mode==='live'" class="container"  [class.invalid-block]="isInvalidBlock"> 
+      <label for="">{{label}}
+
+          <span class="required-sign" *ngIf="required">*</span>
+        
+      
+      </label>
       <lg-text-field class="title" type="text" placeholder="(+216)00000000" (input)="changeAnswer($event)"></lg-text-field>
       
       

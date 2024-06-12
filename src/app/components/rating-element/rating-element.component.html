@@ -8,7 +8,7 @@
           layout="second-layout"
         ></lg-input-components>
         <div class="tools">
-          <lf-toggle [required]="required"></lf-toggle>
+          <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
           <lf-icon-button
             icon="copy"
             iconStyle="regular"
@@ -38,9 +38,14 @@
     
     
     
-    <div *ngIf="mode==='live'" class="container"> 
-        <label for="">{{label}}</label>
-        <!-- <lg-text-field class="title" type="text" placeholder="phone number" (input)="changeAnswer($event)"></lg-text-field> -->
+    <div *ngIf="mode==='live'" class="container"  [class.invalid-block]="isInvalidBlock"> 
+   
+          <label for="">{{ label }}  
+            <span class="required-sign" *ngIf="required">*</span>
+    
+        
+        </label>
+
         <div class="rating-container" >
             <span *ngFor="let filled of stars; let i = index" (click)="selectStar(i + 1)" class="material-symbols-outlined" [class.filled]="filled" >
                 star

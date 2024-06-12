@@ -8,7 +8,7 @@
         layout="second-layout"
       ></lg-input-components>
       <div class="tools">
-        <lf-toggle></lf-toggle>
+        <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
         <lf-icon-button
 
           icon="copy"
@@ -37,8 +37,11 @@
   
   
   
-  <div *ngIf="mode==='live'" class="container"> 
-      <label for="">{{label}}</label>
+  <div *ngIf="mode==='live'" class="container"  [class.invalid-block]="isInvalidBlock"> 
+      <label for="">{{label}}
+        <span class="required-sign" *ngIf="required">*</span>
+
+      </label>
       <lg-text-field 
       class="title" 
       type="email"

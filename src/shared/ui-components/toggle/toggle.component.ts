@@ -1,6 +1,8 @@
-import { Component, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { BaseControlComponent } from '../base-control.component';
 import { updateBlock } from '@/app/store/actions/builder.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '@/app/store/reducers';
 
 @Component({
   selector: 'lf-toggle',
@@ -11,23 +13,11 @@ export class ToggleComponent
   extends BaseControlComponent<boolean, HTMLInputElement>
   implements OnInit
 {
- 
-  @Output() required : boolean= true
+
+  @Input() required?:boolean
   notRequiredLabel?: string = 'not Required';
   requiredLabel?: string = 'Required';
 
   override ngOnInit(): void {}
-  onToggle(){
-  if (this.required)
-    this.required=false
-  else
-    this.required=true
-
-  }
-  // this.store.dispatch(
-  //   updateBlock({
-  //     blockId: this.id,
-  //     questLabel: updatedValue,
-  //   })
-  // );
+  
 }

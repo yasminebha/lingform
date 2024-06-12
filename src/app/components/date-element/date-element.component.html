@@ -8,7 +8,7 @@
         layout="second-layout"
       ></lg-input-components>
       <div class="tools">
-        <lf-toggle></lf-toggle>
+        <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
         <lf-icon-button
           icon="copy"
           iconStyle="regular"
@@ -26,14 +26,17 @@
         ></lf-icon-button>
       </div>
     </div>
-    <lg-text-field class="title" placeholder="question label"   (input)="updateQuestLabel($event)"
+    <lg-text-field class="title" placeholder="question label" (input)="updateQuestLabel($event)"
     [value]="label" ></lg-text-field>
       <lg-text-field class="title" type="date" [isDisabled]="true"></lg-text-field>
  
 
   </div>
   
-  <div *ngIf="mode==='live'" class="container"> 
-      <label for="">{{label}}</label>
+  <div *ngIf="mode==='live'" class="container"  [class.invalid-block]="isInvalidBlock"> 
+      <label for="">{{label}}
+        <span class="required-sign" *ngIf="required">*</span>
+
+      </label>
       <lg-text-field class="title" type="date" (input)="changeAnswer($event)"></lg-text-field>
     </div>
