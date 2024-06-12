@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../store/reducers';
 import { BaseControlComponent } from '@/shared/ui-components/base-control.component';
 import { QuestionService } from '@/shared/services/question.service';
-import { addBlock, removeBlock, updateBlockOrder } from '../store/actions/builder.actions';
+import { addBlock, removeBlock, updateBlock, updateBlockOrder } from '../store/actions/builder.actions';
 import * as shortid from 'shortid';
 import { QuestionElement } from '@/shared/models/questionElement.model';
 
@@ -23,12 +23,13 @@ export class FormBlockComponent<TValue, TMeta=any>
   @Input()
   kind: string="";
   @Input()
-  required: boolean = false;
+  required: boolean = true;
   @Input()
   metaData?: TMeta;
   @Input()
-
   label!:string;
+  @Input()
+  isInvalidBlock:boolean=false
 
   constructor(
     _renderer: Renderer2,
@@ -68,8 +69,21 @@ export class FormBlockComponent<TValue, TMeta=any>
       quest_meta: { ...this.metaData },
     };
     this.store.dispatch(addBlock({ blockId: newBlockId, newBlock }));
-    blockOrder.push(newBlockId);
+    blockOrder.splice(blockOrder.indexOf(this.id),0,newBlockId)
     this.store.dispatch(updateBlockOrder({ blockOrder }));
   }
+  onToggle(){
+    if (this.required)
+      this.required=false
+    else
+      this.required=true
+  
+    this.store.dispatch(
+      updateBlock({
+        blockId: this.id,
+        required:this.required
+      })
+    );
+    }
 }
 
