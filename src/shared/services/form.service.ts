@@ -1,14 +1,18 @@
 import supabase from '@/app/supabase';
 import { Injectable } from '@angular/core';
-import { Form } from '../models/form.model';
 import * as shortid from 'shortid';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
   constructor() {}
-
+  private isSavingSubject = new BehaviorSubject<boolean>(false);
+  isSaving$ = this.isSavingSubject.asObservable();
+  setIsSaving(value: boolean) {
+    this.isSavingSubject.next(value);
+  }
   async newForm(userId: string): Promise<string> {
     const { error, data } = await supabase
       .from('form')

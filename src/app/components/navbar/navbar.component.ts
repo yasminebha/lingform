@@ -1,6 +1,7 @@
 import { AppState } from '@/app/store/reducers';
+import { FormService } from '@/shared/services/form.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -10,17 +11,17 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private store: Store<AppState>) {}
+  constructor(private route: ActivatedRoute, private store: Store<AppState>, private formService: FormService) { }
   formid: string | null = '';
   username: string = 'sd';
+  isSaving = false;
 
   ngOnInit() {
     if (this.route) this.formid = this.route.snapshot.paramMap.get('id');
-    //  this.store.select((state)=>state.user).subscribe((user)=>{
-    //    this.username = user.username
-
-    // })
-    // console.log("ddddddddddddd"+this.username);
     
+    this.formService.isSaving$.subscribe((isSaving) => {
+      this.isSaving = isSaving;
+    });
+  
   }
 }
