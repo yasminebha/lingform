@@ -74,6 +74,36 @@ export class FormService {
       
     }
   }
+  async addSubmission(formId:string): Promise<void>{
+    const{error}=await supabase
+    .from('submission').insert({
+      form_id:formId,
+      
+
+    })
+    if (error) throw new Error(error.message);
+
+  }
+  async getAllSubmission(formId:string):Promise<any>{
+    const{error,data}=await supabase.from('submission')
+    .select(`created_at,
+      form_id,
+      question (
+        quest_id,
+        questLabel,
+        answer (
+          data,
+          created_at
+        )
+      )`)
+      .eq('from_id',formId)
+
+      if (error) {
+        throw new Error(`Error fetching submissions: ${error.message}`);
+      }
+    
+      return data;
+  }
   async getAnswersByForm(formId: string): Promise<any> {
     const { error, data } = await supabase
       .from('form')

@@ -22,7 +22,10 @@ export class OneChoiceComponent
   extends MultipleChoiceElementComponent
   implements OnInit
 {
-  
+  override onValueChange(key: string): void {
+    this.answers = [key]
+    this.changeCommit(this.answers);
+  }
   
 
  

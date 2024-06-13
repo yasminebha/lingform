@@ -52,7 +52,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.storeSubscription = this.store
       .select((state) => state.builder)
       .pipe(distinctUntilChanged())
-      .subscribe(async ({ blocks, title, description, mode, backgroundColor, blockOrder }) => {
+      .subscribe(async ({ form_id,blocks, title, description, mode, backgroundColor, blockOrder }) => {
         this.mode = mode;
         this.bgColor = backgroundColor;
 
@@ -64,8 +64,11 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         }
         this.title = title;
         this.description = description;
+        this.formId= form_id
         this.autoSave();
       });
+ 
+      
 
     if (formId) {
       this.form = await this.formService.getFormById(formId);
@@ -140,10 +143,19 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
     if (!isValid) {
       return;
-    }
+    }else{
+      for (const key of Object.keys(f.value)) {
+        answers.push({
+          quest_id: key,
+          value: f.value[key],
+        })};
 
+    }
     try {
-      await this.formService.submitAnswers(answers);
+      
+      // await this.formService.submitAnswers(answers);
+      if(this.formId)
+      await this.formService.addSubmission(this.formId)
       alert('Response submitted');
     } catch (error) {
       console.error('Error submitting answers:', error);

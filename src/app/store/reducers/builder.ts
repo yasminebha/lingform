@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import * as BuilderActions from '../actions/builder.actions';
 
 export interface BuilderState {
-  form_id: string | null;
+  form_id: string;
   title: string;
   description: string;
   headerFontFamily?: string;

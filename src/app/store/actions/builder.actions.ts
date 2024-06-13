@@ -22,7 +22,7 @@ export const updateBuilder = createAction(
 );
 export const changeFormId = createAction(
   'BUILDER/UPDATE_FORMID',
-  props<{ id: string | null }>()
+  props<{ id: string }>()
 );
 
 export const addBlock = createAction(
