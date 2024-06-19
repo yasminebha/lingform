@@ -148,14 +148,13 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         answers.push({
           quest_id: key,
           value: f.value[key],
+         
         })};
 
     }
     try {
-      
-      // await this.formService.submitAnswers(answers);
-      if(this.formId)
-      await this.formService.addSubmission(this.formId)
+      const submissionId = await this.formService.addSubmission(this.formId);
+      await this.formService.submitAnswers(answers, submissionId);
       alert('Response submitted');
     } catch (error) {
       console.error('Error submitting answers:', error);

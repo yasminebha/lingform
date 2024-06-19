@@ -9,26 +9,32 @@ import * as saveAs from 'file-saver';
   styleUrls: ['./responses.component.css'],
 })
 export class ResponsesComponent implements OnInit {
-  answerNumber: number = 0;
+  formid: string | null = null;
+  submissions: any[] = [];
+  csvData: any[] = [];
+
   constructor(
     private formService: FormService,
     private route: ActivatedRoute
   ) {}
-  formid: string | null = '';
-  answers: any[]= [];
-  submissions :any=[]
+
   async ngOnInit(): Promise<void> {
-    if (this.route) this.formid = this.route.snapshot.paramMap.get('id');
-    if (this.formid) {
-    this.submissions= this.formService.getAllSubmission(this.formid)
+    if (this.route) {
+      this.formid = this.route.snapshot.paramMap.get('id');
+      if (this.formid) {
+        // Fetch submissions for the form
+        this.submissions = await this.formService.getAllSubmission(this.formid);
+        
+        // Fetch submission details for creating CSV
+        this.csvData = await this.formService.getSubmissionDetails(this.formid);
+      }
     }
-    console.log(this.submissions);
-    
+    console.log(this.csvData);
   }
 
-  async saveCSVFile() {
+  async saveCSVFile(): Promise<void> {
     try {
-      const blob = await this.createCSVFile(this.answers);
+      const blob = await this.createCSVFile(this.csvData);
       saveAs(blob, 'responses.csv');
       console.log('CSV file created and downloaded successfully.');
     } catch (error) {
@@ -36,34 +42,29 @@ export class ResponsesComponent implements OnInit {
     }
   }
 
-  async createCSVFile(data: any[]): Promise<Blob | string> {
-    // Step 1: Extract questions and ensure unique labels for columns
-    const questionLabels = data[0].question.map((q: any) => q.questLabel);
-    
-    // Step 2: Group answers by created_at
+  async createCSVFile(data: any[]): Promise<Blob> {
+    // Step 1: Extract unique question labels for CSV header
+    const questionLabels = [...new Set(data.map(item => item.questionlabel))];
+
+    // Step 2: Group answers by created_at timestamp
     const groupedAnswers: { [key: string]: any } = {};
-    data.forEach(item => {
-      item.question.forEach((q: any, qIndex: number) => {
-        q.answer.forEach((answer: any) => {
-          const createdAt = new Date(answer.created_at).toISOString();
-          if (!groupedAnswers[createdAt]) {
-            groupedAnswers[createdAt] = { timestamp: createdAt, answers: Array(questionLabels.length).fill('') };
-          }
-          // If the answer is an array (e.g., multiple choice), join it with commas
-          const answerValue = Array.isArray(answer.data.value) ? answer.data.value.join(', ') : answer.data.value;
-          groupedAnswers[createdAt].answers[qIndex] = answerValue;
-        });
-      });
+    data.forEach(answer => {
+      const createdAt = new Date(answer.created_at).toISOString();
+      if (!groupedAnswers[createdAt]) {
+        groupedAnswers[createdAt] = { timestamp: createdAt, answers: {} };
+      }
+      groupedAnswers[createdAt].answers[answer.questionlabel] = answer.data.value;
     });
-  
+
     // Step 3: Prepare CSV content
-    let csvContent = 'timestamp,' + questionLabels.map((label: string) => `"${label}"`).join(',') + '\n';
-  
-    Object.values(groupedAnswers).forEach((group: any) => {
-      const row = `${group.timestamp},${group.answers.map((ans: string) => `"${ans}"`).join(',')}`;
+    let csvContent = 'timestamp,' + questionLabels.map(label => `"${label}"`).join(',') + '\n';
+
+    Object.values(groupedAnswers).forEach(group => {
+      const row = `${group.timestamp},${questionLabels.map(label => `"${group.answers[label] || ''}"`).join(',')}`;
       csvContent += row + '\n';
     });
-  
+
+    // Step 4: Create Blob object for download
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
     return blob;
   }

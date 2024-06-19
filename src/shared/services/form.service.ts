@@ -63,55 +63,68 @@ export class FormService {
     const {data } = supabase.storage.from('uploads/files').getPublicUrl(path);
     return data.publicUrl;
   }
-  async submitAnswers(answers: { quest_id: string; value: any }[]) {
+  async submitAnswers(answers: { quest_id: string; value: any }[], submissionId: string): Promise<void> {
     for (const a of answers) {
-      
-        await supabase.from('answer').insert({
-          data: { value: a.value },
-          quest_id: a.quest_id,
-        });
-    
-      
+      await supabase.from('answer').insert({
+        data: { value: a.value },
+        quest_id: a.quest_id,
+        submission_id: submissionId
+      });
     }
   }
-  async addSubmission(formId:string): Promise<void>{
-    const{error}=await supabase
-    .from('submission').insert({
-      form_id:formId,
-      
+  async addSubmission(formId: string): Promise<string> {
+    const { data, error } = await supabase
+      .from('submission')
+      .insert({
+        submission_id:shortid.generate(),
+        form_id: formId,
+      })
+      .select('submission_id')
+      .single();
 
-    })
-    if (error) throw new Error(error.message);
+    if (error) {
+      throw new Error(error.message);
+    }
 
+    return data.submission_id; 
   }
-  async getAllSubmission(formId:string):Promise<any>{
-    const{error,data}=await supabase.from('submission')
-    .select(`created_at,
-      form_id,
-      question (
-        quest_id,
-        questLabel,
-        answer (
-          data,
-          created_at
-        )
-      )`)
-      .eq('from_id',formId)
 
-      if (error) {
-        throw new Error(`Error fetching submissions: ${error.message}`);
-      }
-    
-      return data;
-  }
-  async getAnswersByForm(formId: string): Promise<any> {
-    const { error, data } = await supabase
-      .from('form')
-      .select(`question(questLabel,answer(data,created_at))`)
+
+
+
+
+  async getAllSubmission(formId: string): Promise<any> {
+
+    const { error: submissionError, data } = await supabase
+      .from('submission')
+      .select("*")
       .eq('form_id', formId);
-    if (!error) return data;
-    else throw new Error(error.message);
+  
+    if (submissionError) {
+      throw new Error(`Error fetching submissions: ${submissionError.message}`);
+    }
+    else return data
+  
+    
   }
+
+  async getSubmissionDetails(formId:string):Promise<any>{
+    const { error,data } = await supabase.rpc('get_submission_details', { form_id_param: formId });
+    if(error){
+      console.log(error)
+      throw error;
+    }
+    else return data
+
+  }
+  
+  
+
+
+
+
+
+  
   async getFormByUserId(userId: string):Promise<any>{
     if (userId) {
       const { error, data } = await supabase
