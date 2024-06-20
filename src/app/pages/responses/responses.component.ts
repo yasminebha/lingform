@@ -1,4 +1,5 @@
 import { FormService } from '@/shared/services/form.service';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as saveAs from 'file-saver';
@@ -7,6 +8,7 @@ import * as saveAs from 'file-saver';
   selector: 'app-responses',
   templateUrl: './responses.component.html',
   styleUrls: ['./responses.component.css'],
+  providers:[DatePipe]
 })
 export class ResponsesComponent implements OnInit {
   formid: string | null = null;
@@ -15,18 +17,19 @@ export class ResponsesComponent implements OnInit {
 
   constructor(
     private formService: FormService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private datePipe:DatePipe
   ) {}
 
   async ngOnInit(): Promise<void> {
     if (this.route) {
       this.formid = this.route.snapshot.paramMap.get('id');
       if (this.formid) {
-        // Fetch submissions for the form
         this.submissions = await this.formService.getAllSubmission(this.formid);
         
-        // Fetch submission details for creating CSV
+
         this.csvData = await this.formService.getSubmissionDetails(this.formid);
+ 
       }
     }
     console.log(this.csvData);
@@ -43,29 +46,68 @@ export class ResponsesComponent implements OnInit {
   }
 
   async createCSVFile(data: any[]): Promise<Blob> {
-    // Step 1: Extract unique question labels for CSV header
-    const questionLabels = [...new Set(data.map(item => item.questionlabel))];
+    const questionLabelsMap = new Map<string, string>();
 
-    // Step 2: Group answers by created_at timestamp
-    const groupedAnswers: { [key: string]: any } = {};
-    data.forEach(answer => {
-      const createdAt = new Date(answer.created_at).toISOString();
-      if (!groupedAnswers[createdAt]) {
-        groupedAnswers[createdAt] = { timestamp: createdAt, answers: {} };
+
+    for (const submissionId in data) {
+      const submission = data[submissionId];
+      for (const questId in submission.questions) {
+        const question = submission.questions[questId];
+        questionLabelsMap.set(questId, question.questionLabel);
       }
-      groupedAnswers[createdAt].answers[answer.questionlabel] = answer.data.value;
-    });
+    }
 
-    // Step 3: Prepare CSV content
-    let csvContent = 'timestamp,' + questionLabels.map(label => `"${label}"`).join(',') + '\n';
 
-    Object.values(groupedAnswers).forEach(group => {
-      const row = `${group.timestamp},${questionLabels.map(label => `"${group.answers[label] || ''}"`).join(',')}`;
-      csvContent += row + '\n';
-    });
+    const headers = ['created_at', ...Array.from(questionLabelsMap.values()).map(label => `${label}`)];
 
-    // Step 4: Create Blob object for download
+    let csvContent = headers.join(',') + '\n';
+
+    for (const submissionId in data) {
+      const answersMap = new Map<string, string>();
+      const submission = data[submissionId];
+      const created_at=this.datePipe.transform(submission.created_at,'y/MMM/dd   HH:mm:ss z')
+      const row = [created_at];
+
+      for (const questId in submission.questions) {
+        const question = submission.questions[questId];
+
+        for (const answerId in question.answers) {
+          const answer = question.answers[answerId];
+          answersMap.set(`${questId}_${submissionId}`, this.convertValueToString(answer.data.value));
+        }
+      }
+
+      questionLabelsMap.forEach((label, questId) => {
+        row.push(this.escapeCSVValue(answersMap.get(`${questId}_${submissionId}`) || ''));
+      });
+
+      csvContent += row.join(',') + '\n';
+    }
+
+    console.log(csvContent);
+
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
     return blob;
   }
+
+  convertValueToString(value: any): string {
+    if (Array.isArray(value)) {
+      return value.join(', ');
+    } else if (typeof value === 'object' && value !== null) {
+      return Object.entries(value)
+        .map(([key, val]) => `${key}:${val}`)
+        .join(', ');
+    } else {
+      return String(value);
+    }
+  }
+
+  escapeCSVValue(value: string): string {
+    if (value.includes(',')) {
+      return `"${value.replace(/"/g, '""')}"`;
+    }
+    return value;
+  }
+
+ 
 }
