@@ -12,10 +12,15 @@
     </div>
 
     <div class="block-list" cdkDropList (cdkDropListDropped)="drop($event)">
-      <div class="block" *ngFor="let block of blocks"  [cdkDrag]="mode==='edit'" [cdkDragDisabled]="mode==='live'" [cdkDragData]="block">
+      <div class="block" *ngFor="let block of blocks" [cdkDrag]="mode==='edit'" [cdkDragDisabled]="mode==='live'" [cdkDragData]="block">
         
-          <lg-multiple-choice-element
+        <div class="drag-handle" cdkDragHandle>
+          <span class="material-symbols-outlined">
+            drag_indicator
+            </span>
+        </div>
         
+        <lg-multiple-choice-element
           [isInvalidBlock]="invalidBlocks[block.quest_id]"
           [mode]="mode"
           *ngIf="block.kind === 'MultipleChoiceElementComponent'"
@@ -26,13 +31,10 @@
           [metaData]="block.quest_meta"
           [required]="block.required"
           [name]="block.quest_id"
- 
-        ></lg-multiple-choice-element>  
-     
+        ></lg-multiple-choice-element>
 
-
-   <lg-one-choice
-   [isInvalidBlock]="invalidBlocks[block.quest_id]"
+        <lg-one-choice
+          [isInvalidBlock]="invalidBlocks[block.quest_id]"
           [mode]="mode"
           *ngIf="block.kind === 'OneChoiceComponent'"
           [id]="block.quest_id"
@@ -44,10 +46,8 @@
           ngModel
         ></lg-one-choice>
 
-
-       
         <lg-email-element
-        [isInvalidBlock]="invalidBlocks[block.quest_id]"
+          [isInvalidBlock]="invalidBlocks[block.quest_id]"
           [mode]="mode"
           *ngIf="block.kind === 'EmailElementComponent'"
           [id]="block.quest_id"
@@ -60,7 +60,7 @@
         ></lg-email-element>
 
         <lg-date-element
-        [isInvalidBlock]="invalidBlocks[block.quest_id]"
+          [isInvalidBlock]="invalidBlocks[block.quest_id]"
           [mode]="mode"
           *ngIf="block.kind === 'DateElementComponent'"
           [id]="block.quest_id"
@@ -73,7 +73,7 @@
         ></lg-date-element>
 
         <lg-short-answer
-        [isInvalidBlock]="invalidBlocks[block.quest_id]"
+          [isInvalidBlock]="invalidBlocks[block.quest_id]"
           [mode]="mode"
           *ngIf="block.kind === 'ShortAnswerComponent'"
           [id]="block.quest_id"
@@ -86,7 +86,7 @@
         ></lg-short-answer>
 
         <lg-phone-element
-        [isInvalidBlock]="invalidBlocks[block.quest_id]"
+          [isInvalidBlock]="invalidBlocks[block.quest_id]"
           [mode]="mode"
           *ngIf="block.kind === 'PhoneElementComponent'"
           [id]="block.quest_id"
@@ -98,9 +98,8 @@
           ngModel
         ></lg-phone-element>
 
-    
         <lg-file-upload-element
-        [isInvalidBlock]="invalidBlocks[block.quest_id]"
+          [isInvalidBlock]="invalidBlocks[block.quest_id]"
           [mode]="mode"
           *ngIf="block.kind === 'FileUploadElementComponent'"
           [id]="block.quest_id"
@@ -112,20 +111,18 @@
           ngModel
         ></lg-file-upload-element>
         <lg-rating-element
-        [isInvalidBlock]="invalidBlocks[block.quest_id]"
-        [mode]="mode"
-        *ngIf="block.kind === 'RatingElementComponent'"
-        [id]="block.quest_id"
-        [kind]="block.kind"
-        [label]="block.questLabel"
-        [metaData]="block.quest_meta"
-        [required]="block.required"
-        [name]="block.quest_id"
-        ngModel>
-          
-        </lg-rating-element>
+          [isInvalidBlock]="invalidBlocks[block.quest_id]"
+          [mode]="mode"
+          *ngIf="block.kind === 'RatingElementComponent'"
+          [id]="block.quest_id"
+          [kind]="block.kind"
+          [label]="block.questLabel"
+          [metaData]="block.quest_meta"
+          [required]="block.required"
+          [name]="block.quest_id"
+          ngModel
+        ></lg-rating-element>
       </div>
-      
     </div>
 
     <lf-button *ngIf="mode === 'live'" text="submit" type="submit"></lf-button>
