@@ -14,11 +14,19 @@ import { FormService } from '@/shared/services/form.service';
 import { QuestionService } from '@/shared/services/question.service';
 import { debounce } from '@/shared/utils/timing';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged } from 'rxjs/operators';
+import * as shortid from 'shortid';
 
 @Component({
   selector: 'lg-form-builder',
@@ -32,18 +40,20 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   blocks: QuestionElement[] = [];
   formId: string = '';
   blockOrder: string[] = [];
+  submissionId: string = '';
   private form?: Form;
   private storeSubscription: any;
-  @ViewChildren(FileUploadElementComponent) fileUploadComponents?: QueryList<FileUploadElementComponent>;
+  @ViewChildren(FileUploadElementComponent)
+  fileUploadComponents?: QueryList<FileUploadElementComponent>;
 
   @Input() mode!: 'live' | 'edit';
-  invalidBlocks: { [blockId: string]: boolean } = {}; 
+  invalidBlocks: { [blockId: string]: boolean } = {};
 
   constructor(
     private readonly store: Store<AppState>,
     private readonly formService: FormService,
     private readonly route: ActivatedRoute,
-    private questService: QuestionService,
+    private questService: QuestionService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -52,23 +62,31 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.storeSubscription = this.store
       .select((state) => state.builder)
       .pipe(distinctUntilChanged())
-      .subscribe(async ({ form_id,blocks, title, description, mode, backgroundColor, blockOrder }) => {
-        this.mode = mode;
-        this.bgColor = backgroundColor;
+      .subscribe(
+        async ({
+          form_id,
+          blocks,
+          title,
+          description,
+          mode,
+          backgroundColor,
+          blockOrder,
+        }) => {
+          this.mode = mode;
+          this.bgColor = backgroundColor;
 
-        if (Array.isArray(blockOrder)) {
-          this.blockOrder = blockOrder;
-          this.blocks = this.blockOrder
-            .map((id) => blocks[id])
-            .filter((block) => block !== undefined && block !== null);
+          if (Array.isArray(blockOrder)) {
+            this.blockOrder = blockOrder;
+            this.blocks = this.blockOrder
+              .map((id) => blocks[id])
+              .filter((block) => block !== undefined && block !== null);
+          }
+          this.title = title;
+          this.description = description;
+          this.formId = form_id;
+          this.autoSave();
         }
-        this.title = title;
-        this.description = description;
-        this.formId= form_id
-        this.autoSave();
-      });
- 
-      
+      );
 
     if (formId) {
       this.form = await this.formService.getFormById(formId);
@@ -80,8 +98,12 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
       if (this.form) {
         this.store.dispatch(updateBuilderTitle({ title: this.form?.title }));
-        this.store.dispatch(updateBuilderDescription({ Description: this.form?.description }));
-        this.store.dispatch(updateBlockOrder({ blockOrder: this.form?.blockOrder || [] }));
+        this.store.dispatch(
+          updateBuilderDescription({ Description: this.form?.description })
+        );
+        this.store.dispatch(
+          updateBlockOrder({ blockOrder: this.form?.blockOrder || [] })
+        );
       }
     }
   }
@@ -97,7 +119,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   updateBuilderDescription = debounce((evt: any) => {
     const updatedValue = evt.target.value;
-    this.store.dispatch(updateBuilderDescription({ Description: updatedValue }));
+    this.store.dispatch(
+      updateBuilderDescription({ Description: updatedValue })
+    );
   }, 1000);
 
   async onSubmit(f: NgForm): Promise<void> {
@@ -116,7 +140,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
     if (this.fileUploadComponents) {
       for (const component of this.fileUploadComponents.toArray()) {
-        const block = this.blocks.find((block) => block.quest_id === component.id);
+        const block = this.blocks.find(
+          (block) => block.quest_id === component.id
+        );
         if (block && block.required && component.files.length === 0) {
           this.invalidBlocks[component.id] = true;
           isValid = false;
@@ -126,12 +152,24 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
         if (component.files.length > 0) {
           try {
+            debugger;
             const uploadedPaths = await Promise.all(
-              component.files.map((file) => this.formService.uploadFile(file, `${file.name}`))
+              component.files.map((file) =>
+                this.formService.uploadFile(
+                  file,
+                  `form_${block?.form_id}/sub_${this.submissionId}/quest_${block?.quest_id}/${file.name}`
+                )
+              )
             );
+            const publicUrls = await Promise.all(
+              uploadedPaths.map((fp) => {
+                this.formService.getPublicUrl(fp);
+              })
+            );
+
             answers.push({
               quest_id: component.id,
-              value: uploadedPaths.join(', '),
+              value: [publicUrls],
             });
           } catch (error) {
             console.error('Error uploading files:', error);
@@ -143,18 +181,18 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
     if (!isValid) {
       return;
-    }else{
-      for (const key of Object.keys(f.value)) {
-        answers.push({
-          quest_id: key,
-          value: f.value[key],
-         
-        })};
-
     }
+    
+    for (const key of Object.keys(f.value)) {
+      answers.push({
+        quest_id: key,
+        value: f.value[key],
+      });
+    }
+
     try {
-      const submissionId = await this.formService.addSubmission(this.formId);
-      await this.formService.submitAnswers(answers, submissionId);
+      this.submissionId = await this.formService.addSubmission(this.formId);
+      await this.formService.submitAnswers(answers, this.submissionId);
       alert('Response submitted');
     } catch (error) {
       console.error('Error submitting answers:', error);
@@ -166,27 +204,29 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.store
       .select((state) => state.builder)
       .pipe(distinctUntilChanged())
-      .subscribe(async ({ blocks, title, description, form_id, blockOrder }) => {
-        Object.values(blocks).forEach((block: any) => {
-          const newBlock: QuestionElement = {
-            quest_id: block.quest_id,
-            form_id: block.form_id,
-            kind: block.kind || null,
-            questLabel: block.questLabel,
-            required: block.required || false,
-            quest_meta: block.quest_meta || {},
-          };
-          this.questService.addQuestionBlock(newBlock);
-        });
+      .subscribe(
+        async ({ blocks, title, description, form_id, blockOrder }) => {
+          Object.values(blocks).forEach((block: any) => {
+            const newBlock: QuestionElement = {
+              quest_id: block.quest_id,
+              form_id: block.form_id,
+              kind: block.kind || null,
+              questLabel: block.questLabel,
+              required: block.required || false,
+              quest_meta: block.quest_meta || {},
+            };
+            this.questService.addQuestionBlock(newBlock);
+          });
 
-        const updatedForm = {
-          title: title,
-          description: description,
-          blockOrder: blockOrder,
-        };
-        await this.formService.updateForm(form_id, updatedForm);
-        this.formService.setIsSaving(false);
-      });
+          const updatedForm = {
+            title: title,
+            description: description,
+            blockOrder: blockOrder,
+          };
+          await this.formService.updateForm(form_id, updatedForm);
+          this.formService.setIsSaving(false);
+        }
+      );
 
     console.log('Form auto-saved');
   }, 2000);
@@ -196,7 +236,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
       const newOrder = this.blocks.map((block) => block.quest_id);
 
-      if (this.blocks.length > 1) this.store.dispatch(updateBlockOrder({ blockOrder: newOrder }));
+      if (this.blocks.length > 1)
+        this.store.dispatch(updateBlockOrder({ blockOrder: newOrder }));
     }
   }
 }

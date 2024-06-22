@@ -24,9 +24,7 @@ export class FileUploadComponent extends BaseControlComponent<File[], HTMLInputE
     if (value) {
       this.selectedFiles = value;
       this.emitValueChange(value);
-    } else {
-      this.selectedFiles = [];
-    }
+    } 
   }
 
   emitValueChange(value: File[]): void {

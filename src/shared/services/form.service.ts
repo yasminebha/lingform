@@ -55,20 +55,25 @@ export class FormService {
     }
   }
   async uploadFile(file: File, path: string): Promise<string> {
-    const { data, error } = await supabase.storage.from('uploads/files').upload(path, file);
+    const { data, error } = await supabase.storage
+      .from('uploads')
+      .upload(path, file, { upsert: true });
     if (error) throw new Error(error.message);
     return data.path;
   }
   getPublicUrl(path: string): string {
-    const {data } = supabase.storage.from('uploads/files').getPublicUrl(path);
+    const { data } = supabase.storage.from('uploads').getPublicUrl(path);
     return data.publicUrl;
   }
-  async submitAnswers(answers: { quest_id: string; value: any }[], submissionId: string): Promise<void> {
+  async submitAnswers(
+    answers: { quest_id: string; value: any }[],
+    submissionId: string
+  ): Promise<void> {
     for (const a of answers) {
       await supabase.from('answer').insert({
         data: { value: a.value },
         quest_id: a.quest_id,
-        submission_id: submissionId
+        submission_id: submissionId,
       });
     }
   }
@@ -76,7 +81,7 @@ export class FormService {
     const { data, error } = await supabase
       .from('submission')
       .insert({
-        submission_id:shortid.generate(),
+        submission_id: shortid.generate(),
         form_id: formId,
       })
       .select('submission_id')
@@ -86,86 +91,77 @@ export class FormService {
       throw new Error(error.message);
     }
 
-    return data.submission_id; 
+    return data.submission_id;
   }
-
-
-
-
 
   async getAllSubmission(formId: string): Promise<any> {
-
     const { error: submissionError, data } = await supabase
       .from('submission')
-      .select("*")
+      .select('*')
       .eq('form_id', formId);
-  
+
     if (submissionError) {
       throw new Error(`Error fetching submissions: ${submissionError.message}`);
-    }
-    else return data
-  
-    
+    } else return data;
   }
 
-  async getSubmissionDetails(formId:string):Promise<any>{
-    const { error,data } = await supabase.rpc('get_submission_details', { form_id_param: formId });
-    if(error){
-      console.log(error)
+  async getSubmissionDetails(formId: string): Promise<any> {
+    const { error, data } = await supabase.rpc('get_submission_details', {
+      form_id_param: formId,
+    });
+    if (error) {
+      console.log(error);
       throw error;
-    }
-    else return data
-
+    } else return data;
   }
-  
-  
 
-
-
-
-
-  
-  async getFormByUserId(userId: string):Promise<any>{
+  async getFormByUserId(userId: string): Promise<any> {
     if (userId) {
       const { error, data } = await supabase
         .from('form')
         .select('form_id,title,created_at,editeur_id')
         .eq('editeur_id', userId);
-        if(!error)return data
-        else throw new Error(error.message);
+      if (!error) return data;
+      else throw new Error(error.message);
     }
   }
   async deleteForm(formId: string): Promise<void> {
     try {
-   
-      const questionsData = (await supabase.from('question').select('quest_id').eq('form_id', formId)).data;
-      const questionIds = questionsData ? questionsData.map(q => q.quest_id) : [];
-  
-   
-      const answersQuery = supabase.from('answer').delete().in('quest_id', questionIds);
+      const questionsData = (
+        await supabase.from('question').select('quest_id').eq('form_id', formId)
+      ).data;
+      const questionIds = questionsData
+        ? questionsData.map((q) => q.quest_id)
+        : [];
+
+      const answersQuery = supabase
+        .from('answer')
+        .delete()
+        .in('quest_id', questionIds);
       const { error: answerError } = await answersQuery;
       if (answerError) throw answerError;
-  
-     
-      const questionsQuery = supabase.from('question').delete().eq('form_id', formId);
+
+      const questionsQuery = supabase
+        .from('question')
+        .delete()
+        .eq('form_id', formId);
       const { error: questionError } = await questionsQuery;
       if (questionError) throw questionError;
-  
-    
+
       const formQuery = supabase.from('form').delete().eq('form_id', formId);
       const { error: formError } = await formQuery;
       if (formError) throw formError;
-  
+
       console.log('Form and related data deleted successfully');
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
   async getBlockOrder(formId: string): Promise<string[]> {
     const { data, error } = await supabase
       .from('form')
       .select('blockOrder')
-      .eq('form_id', "formId")
+      .eq('form_id', 'formId')
       .single();
 
     if (error) {
@@ -187,15 +183,13 @@ export class FormService {
       throw error;
     }
   }
-  async deleteMultipleForms(formIds:string[]):Promise<void>{
-    const { error } = await supabase.rpc('delete_multiple_forms', { form_ids: formIds });
-    if(error){
-      console.log(error)
+  async deleteMultipleForms(formIds: string[]): Promise<void> {
+    const { error } = await supabase.rpc('delete_multiple_forms', {
+      form_ids: formIds,
+    });
+    if (error) {
+      console.log(error);
       throw error;
     }
-        
-    
   }
-  
-
 }

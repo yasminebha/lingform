@@ -7,6 +7,8 @@ import { FormService } from '@/shared/services/form.service';
 import { QuestionService } from '@/shared/services/question.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '@/app/store/reducers';
+import * as shortid from 'shortid';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'lg-file-upload-element',
@@ -21,17 +23,22 @@ import { AppState } from '@/app/store/reducers';
   ],
 })
 export class FileUploadElementComponent extends FormBlockComponent<File[] | null, { fileNames: string[] }> implements OnInit {
-  
+  formId:string|null=''
   fileNames: string[] = [];
   files:File[]=[]
-  override ngOnInit(): void {}
+  override ngOnInit(): void {
+    if(this.route)
+    this.formId = this.route.snapshot.paramMap.get('id');
+   
+  }
 
   constructor(
     _renderer: Renderer2,
     _elementRef: ElementRef<any>,
     protected override store: Store<AppState>,
      protected override readonly questionService: QuestionService,
-     protected formService:FormService
+     protected formService:FormService,
+     private route: ActivatedRoute,
   ) {
     super(_renderer, _elementRef,store,questionService);
   }
@@ -40,7 +47,7 @@ export class FileUploadElementComponent extends FormBlockComponent<File[] | null
     if (files) {
       this.files = files;
       this.fileNames = files.map(file => file.name);
-      this.changeCommit(files);
+      // this.changeCommit(files);
     } else {
       this.files = [];
       this.fileNames = [];
@@ -48,10 +55,19 @@ export class FileUploadElementComponent extends FormBlockComponent<File[] | null
   }
   async upload(): Promise<void> {
     try {
-      const uploadedPaths = await Promise.all(this.files.map(file => this.formService.uploadFile(file, `uploads/${file.name}`)));
-      const fileURLs = uploadedPaths.map(path => this.formService.getPublicUrl(path));
-      // this.changeCommit(fileURLs); // Save the full URLs to the form state
-      console.log('Uploaded file URLs:', fileURLs);
+    
+      await Promise.all(this.files.map(file=>{
+
+        this.formService.uploadFile(file,`form_${this.formId}/quest_${this.id}/${file.name+'#'+shortid.generate()}`)
+     
+      })
+     )
+
+     
+
+      // uploadedFiles = await Promise.all(this.files.map(file => this.formService.uploadFile(file, `form_${this.form_id}/${this.id}/${shortid.generate()}/${file.name}`)));
+
+      
     } catch (error) {
       console.error('Error uploading files:', error);
     }
