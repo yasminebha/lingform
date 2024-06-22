@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, forwardRef } from '@angular/core';
+import { Component, ElementRef, OnInit, Output, Renderer2, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormBlockComponent } from '../form-block.component';
 import { debounce } from '@/shared/utils/timing';
@@ -23,7 +23,8 @@ import { ActivatedRoute } from '@angular/router';
   ],
 })
 export class FileUploadElementComponent extends FormBlockComponent<string[]> implements OnInit {
-   maxFiles: number = 1;
+
+   @Output() maxFiles: number = 1;
   formId:string|null=''
 
   files:File[]=[]
@@ -46,7 +47,9 @@ export class FileUploadElementComponent extends FormBlockComponent<string[]> imp
 
   onFileSelected(files: File[] | null): void {
     if (files) {
-      this.files = files;
+    
+        this.files = files;
+
 
   
     } 

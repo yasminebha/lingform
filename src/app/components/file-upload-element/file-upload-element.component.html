@@ -1,5 +1,4 @@
 <div *ngIf="mode === 'edit'" class="container ">
-  <span class="material-symbols-outlined">drag_handle</span>
 
     <div class="input-type-area">
       <lg-input-components
@@ -30,6 +29,10 @@
       class="title"
       placeholder="Question label"
     ></lg-text-field>
+    <lg-number-slider
+    maxFiles="maxFiles"
+    [maxRangeNumber]="10"
+  ></lg-number-slider>
 
 
   </div>
@@ -40,11 +43,8 @@
     </label>
     <lg-file-upload (valueChange)="onFileSelected($event)"></lg-file-upload>
 
-  <lg-file-upload-slider
-    [maxFiles]="maxFiles"
-
-  ></lg-file-upload-slider>
-   <!-- <button *ngIf="files.length>0" (click)="upload()">upload</button> -->
+ 
+  
   </div>
   
   

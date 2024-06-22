@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-number-slider',
+  selector: 'lg-number-slider',
   templateUrl: './number-slider.component.html',
   styleUrls: ['./number-slider.component.css']
 })
 export class NumberSliderComponent implements OnInit {
-  @Input() maxFiles: number = 1;
+  @Output() maxFiles: number = 1;
   @Input()maxRangeNumber?:number
   @Output() maxFilesChange: EventEmitter<number> = new EventEmitter<number>();
 
