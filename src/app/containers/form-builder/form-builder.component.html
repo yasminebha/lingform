@@ -14,7 +14,7 @@
     <div class="block-list" cdkDropList (cdkDropListDropped)="drop($event)">
       <div class="block" *ngFor="let block of blocks" [cdkDrag]="mode==='edit'" [cdkDragDisabled]="mode==='live'" [cdkDragData]="block">
         
-        <div class="drag-handle" cdkDragHandle>
+        <div *ngIf="mode==='edit'" class="drag-handle" cdkDragHandle>
           <span class="material-symbols-outlined">
             drag_indicator
             </span>
