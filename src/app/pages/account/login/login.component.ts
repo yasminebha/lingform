@@ -1,5 +1,6 @@
 import { AppState } from '@/app/store/reducers';
 import supabase from '@/app/supabase';
+import { UserService } from '@/shared/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   errorMsg:string=""
   invalidControl:boolean=false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private userService:UserService) { }
 
   ngOnInit(): void {
   }
@@ -39,6 +40,15 @@ export class LoginComponent implements OnInit {
       })
    
     }
+  }
+  signInWithGoogle() {
+    this.userService.signInWithGoogle()
+      .then((response) => {
+        console.log('Signed in successfully', response);
+      })
+      .catch((error) => {
+        console.error('Error signing in', error);
+      });
   }
 
 }
