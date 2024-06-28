@@ -16,6 +16,7 @@ import { BaseControlComponent } from '../base-control.component';
 })
 export class FileUploadComponent extends BaseControlComponent<File[], HTMLInputElement> {
   selectedFiles: File[] = [];
+  @Input() maxFiles:number=1
   @Input() isMultiple = true;
   @Input() isDisabled = false;
   @Output() valueChange: EventEmitter<File[]> = new EventEmitter<File[]>();
@@ -34,9 +35,14 @@ export class FileUploadComponent extends BaseControlComponent<File[], HTMLInputE
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      const newFiles = Array.from(input.files);
-      this.selectedFiles = this.isMultiple ? [...this.selectedFiles, ...newFiles] : [newFiles[0]];
-      this.emitValueChange(this.selectedFiles);
+      if(input.files.length<this.maxFiles){
+        const newFiles = Array.from(input.files);
+        this.selectedFiles = this.isMultiple ? [...this.selectedFiles, ...newFiles] : [newFiles[0]];
+        this.emitValueChange(this.selectedFiles);
+
+      }else{
+        alert("the maximum number of files is "+this.maxFiles)
+      }
     }
   }
 

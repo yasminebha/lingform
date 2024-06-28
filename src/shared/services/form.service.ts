@@ -57,12 +57,14 @@ export class FormService {
   async uploadFile(file: File, path: string): Promise<string> {
     const { data, error } = await supabase.storage
       .from('uploads')
-      .upload(path, file, { upsert: true });
+      .upload(path, file);
     if (error) throw new Error(error.message);
     return data.path;
   }
-  getPublicUrl(path: string): string {
-    const { data } = supabase.storage.from('uploads').getPublicUrl(path);
+  
+  async getPublicUrl(path: string): Promise<string> {
+    
+    const { data } =supabase.storage.from('uploads').getPublicUrl(path);
     return data.publicUrl;
   }
   async submitAnswers(

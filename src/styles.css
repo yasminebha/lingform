@@ -55,7 +55,7 @@ button, [type='button'], [type='reset'], [type='submit'] {
 
 .container {
     border: 1px var(--gray) solid;
-    padding: 15px 40px 50px 40px;
+    padding:40px 40px 50px 40px;
     min-width:500px;
     margin: auto;
     background-color: white;

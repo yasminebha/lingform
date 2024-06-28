@@ -28,7 +28,8 @@ hr{
   }
   
   .block {
- 
+    position: relative;
+    padding-top: 24px;
     margin-bottom: 10px; 
   }
   
@@ -45,3 +46,22 @@ hr{
   .block.cdk-drag-animating {
     transition: transform 250ms ease; 
   }
+  .block {
+    position: relative;
+  
+  }
+  
+  .drag-handle {
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    transform: translateY(-50%);
+    cursor: grab;
+
+    right: 20px;
+  }
+  
+  .drag-handle:active {
+    cursor: grabbing;
+  }
+  

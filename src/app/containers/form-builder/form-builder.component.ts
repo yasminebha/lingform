@@ -54,7 +54,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     private readonly formService: FormService,
     private readonly route: ActivatedRoute,
     private questService: QuestionService
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     const formId = this.route.snapshot.paramMap.get('id');
@@ -155,50 +155,60 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           isValid = false;
         } else if (block) {
           this.invalidBlocks[component.id] = false;
-        }
-
-        if (component.files.length > 0) {
-          try {
-            debugger;
-            const uploadedPaths = await Promise.all(
-              component.files.map((file) =>
-                this.formService.uploadFile(
-                  file,
-                  `form_${block?.form_id}/sub_${this.submissionId}/quest_${block?.quest_id}/${file.name}`
-                )
-              )
-            );
-            const publicUrls = await Promise.all(
-              uploadedPaths.map((fp) => {
-                this.formService.getPublicUrl(fp);
-              })
-            );
-
-            answers.push({
-              quest_id: component.id,
-              value: [publicUrls],
-            });
-          } catch (error) {
-            console.error('Error uploading files:', error);
-            return;
-          }
+          isValid= true
         }
       }
     }
 
+
+
     if (!isValid) {
       return;
     }
-    
-    for (const key of Object.keys(f.value)) {
-      answers.push({
-        quest_id: key,
-        value: f.value[key],
-      });
-    }
+
 
     try {
       this.submissionId = await this.formService.addSubmission(this.formId);
+     
+      if (this.fileUploadComponents) {
+        for (const component of this.fileUploadComponents.toArray()) {
+          const block = this.blocks.find(
+            (block) => block.quest_id === component.id
+          );
+          if (component.files.length > 0) {
+            try {
+          
+              const uploadedPaths = await Promise.all(
+                component.files.map((file) =>
+                  this.formService.uploadFile(
+                    file,
+                    `form_${block?.form_id}/sub_${this.submissionId}/quest_${block?.quest_id}/${file.name}`
+                  )
+                )
+              );
+               let publicUrls :string[]=[]
+
+               uploadedPaths.forEach(async path=>{
+               publicUrls.push(await this.formService.getPublicUrl(path)) 
+              })
+              
+              component.changeCommit(publicUrls)
+      
+              publicUrls=[]
+            } catch (error) {
+              console.error('Error uploading files:', error);
+              return;
+            }
+          }
+        }
+
+      }
+      for (const key of Object.keys(f.value)) {
+        answers.push({
+          quest_id: key,
+          value: f.value[key],
+        });
+      }
       await this.formService.submitAnswers(answers, this.submissionId);
       alert('Response submitted');
     } catch (error) {

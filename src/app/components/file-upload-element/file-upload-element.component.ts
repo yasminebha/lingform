@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, forwardRef } from '@angular/core';
+import { Component, ElementRef, OnInit, Output, Renderer2, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormBlockComponent } from '../form-block.component';
 import { debounce } from '@/shared/utils/timing';
@@ -22,9 +22,11 @@ import { ActivatedRoute } from '@angular/router';
     },
   ],
 })
-export class FileUploadElementComponent extends FormBlockComponent<File[] | null, { fileNames: string[] }> implements OnInit {
+export class FileUploadElementComponent extends FormBlockComponent<string[]> implements OnInit {
+
+   @Output() maxFiles: number = 1;
   formId:string|null=''
-  fileNames: string[] = [];
+
   files:File[]=[]
   override ngOnInit(): void {
     if(this.route)
@@ -45,33 +47,14 @@ export class FileUploadElementComponent extends FormBlockComponent<File[] | null
 
   onFileSelected(files: File[] | null): void {
     if (files) {
-      this.files = files;
-      this.fileNames = files.map(file => file.name);
-      // this.changeCommit(files);
-    } else {
-      this.files = [];
-      this.fileNames = [];
-    }
-  }
-  async upload(): Promise<void> {
-    try {
     
-      await Promise.all(this.files.map(file=>{
+        this.files = files;
 
-        this.formService.uploadFile(file,`form_${this.formId}/quest_${this.id}/${file.name+'#'+shortid.generate()}`)
-     
-      })
-     )
 
-     
-
-      // uploadedFiles = await Promise.all(this.files.map(file => this.formService.uploadFile(file, `form_${this.form_id}/${this.id}/${shortid.generate()}/${file.name}`)));
-
-      
-    } catch (error) {
-      console.error('Error uploading files:', error);
-    }
+  
+    } 
   }
+  
   public updateQuestLabel = debounce((evt: any) => {
     const updatedValue = evt.target.value;
     this.store.dispatch(
