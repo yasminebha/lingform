@@ -1,51 +1,60 @@
-<div *ngIf="mode==='edit'" class="container">
+<div *ngIf="mode === 'edit'" class="container">
   <span class="material-symbols-outlined">drag_handle</span>
 
-    <div class="input-type-area">
-      <lg-input-components
-        icon="email"
-        title="Email"
-        layout="second-layout"
-      ></lg-input-components>
-      <div class="tools">
-        <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
-        <lf-icon-button
-
-          icon="copy"
-          iconStyle="regular"
-          layout="row-icon"
-          class="icon"
-          (click)="duplicateBlock()"
-          type="button"
-        ></lf-icon-button>
-        <lf-icon-button
-          icon="trash"
-          iconStyle="solid"
-          layout="row-icon"
-          class="icon"
-          (click)="removeBlock($event,id)"
-        ></lf-icon-button>
-      </div>
+  <div class="input-type-area">
+    <lg-input-components
+      icon="email"
+      title="Email"
+      layout="second-layout"
+    ></lg-input-components>
+    <div class="tools">
+      <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
+      <lf-icon-button
+        icon="copy"
+        iconStyle="regular"
+        layout="row-icon"
+        class="icon"
+        (click)="duplicateBlock()"
+        type="button"
+      ></lf-icon-button>
+      <lf-icon-button
+        icon="trash"
+        iconStyle="solid"
+        layout="row-icon"
+        class="icon"
+        (click)="removeBlock($event, id)"
+      ></lf-icon-button>
     </div>
-    <lg-text-field 
-    placeholder="Question" class="title"
+  </div>
+  <lg-text-field
+    placeholder="Question"
+    class="title"
     (input)="updateQuestLabel($event)"
     [value]="label"
-    ></lg-text-field>
-    <lg-text-field class="title" placeholder="tap here" [isDisabled]="true"></lg-text-field>
-  </div>
-  
-  
-  
-  <div *ngIf="mode==='live'" class="container"  [class.invalid-block]="isInvalidBlock"> 
-      <label for="">{{label}}
-        <span class="required-sign" *ngIf="required">*</span>
+  ></lg-text-field>
+  <lg-text-field
+    class="title"
+    placeholder="tap here"
+    [isDisabled]="true"
+  ></lg-text-field>
+</div>
 
-      </label>
-      <lg-text-field 
-      class="title" 
-      type="email"
-       placeholder="email" 
-      (input)="changeAnswer($event)" ></lg-text-field>
-    </div>
+<div
+  *ngIf="mode === 'live'"
+  class="container"
+  [class.invalid-block]="isInvalidBlock"
+>
+  <label for=""
+    >{{ label }}
+    <span class="required-sign" *ngIf="required">*</span>
+  </label>
+  <lg-text-field
+    class="title"
+    type="email"
+    placeholder="email"
+    [(ngModel)]="value"
+    [invalidControl]="isInvalidBlock"
+    (input)="changeAnswer($event)"
   
+  ></lg-text-field>
+</div>

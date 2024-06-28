@@ -1,50 +1,64 @@
-
-<div *ngIf="mode==='edit'" class="container">
+<div *ngIf="mode === 'edit'" class="container">
   <span class="material-symbols-outlined">drag_handle</span>
 
-    <div class="input-type-area">
-      <lg-input-components
-        icon="phone"
-        title="Phone"
-        layout="second-layout"
-      ></lg-input-components>
-     
-      <div class="tools">
-        <lf-toggle (click)="onToggle()" [required]="required" ></lf-toggle>
-        <lf-icon-button
-          icon="copy"
-          iconStyle="regular"
-          layout="row-icon"
-          class="icon"
-          (click)="duplicateBlock()"
-          type="button"
-        ></lf-icon-button>
-        <lf-icon-button
-          icon="trash"
-          iconStyle="solid"
-          layout="row-icon"
-          class="icon"
-          (click)="removeBlock($event,id)"
-        ></lf-icon-button>
-      </div>
-    </div>
-    <lg-text-field class="title" placeholder="question" (input)="updateQuestLabel($event)"
-    [value]="label"
-    ngModel></lg-text-field>
-    <lg-text-field  class="title" placeholder="phone number" [isDisabled]="true"></lg-text-field>
-  </div>
-  
-  
-  
-  <div *ngIf="mode==='live'" class="container"  [class.invalid-block]="isInvalidBlock"> 
-      <label for="">{{label}}
+  <div class="input-type-area">
+    <lg-input-components
+      icon="phone"
+      title="Phone"
+      layout="second-layout"
+    ></lg-input-components>
 
-          <span class="required-sign" *ngIf="required">*</span>
-        
-      
-      </label>
-      <lg-text-field class="title" type="text" placeholder="(+216)00000000" (input)="changeAnswer($event)"></lg-text-field>
-      
-      
+    <div class="tools">
+      <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
+      <lf-icon-button
+        icon="copy"
+        iconStyle="regular"
+        layout="row-icon"
+        class="icon"
+        (click)="duplicateBlock()"
+        type="button"
+      ></lf-icon-button>
+      <lf-icon-button
+        icon="trash"
+        iconStyle="solid"
+        layout="row-icon"
+        class="icon"
+        (click)="removeBlock($event, id)"
+      ></lf-icon-button>
     </div>
+  </div>
+  <lg-text-field
+    class="title"
+    placeholder="question"
+    (input)="updateQuestLabel($event)"
+    [value]="label"
+    ngModel
+  ></lg-text-field>
+  <lg-text-field
+    class="title"
+    placeholder="phone number"
+    [isDisabled]="true"
+  ></lg-text-field>
+</div>
+
+<div
+  *ngIf="mode === 'live'"
+  class="container"
+  [class.invalid-block]="isInvalidBlock"
+>
+  <label for=""
+    >{{ label }}
+
+    <span class="required-sign" *ngIf="required">*</span>
+  </label>
+  <lg-text-field
+    class="title"
+    type="tel"
+    placeholder="Phone number"
+    [(ngModel)]="value"
   
+    [invalidControl]="isInvalidBlock"
+    (input)="changeAnswer($event)"
+  ></lg-text-field>
+
+</div>

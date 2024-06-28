@@ -134,7 +134,14 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         this.invalidBlocks[key] = true;
         isValid = false;
       } else if (block) {
-        this.invalidBlocks[key] = false;
+        const control = f.controls[key];
+        const errors = control.errors;
+        if (errors && (errors['invalidEmail'] || errors['invalidPhoneNumber'])) {
+          this.invalidBlocks[key] = true;
+          isValid = false;
+        } else {
+          this.invalidBlocks[key] = false;
+        }
       }
     }
 
