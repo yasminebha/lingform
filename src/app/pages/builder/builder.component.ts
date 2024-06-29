@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 
 
 @Component({
@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuilderComponent implements OnInit {
   showModal:boolean=false
+  @Output()isSaving:boolean=false
+
   constructor(
 
   ) {}

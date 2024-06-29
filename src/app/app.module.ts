@@ -12,7 +12,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { UIComponentsModule } from '@/shared/ui-components/ui-components.module';
 
 import { HomeModule } from './pages/home/home.module';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
   imports: [
@@ -24,11 +24,12 @@ import { HomeModule } from './pages/home/home.module';
     AccountModule,
     UIComponentsModule,
     HomeModule,
+    NgxPaginationModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
     StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
+      maxAge: 25,
       logOnly: false,
     }),
   ],

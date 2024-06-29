@@ -1,37 +1,56 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2, Output, EventEmitter } from '@angular/core';
 
 @Directive({
   selector: '[draggable]',
 })
 export class DraggableDirective {
-  isDragging: boolean = false;
-  /**
-   *
-   */
-  constructor(private element: ElementRef) {}
+  private startX!: number;
+  private startY!: number;
+  private initialX!: number;
+  private initialY!: number;
 
-  posX!: number;
-  poxY!: number;
+  @Output() dragStart = new EventEmitter<void>();
+  @Output() dragEnd = new EventEmitter<{ deltaX: number, deltaY: number }>();
 
-  @HostListener('drag')
-  onDrag($event: any) {
-    console.log('===ON_DRAG===', $event);
-    console.log(this.element);
-    this.isDragging = true;
-
-    // // @ts-ignore
-    // this.element.style.transform =
-    //   'translate3d(' + e.x + 'px, ' + e.y + 'px, 0)';
+  constructor(private element: ElementRef, private renderer: Renderer2) {
+    this.renderer.setStyle(this.element.nativeElement, 'position', 'relative');
+    this.renderer.setStyle(this.element.nativeElement, 'cursor', 'move');
+    this.element.nativeElement.draggable = true;
   }
 
-  @HostListener('dragstart')
-  onDragStart(e: any) {
-    console.log('===ON_DRAG_START===', e);
+  @HostListener('dragstart', ['$event'])
+  onDragStart(event: DragEvent) {
+    this.dragStart.emit();
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed = 'move';
+    }
+    this.startX = event.clientX;
+    this.startY = event.clientY;
+    const rect = this.element.nativeElement.getBoundingClientRect();
+    this.initialX = rect.left;
+    this.initialY = rect.top;
+    this.renderer.setStyle(this.element.nativeElement, 'opacity', '0.5');
   }
 
-  @HostListener('dragend')
-  onDragLeave(e: any) {
-    console.log('====ON_DRAG_LEAVE====', e);
-    this.isDragging = false;
+  @HostListener('drag', ['$event'])
+  onDrag(event: DragEvent) {
+    if (event.clientX === 0 && event.clientY === 0) {
+      return;
+    }
+    const deltaX = event.clientX - this.startX;
+    const deltaY = event.clientY - this.startY;
+    this.renderer.setStyle(this.element.nativeElement, 'transform', `translate(${deltaX}px, ${deltaY}px)`);
+  }
+
+  @HostListener('dragend', ['$event'])
+  onDragEnd(event: DragEvent) {
+    const deltaX = event.clientX - this.startX;
+    const deltaY = event.clientY - this.startY;
+    this.dragEnd.emit({ deltaX, deltaY });
+    this.renderer.setStyle(this.element.nativeElement, 'transform', 'none');
+    this.renderer.setStyle(this.element.nativeElement, 'left', `${this.initialX + deltaX}px`);
+    this.renderer.setStyle(this.element.nativeElement, 'top', `${this.initialY + deltaY}px`);
+    this.renderer.setStyle(this.element.nativeElement, 'position', 'absolute');
+    this.renderer.setStyle(this.element.nativeElement, 'opacity', '1');
   }
 }

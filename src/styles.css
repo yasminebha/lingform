@@ -47,14 +47,15 @@ button, [type='button'], [type='reset'], [type='submit'] {
         --navbar-bg-color: #F9F9FC;
         --input-btn-bg-color: #F3F1FF;
         --box-shadow: 1px 1px 10px var(--shadow-color);
-        --avatar-bg:#C2B6EE
+        --avatar-bg:#C2B6EE;
+        --hover-bg:#E9E4FD
     
     }
 
 
 .container {
     border: 1px var(--gray) solid;
-    padding: 15px 30px 27px 50px;
+    padding:40px 40px 50px 40px;
     min-width:500px;
     margin: auto;
     background-color: white;
@@ -62,15 +63,37 @@ button, [type='button'], [type='reset'], [type='submit'] {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}   
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  
+  .invalid-block {
+    border: red solid 1px;
+    animation: shake 0.5s;
+  }
+
+.material-symbols-outlined {
+    color:var(--gray) ;
+    text-align: center;
+    cursor: move;
 }
-
-
 .input-type-area {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid var(--gray);
     padding-bottom: 15px;
     margin-bottom: 15px;
+}
+.required-sign{
+    padding: 4px;
+   color: red;
+   font-size: 20px;
 }
 .title .text-field>input {
     width: 100% !important;
@@ -111,3 +134,11 @@ button, [type='button'], [type='reset'], [type='submit'] {
 .d-flex {
     display: flex;
 }
+
+.builder{
+    overflow-y: scroll;
+    width: 60%;
+}
+/* pagination controls */
+
+  

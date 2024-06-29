@@ -1,34 +1,60 @@
-<div *ngIf="mode==='edit'" class="container">
-    <div class="input-type-area">
-      <lg-input-components
-        icon="email"
-        title="Email"
-        layout="second-layout"
-      ></lg-input-components>
-      <div class="tools">
-        <lf-toggle></lf-toggle>
-        <lf-icon-button
-          icon="copy"
-          iconStyle="regular"
-          layout="row-icon"
-          class="icon"
-        ></lf-icon-button>
-        <lf-icon-button
-          icon="trash"
-          iconStyle="solid"
-          layout="row-icon"
-          class="icon"
-        ></lf-icon-button>
-      </div>
+<div *ngIf="mode === 'edit'" class="container">
+ 
+
+  <div class="input-type-area">
+    <lg-input-components
+      icon="email"
+      title="Email"
+      layout="second-layout"
+    ></lg-input-components>
+    <div class="tools">
+      <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
+      <lf-icon-button
+        icon="copy"
+        iconStyle="regular"
+        layout="row-icon"
+        class="icon"
+        (click)="duplicateBlock()"
+        type="button"
+      ></lf-icon-button>
+      <lf-icon-button
+        icon="trash"
+        iconStyle="solid"
+        layout="row-icon"
+        class="icon"
+        (click)="removeBlock($event, id)"
+      ></lf-icon-button>
     </div>
-    <lg-text-field placeholder="questionLabel" class="title"></lg-text-field>
-    <lg-text-field class="title" placeholder="short answer" [isDisabled]="true"></lg-text-field>
   </div>
+  <lg-text-field
+    placeholder="Question"
+    class="title"
+    (input)="updateQuestLabel($event)"
+    [value]="label"
+  ></lg-text-field>
+  <lg-text-field
+    class="title"
+    placeholder="tap here"
+    [isDisabled]="true"
+  ></lg-text-field>
+</div>
+
+<div
+  *ngIf="mode === 'live'"
+  class="container"
+  [class.invalid-block]="isInvalidBlock"
+>
+  <label for=""
+    >{{ label }}
+    <span class="required-sign" *ngIf="required">*</span>
+  </label>
+  <lg-text-field
+    class="title"
+    type="email"
+    placeholder="email"
+    [(ngModel)]="value"
+    [invalidControl]="isInvalidBlock"
+    (input)="changeAnswer($event)"
   
-  
-  
-  <div *ngIf="mode==='live'" class="container"> 
-      <label for="">Email address</label><!-- needs binding to retrieve questLabel -->
-      <lg-text-field class="title" type="email" placeholder="email" ></lg-text-field>
-    </div>
-  
+  ></lg-text-field>
+</div>

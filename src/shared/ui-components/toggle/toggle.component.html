@@ -1,8 +1,9 @@
-<div class="toggle-container">
+<div class="toggle-container" >
 
-  <label class="toggle">
-    <input type="checkbox" />
+  <label class="toggle" [class.checked]>
+    <input type="checkbox"/>
     <span></span>
   </label>
-  <p *ngIf="requiredLabel">{{ requiredLabel }}</p>
+  <p *ngIf="required">Required</p>
+  <p *ngIf="!required">not Required</p>
 </div>

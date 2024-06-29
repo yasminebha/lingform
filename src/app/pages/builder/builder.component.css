@@ -2,20 +2,27 @@
     display: flex;
     justify-content: space-between;
     background-color: var(--bg-color);
-    height: 100vh;
-    z-index: -1;
-    margin-top: 0.1%;
+    height: 90vh;
+    width: 100%;
     
 }
-.left-bar{ 
-    width: 20%;
-}
-.right-bar{
-    width: 20%;
-}
+
+
 .builder{
     overflow-y: scroll;
     width: 60%;
+}
+.L-sidebar{
+    width: 20%;
+    min-width: 370px;
+    max-width: 370px;
+
+}
+.R-sidebar{
+    width:20%;
+    min-width: 350px;
+    max-width: 400px;
+
 }
 ::-webkit-scrollbar {
     width: 5px;

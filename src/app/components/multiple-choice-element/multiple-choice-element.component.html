@@ -1,4 +1,5 @@
-<div *ngIf="mode === 'edit'" class="container multiple-choice-container">
+<div *ngIf="mode === 'edit'" class="container  multiple-choice-container "   >
+ 
   <div class="input-type-area">
     <lg-input-components
       icon="checkbox"
@@ -6,19 +7,22 @@
       layout="second-layout"
     ></lg-input-components>
     <div class="tools">
-      <lf-toggle></lf-toggle>
+      <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
       <lf-icon-button
         icon="copy"
         iconStyle="regular"
         layout="row-icon"
         class="icon"
+         (click)="duplicateBlock()"
+         type="button"
       ></lf-icon-button>
       <lf-icon-button
         icon="trash"
         iconStyle="solid"
         layout="row-icon"
         class="icon"
-        (click)="removeBlock()"
+        
+        (click)="removeBlock($event,id)"
       ></lf-icon-button>
     </div>
   </div>
@@ -65,8 +69,13 @@
   </div>
 </div>
 
-<div *ngIf="mode === 'live'&& label" class="container multiple-choice-container">
-  <label for="">{{label}}</label>
+<div *ngIf="mode === 'live'&& label" class="container multiple-choice-container " [class.invalid-block]="isInvalidBlock">
+  <label for="">{{label}}
+
+      <span class="required-sign" *ngIf="required">*</span>
+
+  
+  </label>
   <div class="checkbox-list">
     <label
       *ngFor="let o of metaData?.options"

@@ -35,4 +35,14 @@ export class UserService {
       console.error('Error logging out:', error);
     }
   }
+
+
+   async  signInWithGoogle() :  Promise<any>{
+   return await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: "http://localhost:4200/forms" 
+        }
+    })
+  }
 }

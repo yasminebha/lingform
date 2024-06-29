@@ -17,7 +17,7 @@ export class ButtonComponent implements OnInit {
   isDisabled: boolean = false;
   classes!: string;
 
-  width!: number;
+  width?: number=90;
 
   styles: string[] = ['btn'];
 

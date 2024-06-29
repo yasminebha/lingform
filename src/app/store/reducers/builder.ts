@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import * as BuilderActions from '../actions/builder.actions';
 
 export interface BuilderState {
-  form_id: string | null;
+  form_id: string;
   title: string;
   description: string;
   headerFontFamily?: string;
@@ -12,6 +12,7 @@ export interface BuilderState {
   ThemeColor?: string;
   mode: 'edit' | 'live';
   blocks: Record<string, QuestionElement>;
+  blockOrder: string[]; 
 }
 
 const initialState: BuilderState = {
@@ -24,6 +25,7 @@ const initialState: BuilderState = {
   ThemeColor: '#7339ed',
   mode: 'edit',
   blocks: {},
+  blockOrder: [], 
 };
 
 export const builderReducer = createReducer(
@@ -83,7 +85,13 @@ export const builderReducer = createReducer(
     delete newBlocks[blockId];
     return {
       ...currentState,
-      blocks: newBlocks
+      blocks: newBlocks,
+      blockOrder: currentState.blockOrder.filter(id => id !== blockId),
     };
-  })
+  }),
+  on(BuilderActions.updateBlockOrder, (currentState, { blockOrder }) => ({
+    ...currentState,
+    blockOrder: blockOrder,
+  }))
+
 );

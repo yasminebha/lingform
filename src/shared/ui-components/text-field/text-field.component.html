@@ -1,4 +1,4 @@
-<div class="text-field">
+<div class="text-field" [class.invalid]="isInvalid()">
   <label *ngIf="label">{{ label }}</label>
   <input
     type="{{ type }}"
@@ -7,8 +7,8 @@
     [(ngModel)]="value"
     [disabled]="isDisabled"
     (blur)="onTouched($event)"
-    (ngModelChange)="changeCommit($event)"
+    (ngModelChange)="changeCommit($event); emitValueChange($event)"
+   
   />
+  <span class="errorMsg" *ngIf="isInvalid()">{{ errorMsg }}</span>
 </div>
-
-<!-- <textarea class="text-field"></textarea> -->

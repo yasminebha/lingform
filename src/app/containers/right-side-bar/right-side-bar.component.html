@@ -1,12 +1,12 @@
 <div class="side-bar d-flex">
-  <app-modal *ngIf="showModal"></app-modal>
+  <lg-modal [showModal]="showModal" (modalClose)="closeModal()"></lg-modal>
   <div class="d-flex buttons-block">
     <a href="forms/{{form_id}}/viewform" target="_blank">
       <lf-icon-button
         icon="eye"
         layout="outline"
         iconStyle="solid"
-        (click)="toggleMode()"
+        
         title="preview"
       ></lf-icon-button
     ></a>
@@ -29,7 +29,6 @@
   <label
     [ngStyle]="{
       margin: '10px 0 30px 0',
-
       'font-weight': '500',
       'font-size': '18px'
     }"

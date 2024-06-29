@@ -1,10 +1,9 @@
 .side-bar {
 
 
-    padding: 20px 20px 20px 20px;
+    padding: 20px 40px 0;
     flex-direction: column;
-    background-color: var(--bg-color);
-    
+
 
 }
 
@@ -12,10 +11,9 @@
 
 .side-bar .buttons-block {
 
-    justify-content: space-between;
-   
+    justify-content: space-evenly;
     margin: 16px 0 32px 0px;
-    gap: 8px;
+
 }
 ::ng-deep .dropdown{
     width: 70%;

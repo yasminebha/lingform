@@ -3,6 +3,8 @@
         <a routerLink="/forms"><img src="../../../assets/logo.svg" alt=""></a>
 
     </div>
+    <span *ngIf="!isSaving">Form saved successfully</span>
+    <span  *ngIf="isSaving">saving...</span>
     <div class="nav-links">
         <ul>
             <li><a routerLink="/builder/{{formid}}" routerLinkActive="active"  [routerLinkActiveOptions]="{ exact: true }">builder</a></li>

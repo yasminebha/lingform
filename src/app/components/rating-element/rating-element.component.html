@@ -1,0 +1,55 @@
+<div *ngIf="mode==='edit'" class="container">
+  
+      <div class="input-type-area">
+        <lg-input-components
+          icon="rating"
+          title="Rating"
+          layout="second-layout"
+        ></lg-input-components>
+        <div class="tools">
+          <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
+          <lf-icon-button
+            icon="copy"
+            iconStyle="regular"
+            layout="row-icon"
+            class="icon"
+            (click)="duplicateBlock()"
+            type="button"
+          ></lf-icon-button>
+          <lf-icon-button
+            icon="trash"
+            iconStyle="solid"
+            layout="row-icon"
+            class="icon"
+            (click)="removeBlock($event,id)"
+          ></lf-icon-button>
+        </div>
+      </div>
+      <lg-text-field class="title" placeholder="question" (input)="updateQuestLabel($event)"
+      [value]="label"
+      ngModel></lg-text-field>
+      <div class="rating-container edit" >
+        <span *ngFor="let star of stars" class="material-symbols-outlined disabled" >
+            star
+            </span>
+    </div>
+    </div>
+    
+    
+    
+    <div *ngIf="mode==='live'" class="container"  [class.invalid-block]="isInvalidBlock"> 
+   
+          <label for="">{{ label }}  
+            <span class="required-sign" *ngIf="required">*</span>
+    
+        
+        </label>
+
+        <div class="rating-container" >
+            <span *ngFor="let filled of stars; let i = index" (click)="selectStar(i + 1)" class="material-symbols-outlined" [class.filled]="filled" >
+                star
+                </span>
+        </div>
+        
+      </div>
+    

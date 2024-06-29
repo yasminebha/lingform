@@ -13,9 +13,10 @@ export class Form {
   questionFontSize: string = '9';
   questionFontFamily: string = 'Roboto';
   textFontSize: string = '12';
-  textFontFamily: string = 'Roboto';
+  textFontFamily: String = 'Roboto';
+  created_at :string=''
   question: QuestionElement[] = [];
-
+  blockOrder:string[]=[]
   constructor(editeurId: string) {
     this.editeur_id = editeurId;
   }

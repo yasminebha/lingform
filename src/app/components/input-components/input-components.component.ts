@@ -1,6 +1,4 @@
-import { AppState } from '@/app/store/reducers';
 import { Component, OnInit, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'lg-input-components',

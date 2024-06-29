@@ -6,6 +6,7 @@ import { HomeComponent } from './home.component';
 import { UIComponentsModule } from '@/shared/ui-components/ui-components.module';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HomeSideBarComponent } from '../../components/home-side-bar/home-side-bar.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { HomeSideBarComponent } from '../../components/home-side-bar/home-side-b
   imports: [
     CommonModule,
     HomeRoutingModule,
-    UIComponentsModule
+    UIComponentsModule,
+    NgxPaginationModule,
   ],
   schemas: [NO_ERRORS_SCHEMA,],
 })

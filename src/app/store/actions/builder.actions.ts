@@ -22,7 +22,7 @@ export const updateBuilder = createAction(
 );
 export const changeFormId = createAction(
   'BUILDER/UPDATE_FORMID',
-  props<{ id: string | null }>()
+  props<{ id: string }>()
 );
 
 export const addBlock = createAction(
@@ -52,3 +52,8 @@ export const swapBlock = createAction(
   'BUILDER/SWAP_BLOCKS',
   props<{ blockId: string; direction: 'up' | 'down' }>()
 );
+
+export const updateBlockOrder = createAction(
+  'BUILDER/UPDATE_BLOCK_ORDER',
+  props<{ blockOrder: string[] }>()
+);  

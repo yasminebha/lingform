@@ -1,4 +1,23 @@
-<label class="file">
-    <input type="file" id="file"  aria-label="File browser example">
-    <span class="file-custom"></span>
-  </label>
+<div class="file-container">
+  <input
+    type="file"
+    [multiple]="isMultiple"
+    (change)="onFileSelected($event)"
+    [disabled]="isDisabled"
+    class="file-input"
+  />
+  <span class="custom-file-button">
+    <button>
+      <span class="material-symbols-outlined">
+        attachment
+        </span>
+      <span >Attach Files</span>
+    </button>
+  </span>
+</div>
+<div *ngIf="selectedFiles.length > 0" class="file-names">
+  <span *ngFor="let file of selectedFiles; let i = index">
+    {{ file.name }}
+    <button class="remove-file" (click)="removeFile(i, $event)">&#x2715;</button>
+  </span>
+</div>

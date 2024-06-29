@@ -18,14 +18,3 @@ export class QuestionElement<TMeta =any> {
   }
 }
 
-// type MlutipleChoiceQuestion = { options: { [key: string]: string } };
-
-// type UploadQuestion = { maxFiles: number; imgsMime: [] };
-
-// const mcq = new QuestionElement<MlutipleChoiceQuestion>();
-
-// const uq = new QuestionElement<UploadQuestion>();
-
-// uq.quest_meta?.maxFiles
-// uq.quest_meta?.imgsMime
-// mcq.quest_meta?.options;

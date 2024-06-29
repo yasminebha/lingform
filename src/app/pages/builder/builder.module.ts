@@ -23,6 +23,9 @@ import { ViewComponent } from '../view/view.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ResponsesComponent } from '../responses/responses.component';
 import { ModalComponent } from '../../components/modal/modal.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FileUploadElementComponent } from '../../components/file-upload-element/file-upload-element.component';
+import { RatingElementComponent } from '../../components/rating-element/rating-element.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { ModalComponent } from '../../components/modal/modal.component';
     NavbarComponent,
     ResponsesComponent,
     ModalComponent,
+    FileUploadElementComponent,
+    RatingElementComponent,
+
 
   ],
   imports: [
@@ -51,6 +57,7 @@ import { ModalComponent } from '../../components/modal/modal.component';
     FormsModule,
     BuilderRoutingModule,
     UIComponentsModule,
+    DragDropModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

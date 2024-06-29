@@ -12,7 +12,8 @@
                 layout="outline"
                 ngModel
                 name="firstNameControl"
-               
+               [invalidControl]="invalidControl"
+               errorMsg="{{errorMsg}}"
               ></lg-text-field>
             </div>
             <div>
@@ -23,7 +24,8 @@
               layout="outline"
               ngModel
               name="lastNameControl"
-             
+              [invalidControl]="invalidControl"
+              errorMsg="{{errorMsg}}"
               ></lg-text-field>
             </div>
           </div>
@@ -35,7 +37,8 @@
               layout="outline"
               ngModel
               name="emailControl"
-              
+              [invalidControl]="invalidControl"
+              errorMsg="{{errorMsg}}"
               ></lg-text-field>
             </div>
             <div class="input3">
@@ -46,7 +49,8 @@
               layout="outline"
               ngModel
               name="passwordControl"
-             
+              [invalidControl]="invalidControl"
+              errorMsg="{{errorMsg}}"
               ></lg-text-field>
             </div>
             <div class="input3">
@@ -56,7 +60,8 @@
               layout="outline"
               ngModel
               name="confirmControl"
-             
+              [invalidControl]="invalidControl"
+              errorMsg="{{errorMsg}}"
               ></lg-text-field>
             </div>
           </div>

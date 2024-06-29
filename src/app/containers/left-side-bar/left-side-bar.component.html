@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="left-sidebar">
   <p>Content Components</p>
   <div class="bloc">
     <lg-input-components icon="heading" title="Heading" (click)="addElementBlock('HeadingElementComponent')"></lg-input-components>
@@ -20,15 +20,16 @@
     ></lg-input-components>
     <lg-input-components icon="email" title="Email" (click)="addElementBlock('EmailElementComponent')"></lg-input-components>
     <lg-input-components icon="date" title="Date & Time" (click)="addElementBlock('DateElementComponent')"></lg-input-components>
-    <lg-input-components icon="phone" title="Phone" ></lg-input-components>
+    <lg-input-components icon="phone" title="Phone" (click)="addElementBlock('PhoneElementComponent')" ></lg-input-components>
     <lg-input-components
       icon="checkbox"
       title="Multiple Choice"
       (click)="addElementBlock('MultipleChoiceElementComponent')"
     ></lg-input-components>
     <lg-input-components icon="radio" title="One Choice" (click)="addElementBlock('OneChoiceComponent')"></lg-input-components>
-    <lg-input-components icon="file" title="File Upload"></lg-input-components>
+    <lg-input-components icon="file" title="File Upload" (click)="addElementBlock('FileUploadElementComponent')" ></lg-input-components>
     <lg-input-components icon="switch" title="Yes/No"></lg-input-components>
+    <lg-input-components icon="rating" title="Rating" (click)="addElementBlock('RatingElementComponent')"></lg-input-components>
   </div>
   <p>Other Components</p>
   <div>

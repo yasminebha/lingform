@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseControlComponent } from './base-control.component';
 import { CommonModule } from '@angular/common';
 import { FormListItemComponent } from './form-list-item/form-list-item.component';
+import { NumberSliderComponent } from './number-slider/number-slider.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FormListItemComponent } from './form-list-item/form-list-item.component
     CheckboxComponent,
     FileUploadComponent,
     FormListItemComponent,
+    NumberSliderComponent
   ],
   imports:[
     FormsModule,
@@ -45,6 +47,7 @@ import { FormListItemComponent } from './form-list-item/form-list-item.component
     CheckboxComponent,
     FileUploadComponent,
     FormListItemComponent,
+    NumberSliderComponent
   ],
 })
 export class UIComponentsModule {}
