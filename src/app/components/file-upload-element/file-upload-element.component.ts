@@ -24,14 +24,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FileUploadElementComponent extends FormBlockComponent<string[]> implements OnInit {
 
-   @Output() maxFiles: number = 1;
+ maxFiles: number = 1;
   formId:string|null=''
 
   files:File[]=[]
   override ngOnInit(): void {
     if(this.route)
     this.formId = this.route.snapshot.paramMap.get('id');
-   
+
   }
 
   constructor(
@@ -47,11 +47,7 @@ export class FileUploadElementComponent extends FormBlockComponent<string[]> imp
 
   onFileSelected(files: File[] | null): void {
     if (files) {
-    
-        this.files = files;
-
-
-  
+     this.files = files;
     } 
   }
   

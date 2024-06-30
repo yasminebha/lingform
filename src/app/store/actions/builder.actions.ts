@@ -57,3 +57,4 @@ export const updateBlockOrder = createAction(
   'BUILDER/UPDATE_BLOCK_ORDER',
   props<{ blockOrder: string[] }>()
 );  
+

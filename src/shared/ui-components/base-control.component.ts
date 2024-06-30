@@ -18,7 +18,9 @@ export class BaseControlComponent<TValue, TElement=any>
 
   constructor(
     private _renderer: Renderer2,
-    private _elementRef: ElementRef<TElement>
+    private _elementRef: ElementRef<TElement>,
+    protected  store: Store<AppState>,
+
   ) {}
 
   public onTouched = (evt: any) => {};
