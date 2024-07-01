@@ -14,6 +14,7 @@ import { BaseControlComponent } from './base-control.component';
 import { CommonModule } from '@angular/common';
 import { FormListItemComponent } from './form-list-item/form-list-item.component';
 import { NumberSliderComponent } from './number-slider/number-slider.component';
+import { TextAreaComponent } from './text-area/text-area.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NumberSliderComponent } from './number-slider/number-slider.component';
     CheckboxComponent,
     FileUploadComponent,
     FormListItemComponent,
-    NumberSliderComponent
+    NumberSliderComponent,
+    TextAreaComponent
   ],
   imports:[
     FormsModule,
@@ -47,7 +49,8 @@ import { NumberSliderComponent } from './number-slider/number-slider.component';
     CheckboxComponent,
     FileUploadComponent,
     FormListItemComponent,
-    NumberSliderComponent
+    NumberSliderComponent,
+    TextAreaComponent
   ],
 })
 export class UIComponentsModule {}

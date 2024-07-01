@@ -59,7 +59,7 @@ export class FileUploadComponent extends BaseControlComponent<File[], HTMLInputE
         this.errMsg=""
 
       }else{
-        this.errMsg="the maximum number of files is "+this.maxFiles
+        this.errMsg="The maximum number of files is "+this.maxFiles
         
         
       }
