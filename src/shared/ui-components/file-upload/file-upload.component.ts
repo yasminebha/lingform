@@ -16,31 +16,31 @@ import { BaseControlComponent } from '../base-control.component';
 })
 export class FileUploadComponent extends BaseControlComponent<File[], HTMLInputElement> {
   selectedFiles: File[] = [];
-  @Input() maxFiles:number=1
+   maxFiles:number=1
   @Input() isMultiple = true;
   @Input() isDisabled = false;
   @Input() blockId!:string
-
+  @Output()errMsg:string=""
   @Output() valueChange: EventEmitter<File[]> = new EventEmitter<File[]>();
   
+  override ngOnInit(): void {
+   
+   this.store
+   .select((state) => state.builder)
+   .subscribe(async ({ blocks }) => {
+   this.maxFiles= blocks[this.blockId]['quest_meta']['maxFileNumber']
+
+   }).unsubscribe()
+    
+
+   console.log(this.selectedFiles);
+   
+ }
   override writeValue(value: File[] | null): void {
     if (value) {
       this.selectedFiles = value;
       this.emitValueChange(value);
     } 
-    
-  }
-   override ngOnInit(): void {
-    
-    this.store
-    .select((state) => state.builder)
-    .subscribe(async ({ blocks }) => {
-    this.maxFiles= blocks[this.blockId]['quest_meta']['maxFileNumber']
-
-    }).unsubscribe()
-     
-
-    console.log(this.selectedFiles);
     
   }
 
@@ -49,17 +49,19 @@ export class FileUploadComponent extends BaseControlComponent<File[], HTMLInputE
   }
 
   onFileSelected(event: Event): void {
-    debugger
+    
     const input = event.target as HTMLInputElement;
     if (input.files) {
       const newFiles = Array.from(input.files);
-      this.selectedFiles = this.isMultiple ? [...this.selectedFiles, ...newFiles] : [newFiles[0]];
-      if(this.selectedFiles.length<this.maxFiles){
+      if(this.selectedFiles.length+newFiles.length<=this.maxFiles){
+        this.selectedFiles = this.isMultiple ? [...this.selectedFiles, ...newFiles] : [newFiles[0]];
         this.emitValueChange(this.selectedFiles);
+        this.errMsg=""
 
       }else{
-        alert("the maximum number of files is "+this.maxFiles)
-        this.selectedFiles=[]
+        this.errMsg="the maximum number of files is "+this.maxFiles
+        
+        
       }
     }
   }

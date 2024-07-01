@@ -24,7 +24,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FileUploadElementComponent extends FormBlockComponent<string[]> implements OnInit {
 
- maxFiles: number = 1;
+
   formId:string|null=''
 
   files:File[]=[]

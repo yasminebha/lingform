@@ -77,6 +77,12 @@ button, [type='button'], [type='reset'], [type='submit'] {
     border: red solid 1px;
     animation: shake 0.5s;
   }
+  .error-message{
+    margin-top: 30px;
+    color:red;
+    font-size: small;
+    
+  }
 
 .material-symbols-outlined {
     color:var(--gray) ;

@@ -31,21 +31,19 @@
     ></lg-text-field>
     <lg-number-slider
     [blockId]="id"
-    maxFiles="maxFiles"
     [maxRangeNumber]="10"
   ></lg-number-slider>
 
 
   </div>
-  <div *ngIf="mode === 'live'" class="container">
+  <div *ngIf="mode === 'live'" class="container"   [class.invalid-block]="isInvalidBlock">
     <label for="">{{ label }}
       <span class="required-sign" *ngIf="required">*</span>
       
     </label>
     <lg-file-upload [blockId]="id" (valueChange)="onFileSelected($event)"></lg-file-upload>
 
- 
-  
+    
   </div>
   
   
