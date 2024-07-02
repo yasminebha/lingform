@@ -9,6 +9,15 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 })
 export class BuilderComponent implements OnInit {
   showModal:boolean=false
+  selectedBlock: any;
+
+  onBlockSelected(block: any) {
+    this.selectedBlock = block;
+  }
+
+  closeSettings() {
+    this.selectedBlock = null;
+  }
   @Output()isSaving:boolean=false
 
   constructor(

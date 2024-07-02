@@ -26,6 +26,7 @@ import { ModalComponent } from '../../components/modal/modal.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FileUploadElementComponent } from '../../components/file-upload-element/file-upload-element.component';
 import { RatingElementComponent } from '../../components/rating-element/rating-element.component';
+import { BlockSettingSideBarComponent } from '../../containers/block-setting-side-bar/block-setting-side-bar.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { RatingElementComponent } from '../../components/rating-element/rating-e
     ModalComponent,
     FileUploadElementComponent,
     RatingElementComponent,
+    BlockSettingSideBarComponent,
 
 
   ],

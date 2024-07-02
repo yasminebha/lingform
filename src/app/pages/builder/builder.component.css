@@ -1,39 +1,62 @@
-.form-builder{
+.form-builder {
     display: flex;
     justify-content: space-between;
     background-color: var(--bg-color);
     height: 90vh;
     width: 100%;
-    
-}
-
-
-.builder{
+  }
+  
+  .builder {
     overflow-y: scroll;
     width: 60%;
-}
-.L-sidebar{
+  }
+  
+  .L-sidebar {
     width: 20%;
     min-width: 370px;
     max-width: 370px;
-
-}
-.R-sidebar{
-    width:20%;
+  }
+  
+  .R-sidebar {
+    width: 20%;
     min-width: 350px;
     max-width: 400px;
-
-}
-::-webkit-scrollbar {
+    position: relative;
+  }
+  
+  .settings-sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .settings-sidebar .close-button {
+    align-self: flex-end;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  ::-webkit-scrollbar {
     width: 5px;
-}
-::-webkit-scrollbar-track {
-    background:var(--gray);
-}
-::-webkit-scrollbar-thumb {
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--gray);
+  }
+  
+  ::-webkit-scrollbar-thumb {
     background: var(--secondary-color);
     border-radius: 10px;
   }
+  
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+  

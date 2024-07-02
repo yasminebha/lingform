@@ -1,41 +1,42 @@
-<div *ngIf="mode === 'edit'" class="container ">
+  <div *ngIf="mode === 'edit'" class="container ">
 
-    <div class="input-type-area">
-      <lg-input-components
-        icon="file"
-        title="File Upload"
-        layout="second-layout"
-      ></lg-input-components>
-      <div class="tools">
-        <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
-        <lf-icon-button
-          icon="copy"
-          iconStyle="regular"
-          layout="row-icon"
-          class="icon"
-        ></lf-icon-button>
-        <lf-icon-button
-          icon="trash"
-          iconStyle="solid"
-          layout="row-icon"
-          class="icon"
-          (click)="removeBlock($event, id)"
-        ></lf-icon-button>
+      <div class="input-type-area">
+        <lg-input-components
+          icon="file"
+          title="File Upload"
+          layout="second-layout"
+        ></lg-input-components>
+        <div class="tools">
+          <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle>
+          <lf-icon-button
+            icon="copy"
+            iconStyle="regular"
+            layout="row-icon"
+            class="icon"
+          ></lf-icon-button>
+          <lf-icon-button
+            icon="trash"
+            iconStyle="solid"
+            layout="row-icon"
+            class="icon"
+            (click)="removeBlock($event, id)"
+          ></lf-icon-button>
+          <!-- <button type="button" (click)="onOpenSettings()">setting</button> -->
+        </div>
       </div>
+      <lg-text-field
+        (input)="updateQuestLabel($event)"
+        [value]="label"
+        class="title"
+        placeholder="Question label"
+      ></lg-text-field>
+      <lg-number-slider
+      [blockId]="id"
+      [maxRangeNumber]="10"
+    ></lg-number-slider>
+
+
     </div>
-    <lg-text-field
-      (input)="updateQuestLabel($event)"
-      [value]="label"
-      class="title"
-      placeholder="Question label"
-    ></lg-text-field>
-    <lg-number-slider
-    [blockId]="id"
-    [maxRangeNumber]="10"
-  ></lg-number-slider>
-
-
-  </div>
   <div *ngIf="mode === 'live'" class="container"   [class.invalid-block]="isInvalidBlock">
     <label for="">{{ label }}
       <span class="required-sign" *ngIf="required">*</span>

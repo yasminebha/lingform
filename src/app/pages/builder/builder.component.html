@@ -6,11 +6,19 @@
   </div>
 
   <div class="builder">
-    <lg-form-builder></lg-form-builder>
+    <lg-form-builder  (blockSelected)="onBlockSelected($event)"></lg-form-builder>
   </div>
 <div class="R-sidebar">
 
   <lg-right-side-bar></lg-right-side-bar>
 </div>
+
+ 
+<lg-block-setting-side-bar 
+[block]="selectedBlock"
+*ngIf="selectedBlock"
+(close)="closeSettings()"
+class="settings-sidebar">
+</lg-block-setting-side-bar>
 </div>
 

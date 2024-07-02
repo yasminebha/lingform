@@ -1,0 +1,56 @@
+<div class="settings-sidebar">
+    <span class="close-button" (click)="closeSettings()">✖</span>
+    <ng-container *ngIf="settingsTemplate; else noBlockSelected">
+      <ng-container [ngTemplateOutlet]="settingsTemplate"></ng-container>
+    </ng-container>
+    <ng-template #noBlockSelected>
+      <p>No block selected</p>
+    </ng-template>
+  
+    <!-- Define templates for each block type -->
+    <ng-template #multipleChoiceSettings>
+      <h3>Multiple Choice Settings</h3>
+      <!-- Add multiple choice settings here -->
+    </ng-template>
+  
+    <ng-template #oneChoiceSettings>
+      <h3>One Choice Settings</h3>
+      <!-- Add one choice settings here -->
+    </ng-template>
+  
+    <ng-template #emailSettings>
+      <h3>Email Settings</h3>
+      <!-- Add email settings here -->
+    </ng-template>
+  
+    <ng-template #dateSettings>
+      <h3>Date Settings</h3>
+      <!-- Add date settings here -->
+    </ng-template>
+  
+    <ng-template #shortAnswerSettings>
+      <h3>Short Answer Settings</h3>
+      <!-- Add short answer settings here -->
+    </ng-template>
+  
+    <ng-template #phoneSettings>
+      <h3>Phone Settings</h3>
+      <!-- Add phone settings here -->
+    </ng-template>
+  
+    <ng-template #fileUploadSettings>
+      <h3>File Upload Settings</h3>
+      <!-- Add file upload settings here -->
+    </ng-template>
+  
+    <ng-template #ratingSettings>
+      <h3>Rating Settings</h3>
+      <!-- Add rating settings here -->
+    </ng-template>
+  
+    <ng-template #defaultSettings>
+      <h3>Default Settings</h3>
+      <!-- Add default settings here -->
+    </ng-template>
+  </div>
+  
