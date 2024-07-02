@@ -1,0 +1,46 @@
+.text-area {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  
+  .text-area label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .text-area textarea {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    resize: none;
+    transition: border 0.2s, box-shadow 0.2s;
+ 
+  }
+  
+  .text-area textarea:hover {
+    border: 1px solid var(--primary-color);
+  }
+  
+  .text-area textarea:focus {
+    border: 1px solid var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-area textarea:disabled {
+    all: unset;
+    padding: 12px 20px;
+    font-size:medium
+
+  }
+  
+  .text-area .errorMsg {
+    color: red;
+    margin-top: 5px;
+    font-size: 12px;
+  }
+  

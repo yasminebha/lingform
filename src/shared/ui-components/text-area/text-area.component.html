@@ -1,15 +1,12 @@
-<div class="text-field" [class.invalid]="isInvalid()">
-    <label *ngIf="label">{{ label }}</label>
-    <textarea  name="" id=""
+<div class="text-area" [class.invalid]="isInvalid()">
+  <label *ngIf="label">{{ label }}</label>
+  <textarea 
     placeholder="{{placeholder}}"
     [ngStyle]="{ 'font-size': fontSize + 'px' }"
     [(ngModel)]="value"
     [disabled]="isDisabled"
     (blur)="onTouched($event)"
-    (ngModelChange)="changeCommit($event); emitValueChange($event)"
-    ></textarea>
-    
-   
-    
-    <span class="errorMsg" *ngIf="isInvalid()">{{ errorMsg }}</span>
-  </div>
+    (ngModelChange)="changeCommit($event); emitValueChange($event)">
+  </textarea>
+  <span class="errorMsg" *ngIf="isInvalid()">{{ errorMsg }}</span>
+</div>

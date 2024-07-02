@@ -2,13 +2,14 @@
   <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form-builder">
     <div *ngIf="mode === 'edit'" class="container header">
       <lg-text-field type="text" placeholder="Form title" class="title" [value]="title" fontSize="24" (input)="updateBuilderTitle($event)"></lg-text-field>
-      <lg-text-field type="text" class="title" placeholder="Form description" [value]="description" (input)="updateBuilderDescription($event)"></lg-text-field>
+      <lg-text-area placeholder="Form Description"  [value]="description" (input)="updateBuilderDescription($event)"> </lg-text-area>
     </div>
 
     <div *ngIf="mode === 'live'" class="container header">
       <lg-text-field type="text" class="title" [value]="title" fontSize="24" [isDisabled]="true"></lg-text-field>
       <hr *ngIf="description">
-      <lg-text-field *ngIf="description" type="text" class="title" [value]="description" [isDisabled]="true" fontSize="13"></lg-text-field>
+      <lg-text-area *ngIf="description"placeholder="Form Description"  [value]="description" [isDisabled]="true" > </lg-text-area>
+
     </div>
 
     <div class="block-list" cdkDropList (cdkDropListDropped)="drop($event)">

@@ -19,7 +19,8 @@
     }
 }
 hr{
-    border: var(--border);
+    border:var(--separation-border);
+    font-size: medium;
 }
 .block-list {
  
