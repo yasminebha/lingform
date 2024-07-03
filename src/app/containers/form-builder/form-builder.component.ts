@@ -16,9 +16,11 @@ import { debounce } from '@/shared/utils/timing';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
   Component,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   QueryList,
   ViewChildren,
 } from '@angular/core';
@@ -45,6 +47,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   private storeSubscription: any;
   @ViewChildren(FileUploadElementComponent)
   fileUploadComponents?: QueryList<FileUploadElementComponent>;
+  @Output() blockSelected = new EventEmitter<QuestionElement>();
 
   @Input() mode!: 'live' | 'edit';
   invalidBlocks: { [blockId: string]: boolean } = {};
@@ -111,7 +114,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.storeSubscription.unsubscribe();
   }
-
+  onBlockSettingsClick(block: QuestionElement) {
+    this.blockSelected.emit(block);
+  }
   updateBuilderTitle = debounce((evt: any) => {
     const updatedValue = evt.target.value;
     this.store.dispatch(updateBuilderTitle({ title: updatedValue }));

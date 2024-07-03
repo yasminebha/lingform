@@ -1,5 +1,12 @@
 <div class="settings-sidebar">
-    <span class="close-button" (click)="closeSettings()">✖</span>
+    
+    <lf-icon-button
+    icon="xmark"
+    iconStyle="solid"
+    layout="row-icon"
+    class="icon"
+    (click)="closeSettings()"
+  ></lf-icon-button>
     <ng-container *ngIf="settingsTemplate; else noBlockSelected">
       <ng-container [ngTemplateOutlet]="settingsTemplate"></ng-container>
     </ng-container>

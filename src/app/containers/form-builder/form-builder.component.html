@@ -12,8 +12,9 @@
 
     </div>
 
-    <div class="block-list" cdkDropList (cdkDropListDropped)="drop($event)">
-      <div class="block" *ngFor="let block of blocks" [cdkDrag]="mode==='edit'" [cdkDragDisabled]="mode==='live'" [cdkDragData]="block">
+    <div class="block-list" cdkDropList (cdkDropListDropped)="drop($event)" >
+          
+      <div class="block" *ngFor="let block of blocks" [cdkDrag]="mode==='edit'" [cdkDragDisabled]="mode==='live'" [cdkDragData]="block"  >
         
         <div *ngIf="mode==='edit'" class="drag-handle" cdkDragHandle>
           <span class="material-symbols-outlined">
@@ -32,6 +33,7 @@
           [metaData]="block.quest_meta"
           [required]="block.required"
           [name]="block.quest_id"
+          (settingsClicked)="onBlockSettingsClick(block)"
         ></lg-multiple-choice-element>
 
         <lg-one-choice
@@ -45,6 +47,7 @@
           [required]="block.required"
           [name]="block.quest_id"
           ngModel
+          (settingsClicked)="onBlockSettingsClick(block)"
         ></lg-one-choice>
 
         <lg-email-element
@@ -58,6 +61,7 @@
           [required]="block.required"
           [name]="block.quest_id"
           ngModel
+          (settingsClicked)="onBlockSettingsClick(block)"
         ></lg-email-element>
 
         <lg-date-element
@@ -71,6 +75,7 @@
           [required]="block.required"
           [name]="block.quest_id"
           ngModel
+          (settingsClicked)="onBlockSettingsClick(block)"
         ></lg-date-element>
 
         <lg-short-answer
@@ -84,6 +89,7 @@
           [required]="block.required"
           [name]="block.quest_id"
           ngModel
+          (settingsClicked)="onBlockSettingsClick(block)"
         ></lg-short-answer>
 
         <lg-phone-element
@@ -97,6 +103,7 @@
           [required]="block.required"
           [name]="block.quest_id"
           ngModel
+          (settingsClicked)="onBlockSettingsClick(block)"
         ></lg-phone-element>
 
         <lg-file-upload-element
@@ -110,6 +117,7 @@
           [required]="block.required"
           [name]="block.quest_id"
           ngModel
+          (settingsClicked)="onBlockSettingsClick(block)"
         ></lg-file-upload-element>
         <lg-rating-element
           [isInvalidBlock]="invalidBlocks[block.quest_id]"
@@ -122,6 +130,7 @@
           [required]="block.required"
           [name]="block.quest_id"
           ngModel
+          (settingsClicked)="onBlockSettingsClick(block)"
         ></lg-rating-element>
       </div>
     </div>

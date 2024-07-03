@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/reducers';
 import { BaseControlComponent } from '@/shared/ui-components/base-control.component';
@@ -10,56 +10,51 @@ import { QuestionElement } from '@/shared/models/questionElement.model';
 @Component({
   template: '',
 })
-export class FormBlockComponent<TValue, TMeta=any>
-  extends BaseControlComponent<TValue, any>
-  implements OnInit
-{
-  @Input()
-  mode: 'edit' | 'live' = 'live';
-  @Input()
-  override value?: TValue;
-  @Input()
-  id: string="";
-  @Input()
-  kind: string="";
-  @Input()
-  required: boolean = true;
-  @Input()
-  metaData?: TMeta;
-  @Input()
-  label!:string;
-  @Input()
-  isInvalidBlock:boolean=false
+export class FormBlockComponent<TValue, TMeta=any> extends BaseControlComponent<TValue, any> implements OnInit {
+  @Input() mode: 'edit' | 'live' = 'live';
+  @Input() override value?: TValue;
+  @Input() id: string = '';
+  @Input() kind: string = '';
+  @Input() required: boolean = true;
+  @Input() metaData?: TMeta;
+  @Input() label!: string;
+  @Input() isInvalidBlock: boolean = false;
+  @Output() settingsClicked = new EventEmitter<QuestionElement>();
 
   constructor(
     _renderer: Renderer2,
     _elementRef: ElementRef<any>,
-     store: Store<AppState>,
-     protected readonly questionService: QuestionService
+    store: Store<AppState>,
+    protected readonly questionService: QuestionService
   ) {
-    super(_renderer, _elementRef,store);
+    super(_renderer, _elementRef, store);
   }
 
   override ngOnInit(): void {}
+
+  onOpenSettings() {
+    this.settingsClicked.emit();
+    
+  }
+
   async removeBlock(event: Event, blockId: string) {
     event.stopPropagation();
     event.preventDefault();
     await this.questionService.removeQuestionBlock(blockId);
     this.store.dispatch(removeBlock({ blockId }));
-
   }
-  duplicateBlock() {
 
-    
+  duplicateBlock() {
     const newBlockId = shortid.generate();
     let form_id: string | null = '';
-    let blockOrder:string[]= []
+    let blockOrder: string[] = [];
     this.store
       .select((state) => state.builder)
       .subscribe((builder) => {
         form_id = builder.form_id;
         blockOrder = [...builder.blockOrder];
-      }).unsubscribe();
+      })
+      .unsubscribe();
     const newBlock: QuestionElement = {
       form_id: form_id,
       kind: this.kind,
@@ -69,21 +64,18 @@ export class FormBlockComponent<TValue, TMeta=any>
       quest_meta: { ...this.metaData },
     };
     this.store.dispatch(addBlock({ blockId: newBlockId, newBlock }));
-    blockOrder.splice(blockOrder.indexOf(this.id),0,newBlockId)
+    blockOrder.splice(blockOrder.indexOf(this.id), 0, newBlockId);
     this.store.dispatch(updateBlockOrder({ blockOrder }));
   }
-  onToggle(){
-    if (this.required)
-      this.required=false
-    else
-      this.required=true
-  
+
+  onToggle() {
+    this.required = !this.required;
+
     this.store.dispatch(
       updateBlock({
         blockId: this.id,
-        required:this.required
+        required: this.required,
       })
     );
-    }
+  }
 }
-

@@ -21,7 +21,14 @@
             class="icon"
             (click)="removeBlock($event, id)"
           ></lf-icon-button>
-          <!-- <button type="button" (click)="onOpenSettings()">setting</button> -->
+          <lf-icon-button
+          icon="gear"
+          iconStyle="solid"
+          layout="row-icon"
+          class="icon"
+          (click)="onOpenSettings()"
+        ></lf-icon-button>
+          
         </div>
       </div>
       <lg-text-field
