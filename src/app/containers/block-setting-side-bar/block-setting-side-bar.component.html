@@ -39,7 +39,7 @@
       <h3>Short Answer Settings</h3>
       <!-- Add short answer settings here -->
     </ng-template>
-  
+
     <ng-template #phoneSettings>
       <h3>Phone Settings</h3>
       <!-- Add phone settings here -->
@@ -47,7 +47,10 @@
   
     <ng-template #fileUploadSettings>
       <h3>File Upload Settings</h3>
-      <!-- Add file upload settings here -->
+      <lg-number-slider
+      [blockId]="block.quest_id"
+      [maxRangeNumber]="10"
+    ></lg-number-slider>
     </ng-template>
   
     <ng-template #ratingSettings>

@@ -1,3 +1,4 @@
+import { QuestionElement } from '@/shared/models/questionElement.model';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild 
   styleUrls: ['./block-setting-side-bar.component.css']
 })
 export class BlockSettingSideBarComponent implements OnInit {
-  @Input() block: any;
+  @Input() block!: QuestionElement;
 
   @ViewChild('multipleChoiceSettings') multipleChoiceSettings!: TemplateRef<any>;
   @ViewChild('oneChoiceSettings') oneChoiceSettings!: TemplateRef<any>;
@@ -22,7 +23,6 @@ export class BlockSettingSideBarComponent implements OnInit {
   ngOnInit(): void {}
   get settingsTemplate(): TemplateRef<any> | null {
     if (!this.block) return null;
-
     switch (this.block.kind) {
       case 'MultipleChoiceElementComponent':
         return this.multipleChoiceSettings;

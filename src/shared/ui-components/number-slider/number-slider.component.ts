@@ -11,13 +11,14 @@ import { Store } from '@ngrx/store';
 })
 export class NumberSliderComponent implements OnInit {
   maxFile:number=1
+  
   @Input() blockId!:string;
   @Input()maxRangeNumber?:number
   constructor(private store: Store<AppState>) { }
 
 
    onSliderChange = (evt: any) => {
-    
+    this.maxFile= evt.target.value
     this.store.dispatch(
       updateBlock({
         blockId: this.blockId,
@@ -34,7 +35,7 @@ export class NumberSliderComponent implements OnInit {
     this.store
     .select((state) => state.builder)
     .subscribe(async ({ blocks }) => {
-    this.maxFile= blocks[this.blockId]['quest_meta']['maxFileNumber']
+    this.maxFile= blocks[this.blockId]['quest_meta']['maxFileNumber'] ?blocks[this.blockId]['quest_meta']['maxFileNumber']:1
   
     }).unsubscribe()
   }
