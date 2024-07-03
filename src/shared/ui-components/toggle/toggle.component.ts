@@ -3,6 +3,7 @@ import { BaseControlComponent } from '../base-control.component';
 import { updateBlock } from '@/app/store/actions/builder.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '@/app/store/reducers';
+import { QuestionElement } from '@/shared/models/questionElement.model';
 
 @Component({
   selector: 'lf-toggle',
@@ -14,10 +15,22 @@ export class ToggleComponent
   implements OnInit
 {
 
-  @Input() required?:boolean
+ required:boolean=true
+  @Input() block!:QuestionElement
   notRequiredLabel?: string = 'not Required';
   requiredLabel?: string = 'Required';
 
   override ngOnInit(): void {}
-  
+  onToggle() {
+      
+    this.required =!this.required;
+    this.store.dispatch(
+        updateBlock({
+          blockId: this.block.quest_id,
+          required: this.required,
+        })
+      );
+
+    
+  }
 }

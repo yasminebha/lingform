@@ -1,5 +1,8 @@
+import { updateBlock } from '@/app/store/actions/builder.actions';
+import { AppState } from '@/app/store/reducers';
 import { QuestionElement } from '@/shared/models/questionElement.model';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'lg-block-setting-side-bar',
@@ -20,6 +23,10 @@ export class BlockSettingSideBarComponent implements OnInit {
   @ViewChild('defaultSettings') defaultSettings!: TemplateRef<any>;
 
   @Output() close = new EventEmitter<void>();
+
+  constructor(private store: Store<AppState>,){
+
+  }
   ngOnInit(): void {}
   get settingsTemplate(): TemplateRef<any> | null {
     if (!this.block) return null;
@@ -47,5 +54,5 @@ export class BlockSettingSideBarComponent implements OnInit {
   closeSettings() {
     this.close.emit();
   }
- 
+
 }

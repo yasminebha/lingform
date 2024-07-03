@@ -7,6 +7,7 @@
     class="icon"
     (click)="closeSettings()"
   ></lf-icon-button>
+
     <ng-container *ngIf="settingsTemplate; else noBlockSelected">
       <ng-container [ngTemplateOutlet]="settingsTemplate"></ng-container>
     </ng-container>
@@ -47,6 +48,7 @@
   
     <ng-template #fileUploadSettings>
       <h3>File Upload Settings</h3>
+      <lf-toggle [block]="block" ></lf-toggle>
       <lg-number-slider
       [blockId]="block.quest_id"
       [maxRangeNumber]="10"

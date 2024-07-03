@@ -1,7 +1,7 @@
 <div class="toggle-container" >
 
   <label class="toggle" [class.checked]>
-    <input type="checkbox"/>
+    <input type="checkbox" (change)="onToggle()"/>
     <span></span>
   </label>
   <p *ngIf="required">Required</p>
