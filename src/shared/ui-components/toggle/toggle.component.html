@@ -1,9 +1,9 @@
-<div class="toggle-container" >
 
-  <label class="toggle" [class.checked]>
-    <input type="checkbox" (change)="onToggle()"/>
-    <span></span>
+<div class="toggle-container">
+  
+  <label class="switch">
+    <input type="checkbox" (change)="onToggle()">
+    <span class="slider round"></span>
   </label>
-  <p *ngIf="required">Required</p>
-  <p *ngIf="!required">not Required</p>
+  <p>{{ required ? 'Required' : 'Not Required' }}</p>
 </div>

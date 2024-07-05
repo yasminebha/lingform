@@ -1,8 +1,6 @@
 import { Component, ElementRef, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { BaseControlComponent } from '../base-control.component';
 import { updateBlock } from '@/app/store/actions/builder.actions';
-import { Store } from '@ngrx/store';
-import { AppState } from '@/app/store/reducers';
 import { QuestionElement } from '@/shared/models/questionElement.model';
 
 @Component({
@@ -15,7 +13,7 @@ export class ToggleComponent
   implements OnInit
 {
 
- required:boolean=true
+ required:boolean=false
   @Input() block!:QuestionElement
   notRequiredLabel?: string = 'not Required';
   requiredLabel?: string = 'Required';
