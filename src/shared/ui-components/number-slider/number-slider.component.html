@@ -1,11 +1,15 @@
 <div class="slider-container">
-    <label for="file-slider">Max Files: {{ maxFile }}</label>
+  <label for="file-slider">Max Files: {{ maxFile }}</label>
+  <div class="range-slider">
     <input
       type="range"
       id="file-slider"
       min="1"
-      max="{{maxRangeNumber}}"
+      [max]="maxRangeNumber"
       [value]="maxFile"
       (input)="onSliderChange($event)"
+      #slider
     />
+    <!-- <output [style.left.%]="(slider.valueAsNumber) * (100 / maxRangeNumber)">{{ maxFile }}</output> -->
   </div>
+</div>

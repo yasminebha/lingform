@@ -1,7 +1,6 @@
 import { updateBlock } from '@/app/store/actions/builder.actions';
 import { AppState } from '@/app/store/reducers';
-import { debounce } from '@/shared/utils/timing';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -10,35 +9,30 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./number-slider.component.css']
 })
 export class NumberSliderComponent implements OnInit {
-  maxFile:number=1
-  
-  @Input() blockId!:string;
-  @Input()maxRangeNumber?:number
-  constructor(private store: Store<AppState>) { }
+  @Input() blockId!: string;
+  @Input() maxRangeNumber: number = 10;
+  maxFile: number = 1;
 
+  constructor(private store: Store<AppState>) {}
 
-   onSliderChange = (evt: any) => {
-    this.maxFile= evt.target.value
+  ngOnInit(): void {
+    this.store
+      .select((state) => state.builder)
+      .subscribe(({ blocks }) => {
+        this.maxFile = blocks[this.blockId]?.quest_meta?.maxFileNumber || 1;
+      })
+      .unsubscribe();
+  }
+
+  onSliderChange(evt: any): void {
+    this.maxFile = evt.target.value;
     this.store.dispatch(
       updateBlock({
         blockId: this.blockId,
         quest_meta: {
-          maxFileNumber: evt.target.value,
+          maxFileNumber: this.maxFile,
         },
       })
     );
   }
-  
-  
-
-  ngOnInit(): void {
-    this.store
-    .select((state) => state.builder)
-    .subscribe(async ({ blocks }) => {
-    this.maxFile= blocks[this.blockId]['quest_meta']['maxFileNumber'] ?blocks[this.blockId]['quest_meta']['maxFileNumber']:1
-  
-    }).unsubscribe()
-  }
-
-
 }
