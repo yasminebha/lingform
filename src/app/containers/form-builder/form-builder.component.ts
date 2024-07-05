@@ -1,6 +1,7 @@
 import { FileUploadElementComponent } from '@/app/components/file-upload-element/file-upload-element.component';
 import {
   addBlock,
+  changeBgColor,
   changeFormId,
   swapBlock,
   updateBlockOrder,
@@ -106,6 +107,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         );
         this.store.dispatch(
           updateBlockOrder({ blockOrder: this.form?.blockOrder || [] })
+        );
+        this.store.dispatch(
+          changeBgColor ({ bgColor: this.form.bgColor })
         );
       }
     }
@@ -227,7 +231,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       .select((state) => state.builder)
       .pipe(distinctUntilChanged())
       .subscribe(
-        async ({ blocks, title, description, form_id, blockOrder }) => {
+        async ({ blocks, title, description, form_id, blockOrder,backgroundColor }) => {
           Object.values(blocks).forEach((block: any) => {
             const newBlock: QuestionElement = {
               quest_id: block.quest_id,
@@ -236,6 +240,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
               questLabel: block.questLabel,
               required: block.required || false,
               quest_meta: block.quest_meta || {},
+              
             };
             this.questService.addQuestionBlock(newBlock);
           });
@@ -244,6 +249,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             title: title,
             description: description,
             blockOrder: blockOrder,
+            bgColor:backgroundColor
           };
           await this.formService.updateForm(form_id, updatedForm);
           this.formService.setIsSaving(false);
