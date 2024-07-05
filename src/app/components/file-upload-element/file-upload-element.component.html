@@ -7,11 +7,12 @@
           layout="second-layout"
         ></lg-input-components>
         <div class="tools">
-          <!-- <lf-toggle (click)="onToggle()" [required]="required"></lf-toggle> -->
+         
           <lf-icon-button
             icon="copy"
-            iconStyle="solid"
+            iconStyle="regular"
             layout="row-icon"
+            (click)="duplicateBlock()"
             class="icon"
           ></lf-icon-button>
           <lf-icon-button
