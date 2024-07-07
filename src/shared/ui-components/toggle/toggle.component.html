@@ -1,9 +1,7 @@
-
-<div class="toggle-container">
-  
+<div class="toggle-container" *ngIf="block">
   <label class="switch">
-    <input type="checkbox" (change)="onToggle()">
+    <input type="checkbox" [checked]="block.required" (change)="onToggle()">
     <span class="slider round"></span>
   </label>
-  <p>{{ required ? 'Required' : 'Not Required' }}</p>
+  <p>{{ block.required ? 'Required' : 'Not Required' }}</p>
 </div>

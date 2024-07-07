@@ -1,34 +1,42 @@
-import { Component, ElementRef, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
-import { BaseControlComponent } from '../base-control.component';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '@/app/store/reducers';
 import { updateBlock } from '@/app/store/actions/builder.actions';
 import { QuestionElement } from '@/shared/models/questionElement.model';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'lf-toggle',
   templateUrl: './toggle.component.html',
   styleUrls: ['./toggle.component.css'],
 })
-export class ToggleComponent
-  extends BaseControlComponent<boolean, HTMLInputElement>
-  implements OnInit
-{
+export class ToggleComponent implements OnInit, OnDestroy {
+  @Input() block$!: BehaviorSubject<QuestionElement | null>;
+  block: QuestionElement | null = null;
+  private subscription!: Subscription;
 
- required:boolean=false
-  @Input() block!:QuestionElement
-  notRequiredLabel?: string = 'not Required';
-  requiredLabel?: string = 'Required';
+  constructor(private store: Store<AppState>) {}
 
-  override ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscription = this.block$.subscribe(block => {
+      this.block = block;
+    });
+  }
+
   onToggle() {
-      
-    this.required =!this.required;
-    this.store.dispatch(
+    if (this.block) {
+      this.store.dispatch(
         updateBlock({
           blockId: this.block.quest_id,
-          required: this.required,
+          required: !this.block.required,
         })
       );
+    }
+  }
 
-    
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
