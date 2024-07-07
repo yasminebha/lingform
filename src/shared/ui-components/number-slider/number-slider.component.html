@@ -1,12 +1,12 @@
 <div class="slider-container">
-  <label for="file-slider">Max Files: {{ maxFile }}</label>
+  <label for="file-slider">Max Files: {{ block?.quest_meta.maxFileNumber }}</label>
   <div class="range-slider">
     <input
       type="range"
       id="file-slider"
       min="1"
       [max]="maxRangeNumber"
-      [value]="maxFile"
+      [value]="block?.quest_meta.maxFileNumber"
       (input)="onSliderChange($event)"
       #slider
     />
