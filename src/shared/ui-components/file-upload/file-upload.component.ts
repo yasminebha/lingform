@@ -1,6 +1,9 @@
-import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, forwardRef, OnInit, OnDestroy } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BaseControlComponent } from '../base-control.component';
+import { Store } from '@ngrx/store';
+import { AppState } from '@/app/store/reducers';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'lg-file-upload',
@@ -14,54 +17,70 @@ import { BaseControlComponent } from '../base-control.component';
     },
   ],
 })
-export class FileUploadComponent extends BaseControlComponent<File[], HTMLInputElement> {
+export class FileUploadComponent extends BaseControlComponent<File[], HTMLInputElement> implements OnInit, OnDestroy {
   selectedFiles: File[] = [];
-   maxFiles:number=1
+  maxFiles: number = 1;
+  allowedExtensions: string[] = [];
   @Input() isMultiple = true;
   @Input() isDisabled = false;
-  @Input() blockId!:string
-  @Output()errMsg:string=""
+  @Input() blockId!: string;
+  @Output() errMsg: string = "";
   @Output() valueChange: EventEmitter<File[]> = new EventEmitter<File[]>();
   
+  private storeSubscription!: Subscription;
+
   override ngOnInit(): void {
-   
-   this.store
-   .select((state) => state.builder)
-   .subscribe(async ({ blocks }) => {
-   this.maxFiles= blocks[this.blockId]['quest_meta']['maxFileNumber']
+    this.storeSubscription = this.store
+      .select((state) => state.builder)
+      .subscribe(({ blocks }) => {
+        const block = blocks[this.blockId];
+        if (block) {
+          this.maxFiles = block.quest_meta.maxFileNumber;
+          this.allowedExtensions = block.quest_meta.selectedOptions || []; // Assuming selectedOptions contains file extensions
+        }
+      });
+  }
 
-   }).unsubscribe()
-    
+   ngOnDestroy(): void {
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
+    }
+  }
 
-   console.log(this.selectedFiles);
-   
- }
   override writeValue(value: File[] | null): void {
     if (value) {
       this.selectedFiles = value;
       this.emitValueChange(value);
     } 
-    
   }
 
   emitValueChange(value: File[]): void {
     this.valueChange.emit(value);
   }
 
+  getAllowedExtensionsString(): string {
+    return this.allowedExtensions.join(', ');
+  }
+
+  isFileExtensionAllowed(file: File): boolean {
+    const fileExtension = file.name.split('.').pop()?.toLowerCase();
+    return this.allowedExtensions.includes(fileExtension || '');
+  }
+
   onFileSelected(event: Event): void {
-    
     const input = event.target as HTMLInputElement;
     if (input.files) {
       const newFiles = Array.from(input.files);
-      if(this.selectedFiles.length+newFiles.length<=this.maxFiles){
-        this.selectedFiles = this.isMultiple ? [...this.selectedFiles, ...newFiles] : [newFiles[0]];
+      const validFiles = newFiles.filter(file => this.isFileExtensionAllowed(file));
+      
+      if (validFiles.length !== newFiles.length) {
+        this.errMsg = `Some files have invalid types. Allowed types are: ${this.getAllowedExtensionsString()}`;
+      } else if (this.selectedFiles.length + validFiles.length > this.maxFiles) {
+        this.errMsg = `The maximum number of files is ${this.maxFiles}`;
+      } else {
+        this.selectedFiles = this.isMultiple ? [...this.selectedFiles, ...validFiles] : [validFiles[0]];
         this.emitValueChange(this.selectedFiles);
-        this.errMsg=""
-
-      }else{
-        this.errMsg="The maximum number of files is "+this.maxFiles
-        
-        
+        this.errMsg = "";
       }
     }
   }
