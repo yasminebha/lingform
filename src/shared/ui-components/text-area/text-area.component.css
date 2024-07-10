@@ -14,6 +14,8 @@
     width: 100%;
     padding: 12px 20px;
     font-size: 14px;
+    height: 10vh;
+   
     border: 1px solid #ccc;
     border-radius: var(--border-radius);
     resize: none;
