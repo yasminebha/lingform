@@ -27,6 +27,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FileUploadElementComponent } from '../../components/file-upload-element/file-upload-element.component';
 import { RatingElementComponent } from '../../components/rating-element/rating-element.component';
 import { BlockSettingSideBarComponent } from '../../containers/block-setting-side-bar/block-setting-side-bar.component';
+import { CheckboxListComponent } from '../../containers/checkbox-list/checkbox-list.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { BlockSettingSideBarComponent } from '../../containers/block-setting-sid
     FileUploadElementComponent,
     RatingElementComponent,
     BlockSettingSideBarComponent,
+    CheckboxListComponent,
 
 
   ],
