@@ -1,0 +1,12 @@
+
+<div class="list" >
+    <div class="list-item" *ngFor="let op of optionsData">
+        <lg-checkbox class="checkbox"
+         value="{{op}}"
+          name="{{op}}"
+        (change)="onSelect($event)"
+        [checked]="isSelected(op)"
+         > </lg-checkbox>
+        <label for="{{op}}">{{op}}</label>
+    </div>
+</div>

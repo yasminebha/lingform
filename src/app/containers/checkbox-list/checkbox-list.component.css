@@ -1,0 +1,32 @@
+.list {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 10px; /* Space between the grid items */
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  .list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd; /* Adding border to all sides */
+    border-radius: 4px; /* Optional: Rounded corners */
+  }
+  
+  .checkbox {
+    margin-right: 10px;
+  }
+  
+  label {
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  /* Optional: Add hover effect for list items */
+  .list-item:hover {
+    background-color: #f9f9f9;
+  }
+  

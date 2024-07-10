@@ -21,7 +21,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class CheckboxComponent
-  extends BaseControlComponent<string | number, HTMLInputElement>
+  extends BaseControlComponent<string | number | boolean, HTMLInputElement>
   implements OnInit
 {
   name: string = '';
@@ -51,5 +51,12 @@ export class CheckboxComponent
       this.inputStyles += ' checkbox';
       this.checkmarkStyles += ' checkbox-mark';
     }
+  }
+
+
+  handleChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.changeCommit(input.checked);
+    this.onTouched(event);
   }
 }
