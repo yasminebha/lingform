@@ -2,6 +2,7 @@
   <lf-icon-button icon="xmark" iconStyle="solid" layout="row-icon" class="icon" (click)="closeSettings()" fontSize="20px"></lf-icon-button>
   <ng-container *ngIf="settingsTemplate; else noBlockSelected">
     <ng-container [ngTemplateOutlet]="settingsTemplate"></ng-container>
+     
   </ng-container>
   <ng-template #noBlockSelected>
     <p>No block selected</p>
@@ -49,11 +50,13 @@
   <ng-template #fileUploadSettings>
     <h3>File Upload Settings</h3>
       <lf-toggle [block$]="_block" ></lf-toggle>
+
       <lg-number-slider
       [block$]="_block"
 
       [maxRangeNumber]="10"
     ></lg-number-slider>
+    <lg-checkbox-list [optionsData]="fileMimes" [block$]="_block"></lg-checkbox-list>
   </ng-template>
 
   <ng-template #ratingSettings>
