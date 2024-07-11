@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "lingform:build:production"
+              "buildTarget": "lingform:build:production"
             },
             "development": {
-              "browserTarget": "lingform:build:development"
+              "buildTarget": "lingform:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "lingform:build"
+            "buildTarget": "lingform:build"
           }
         },
         "test": {
