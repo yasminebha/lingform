@@ -1,5 +1,12 @@
-<select class="dropdown size" >
+<select class="dropdown size" *ngIf="role!=='dateFormatData'" >
   <option *ngFor="let item of data" value="{{ item.key }}">
     {{ item.label }}
   </option>
 </select>
+
+<select class="dropdown size" *ngIf="role==='dateFormatData'"  (change)="updateDateFormat($event)">
+  <option *ngFor="let item of formatData" [selected]="item===defaultValue" value="{{item}}">
+    {{ item }}
+  </option>
+</select>
+

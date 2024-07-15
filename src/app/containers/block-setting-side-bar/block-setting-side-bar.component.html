@@ -1,8 +1,9 @@
 <div class="settings-sidebar" [ngClass]="{ 'open': isOpen }">
-  <lf-icon-button icon="xmark" iconStyle="solid" layout="row-icon" class="icon" (click)="closeSettings()" fontSize="20px"></lf-icon-button>
+  <lf-icon-button icon="xmark" iconStyle="solid" layout="row-icon" class="icon" (click)="closeSettings()"
+    fontSize="20px"></lf-icon-button>
   <ng-container *ngIf="settingsTemplate; else noBlockSelected">
     <ng-container [ngTemplateOutlet]="settingsTemplate"></ng-container>
-     
+
   </ng-container>
   <ng-template #noBlockSelected>
     <p>No block selected</p>
@@ -11,56 +12,67 @@
   <!-- Define templates for each block type -->
   <ng-template #multipleChoiceSettings>
     <h3>Multiple Choice Settings</h3>
-  <lf-toggle [block$]="_block"></lf-toggle>
+    <lf-toggle [block$]="_block"></lf-toggle>
+    <label for="lg-text-area ">Add choices
+      <lg-text-area placeholder="add choices, return to line to add new choice" (input)="updateChoices($event)"
+        [value]="choicesText">
+      </lg-text-area>
+    </label>
 
     <!-- Add multiple choice settings here -->
-    
+
   </ng-template>
 
   <ng-template #oneChoiceSettings>
     <h3>One Choice Settings</h3>
-    <lf-toggle [block$]="_block" ></lf-toggle>
-    <!-- Add one choice settings here -->
+    <lf-toggle [block$]="_block"></lf-toggle>
+    <label for="lg-text-area ">Add choices
+      <lg-text-area placeholder="add choices, return to line to add new choice" (input)="updateChoices($event)"
+        [value]="choicesText">
+      </lg-text-area>
+    </label>
+
   </ng-template>
 
   <ng-template #emailSettings>
     <h3>Email Settings</h3>
-    <lf-toggle [block$]="_block" ></lf-toggle>
+    <lf-toggle [block$]="_block"></lf-toggle>
     <!-- Add email settings here -->
   </ng-template>
 
   <ng-template #dateSettings>
     <h3>Date Settings</h3>
-    <lf-toggle [block$]="_block" ></lf-toggle>
-    <!-- Add date settings here -->
-  </ng-template>
+    <lf-toggle [block$]="_block"></lf-toggle>
+    <label for="lf-dropdown">Choose Date Format
+      <lf-dropdown role="dateFormatData" [block$]="_block"></lf-dropdown>
+    </label>
 
+
+
+    <!-- Other date settings can go here -->
+  </ng-template>
   <ng-template #shortAnswerSettings>
     <h3>Short Answer Settings</h3>
-    <lf-toggle [block$]="_block" ></lf-toggle>
+    <lf-toggle [block$]="_block"></lf-toggle>
     <!-- Add short answer settings here -->
   </ng-template>
 
   <ng-template #phoneSettings>
     <h3>Phone Settings</h3>
-    <lf-toggle [block$]="_block" ></lf-toggle>
+    <lf-toggle [block$]="_block"></lf-toggle>
     <!-- Add phone settings here -->
   </ng-template>
 
   <ng-template #fileUploadSettings>
     <h3>File Upload Settings</h3>
-      <lf-toggle [block$]="_block" ></lf-toggle>
+    <lf-toggle [block$]="_block"></lf-toggle>
 
-      <lg-number-slider
-      [block$]="_block"
-
-      [maxRangeNumber]="10"
-    ></lg-number-slider>
+    <lg-number-slider [block$]="_block" [maxRangeNumber]="10"></lg-number-slider>
     <lg-checkbox-list [optionsData]="fileMimes" [block$]="_block"></lg-checkbox-list>
   </ng-template>
 
   <ng-template #ratingSettings>
-    <h3>Rating 
+    <h3>Rating
       Settings</h3>
     <!-- Add rating settings here -->
   </ng-template>
