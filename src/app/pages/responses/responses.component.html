@@ -1,5 +1,30 @@
 <lg-navbar></lg-navbar>
 <div class="container">
-<h2 class="responses-number">{{submissions.length}} responses</h2>
-<button (click)="saveCSVFile()">export in excel sheets</button>
+  <h2 class="responses-number">{{submissions.length}} responses</h2>
+  <button (click)="saveCSVFile()">Export to CSV</button>
+</div>
+<div class="filters">
+  <lf-dropdown ></lf-dropdown>
+  <div *ngFor="let label of questionLabels">
+    <label>{{ label }}</label>
+    <lg-text-field [(ngModel)]="filters[label]" placeholder="Filter by {{ label }}" (input)="applyFilters()" />
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Created At</th>
+        <th *ngFor="let label of questionLabels">{{ label }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let submission of filteredData">
+        <td>{{ datePipe.transform(submission.created_at, 'dd MMM y HH:mm:ss z') }}</td>
+        <td *ngFor="let label of questionLabels">
+          {{ getAnswer(submission, label) }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
