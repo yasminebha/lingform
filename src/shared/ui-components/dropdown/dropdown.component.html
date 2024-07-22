@@ -1,6 +1,6 @@
 <select class="dropdown size" *ngIf="role!=='dateFormatData'" >
-  <option *ngFor="let item of data" value="{{ item.key }}">
-    {{ item.label }}
+  <option *ngFor="let item of data" value="{{ item.key ||item}}">
+    {{ item.label || item }}
   </option>
 </select>
 

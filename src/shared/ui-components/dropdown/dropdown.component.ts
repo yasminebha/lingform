@@ -13,8 +13,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 export class DropdownComponent implements OnInit {
   constructor( private store: Store<AppState>) {}
  
-  @Input()
-  data: Array<{ key: any; label: string }> = [];
+  @Input() data: Array<any> = [];
   formatData = ['MM/DD/YYYY','DD/MM/YYYY','YYYY-MM-DD']
   @Input() role :'dateFormatData'|'themeData'='themeData'
 

@@ -3,13 +3,17 @@
   <h2 class="responses-number">{{submissions.length}} responses</h2>
   <button (click)="saveCSVFile()">Export to CSV</button>
 </div>
-<div class="filters">
-  <lf-dropdown ></lf-dropdown>
-  <div *ngFor="let label of questionLabels">
-    <label>{{ label }}</label>
-    <lg-text-field [(ngModel)]="filters[label]" placeholder="Filter by {{ label }}" (input)="applyFilters()" />
+
+<div class="filter-container">
+  <div class="filter-row" *ngFor="let filter of filters; let i = index">
+    <lf-dropdown [data]="questionLabels" (change)="updateFilterLabel($event, i)"></lf-dropdown>
+    <lg-text-field (input)="updateFilterValue($event, i)"></lg-text-field>
+    <lf-button text="remove filter" (click)="removeFilter(i)" *ngIf="filters.length>1"></lf-button>
   </div>
+  <lf-button text="Add Filter" (click)="addFilter()"></lf-button>
+  <lf-button text="Apply Filters" (click)="applyFilters()"></lf-button>
 </div>
+
 <div class="table-responsive">
   <table class="table">
     <thead>

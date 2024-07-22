@@ -4,6 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as saveAs from 'file-saver';
 
+interface Filter {
+  label: string;
+  value: string;
+}
+
 @Component({
   selector: 'app-responses',
   templateUrl: './responses.component.html',
@@ -16,7 +21,7 @@ export class ResponsesComponent implements OnInit {
   data: any[] = [];
   filteredData: any[] = [];
   questionLabels: string[] = [];
-  filters: { [label: string]: string } = {};  // Adjusted to hold strings
+  filters: Filter[] = [{ label: '', value: '' }]; // Initialize with one empty filter
 
   constructor(
     private formService: FormService,
@@ -52,7 +57,6 @@ export class ResponsesComponent implements OnInit {
     }
 
     this.questionLabels = Array.from(questionLabelsMap.values());
-    this.questionLabels.forEach(label => this.filters[label] = '');
   }
 
   getAnswer(submission: any, label: string): string {
@@ -78,15 +82,31 @@ export class ResponsesComponent implements OnInit {
     }
   }
 
+  updateFilterLabel(event: any, index: number): void {
+    this.filters[index].label = event.target.value;
+  }
+
+  updateFilterValue(event: any, index: number): void {
+    this.filters[index].value = event.target.value;
+  }
+
+  addFilter(): void {
+    this.filters.push({ label: '', value: '' });
+  }
+
+  removeFilter(index: number): void {
+    this.filters.splice(index, 1);
+  }
+
   applyFilters(): void {
     this.filteredData = this.data.filter(submission => {
-      return this.questionLabels.every(label => {
-        const selectedFilters = this.filters[label].split(',').map(f => f.trim()).filter(f => f); 
-        if (selectedFilters.length === 0) {
+      return this.filters.every(filter => {
+        if (!filter.label || !filter.value) {
           return true;
         }
-        const answer = this.getAnswer(submission, label);
-        return selectedFilters.some(filter => answer.includes(filter));
+        const selectedFilters = filter.value.toLowerCase().split(',').map(f => f.trim()).filter(f => f);
+        const answer = this.getAnswer(submission, filter.label).toLowerCase();
+        return selectedFilters.every(f => answer.includes(f));
       });
     });
   }
