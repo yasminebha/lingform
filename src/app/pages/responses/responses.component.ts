@@ -21,6 +21,7 @@ export class ResponsesComponent implements OnInit {
   data: any[] = [];
   filteredData: any[] = [];
   questionLabels: string[] = [];
+  dropdownData: string[] = [];  // Dropdown data array
   filters: Filter[] = [{ label: '', value: '' }]; // Initialize with one empty filter
 
   constructor(
@@ -38,6 +39,7 @@ export class ResponsesComponent implements OnInit {
         this.data = this.transformDataToArray(rawData);
         this.filteredData = this.data;
         this.extractQuestionLabels();
+        this.populateDropdownData();  // Populate dropdown data
       }
     }
   }
@@ -57,6 +59,10 @@ export class ResponsesComponent implements OnInit {
     }
 
     this.questionLabels = Array.from(questionLabelsMap.values());
+  }
+
+  populateDropdownData(): void {
+    this.dropdownData = [...this.questionLabels,'created_at'];
   }
 
   getAnswer(submission: any, label: string): string {
@@ -99,16 +105,24 @@ export class ResponsesComponent implements OnInit {
   }
 
   applyFilters(): void {
+    
     this.filteredData = this.data.filter(submission => {
       return this.filters.every(filter => {
         if (!filter.label || !filter.value) {
           return true;
         }
         const selectedFilters = filter.value.toLowerCase().split(',').map(f => f.trim()).filter(f => f);
-        const answer = this.getAnswer(submission, filter.label).toLowerCase();
-        return selectedFilters.every(f => answer.includes(f));
+        
+        if (filter.label === 'created_at') {
+          const submissionDate = new Date(submission.created_at).toISOString().toLowerCase();
+          return selectedFilters.every(f => submissionDate.includes(f));
+        } else {
+          const answer = this.getAnswer(submission, filter.label).toLowerCase();
+          return selectedFilters.every(f => answer.includes(f));
+        }
       });
     });
+   
   }
 
   async saveCSVFile(): Promise<void> {
@@ -136,8 +150,7 @@ export class ResponsesComponent implements OnInit {
 
     for (const submission of data) {
       const answersMap = new Map<string, string>();
-      const created_at = this.datePipe.transform(submission.created_at, 'y/MMM/dd HH:mm:ss z');
-      const row = [created_at];
+      const row = [submission.created_at];
 
       for (const questId in submission.questions) {
         const question = submission.questions[questId];
