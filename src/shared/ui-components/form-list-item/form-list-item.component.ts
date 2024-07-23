@@ -20,7 +20,7 @@ export class FormListItemComponent implements OnInit {
     @Input()
     formID:string=''
     @Input()
-    createdAt:string=''
+    updatedAt:string=''
     @ViewChild('svgIcon', { static: false }) svgIcon!: ElementRef;
     @ViewChild('menu', { static: false }) menu!: ElementRef;
     showMenu: boolean = false;
@@ -34,7 +34,7 @@ export class FormListItemComponent implements OnInit {
     
   ngOnInit(): void {
     
-    this.createdAt = this.datePipe.transform(this.createdAt, 'MMM d, y, h:mm:ss a') || '';
+    this.updatedAt = this.datePipe.transform(this.updatedAt, 'MMM d, y, h:mm:ss a') || '';
   }
  onFormSelectionChange(event: Event) {
     const checkbox = event.target as HTMLInputElement;

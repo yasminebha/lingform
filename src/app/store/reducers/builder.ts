@@ -13,6 +13,7 @@ export interface BuilderState {
   mode: 'edit' | 'live';
   blocks: Record<string, QuestionElement>;
   blockOrder: string[]; 
+  updated_at:string;
 }
 
 const initialState: BuilderState = {
@@ -25,7 +26,8 @@ const initialState: BuilderState = {
   ThemeColor: '#7339ed',
   mode: 'edit',
   blocks: {},
-  blockOrder: [], 
+  blockOrder: [],
+  updated_at: ''
 };
 
 export const builderReducer = createReducer(

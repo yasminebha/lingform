@@ -249,7 +249,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             title: title,
             description: description,
             blockOrder: blockOrder,
-            bgColor:backgroundColor
+            bgColor:backgroundColor,
+            updated_at: new Date()
           };
           await this.formService.updateForm(form_id, updatedForm);
           this.formService.setIsSaving(false);

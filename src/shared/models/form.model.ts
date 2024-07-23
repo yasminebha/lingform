@@ -15,6 +15,7 @@ export class Form {
   textFontSize: string = '12';
   textFontFamily: String = 'Roboto';
   created_at :string=''
+  updated_at :string=''
   question: QuestionElement[] = [];
   blockOrder:string[]=[]
   constructor(editeurId: string) {

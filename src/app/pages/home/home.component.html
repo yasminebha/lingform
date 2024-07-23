@@ -63,7 +63,7 @@
 
       <div *ngIf="filteredForms.length > 0" class="forms-list">
         <lg-form-list-item *ngFor="let f of filteredForms | paginate: { itemsPerPage: 11, currentPage: p }"
-          [createdAt]="f.created_at" [formTitle]="f.title" [formID]="f.form_id" [selectAll]="selectAll"
+          [updatedAt]="f.updated_at" [formTitle]="f.title" [formID]="f.form_id" [selectAll]="selectAll"
           [isChecked]="selectedForms.has(f.form_id)"
           (selectionChange)="onFormSelectionChange($event)"></lg-form-list-item>
       </div>

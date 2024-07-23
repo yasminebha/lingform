@@ -121,8 +121,9 @@ export class FormService {
     if (userId) {
       const { error, data } = await supabase
         .from('form')
-        .select('form_id,title,created_at,editeur_id')
-        .eq('editeur_id', userId);
+        .select('form_id,title,updated_at,editeur_id')
+        .eq('editeur_id', userId)
+        .order('updated_at', { ascending: false });
       if (!error) return data;
       else throw new Error(error.message);
     }
