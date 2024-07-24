@@ -18,6 +18,7 @@ export class Form {
   updated_at :string=''
   question: QuestionElement[] = [];
   blockOrder:string[]=[]
+  submissions_count:number=0;
   constructor(editeurId: string) {
     this.editeur_id = editeurId;
   }

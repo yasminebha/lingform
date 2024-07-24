@@ -21,6 +21,7 @@ export class FormListItemComponent implements OnInit {
     formID:string=''
     @Input()
     updatedAt:string=''
+    @Input() subCount!:number
     @ViewChild('svgIcon', { static: false }) svgIcon!: ElementRef;
     @ViewChild('menu', { static: false }) menu!: ElementRef;
     showMenu: boolean = false;
