@@ -1,7 +1,7 @@
 <lg-navbar></lg-navbar>
 <div class="container">
   <h2 class="responses-number">{{submissions.length}} responses</h2>
-  <button (click)="saveCSVFile()">Export to CSV</button>
+  <button *ngIf="submissions.length>0" (click)="saveCSVFile()">Export to CSV</button>
 </div>
 
 <div class="filter-container">

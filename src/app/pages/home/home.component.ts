@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   selectAll: boolean = false
   selectedForms: Set<string> = new Set();
   showCheckbox: boolean = false
+  showSortMenu = false;
   constructor(
     private formService: FormService,
     private userService: UserService,
@@ -53,7 +54,22 @@ export class HomeComponent implements OnInit {
       );
     }
   }
+  toggleSortMenu(): void {
+    this.showSortMenu = !this.showSortMenu;
+  }
 
+  sortForms(sortBy: string, sortOrder: string): void {
+    this.filteredForms = this.forms.sort((a:any, b:any) => {
+      let comparison = 0;
+      if (a[sortBy] > b[sortBy]) {
+        comparison = 1;
+      } else if (a[sortBy] < b[sortBy]) {
+        comparison = -1;
+      }
+      return sortOrder === 'asc' ? comparison : -comparison;
+    });
+    this.showSortMenu = false; 
+  }
   onSearch(searchTerm: string): void {
     this.searchTerm = searchTerm;
     console.log(searchTerm);

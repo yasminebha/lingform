@@ -18,34 +18,23 @@
             fill="#4F2ECB" />
         </svg>
       </div>
+      <div class="sort-menu-container">
+        <lf-button text="Sort by" width="100%" layout="outline" (click)="toggleSortMenu()"></lf-button>
+        <div class="sort-menu" *ngIf="showSortMenu">
+          <button (click)="sortForms('title', 'asc')">Title A-Z</button>
+          <button (click)="sortForms('title', 'desc')">Title Z-A</button>
+          <button (click)="sortForms('updated_at', 'desc')">Last Modified</button>
+          <button (click)="sortForms('created_at', 'asc')">First created</button>
+          <button (click)="sortForms('created_at', 'desc')">Last created</button>
+          <button (click)="sortForms('submissions_count', 'desc')">Submissions</button>
+        </div>
+      </div>
       <lf-button *ngIf="userid !== null" text="logout" (click)="logout()"></lf-button>
     </div>
 
     <div class="forms-list">
 
-      <div class="barmots">
-
-        <p>Previous 7 days</p>
-        <div class="Ownedbyanyone">
-          <p>Owned by anyone</p>
-          <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M6.49999 6.9718C5.97504 6.9718 5.45009 6.75286 5.05263 6.32307L0.16311 1.03594C-0.0543699 0.800777 -0.0543699 0.411539 0.16311 0.176374C0.380589 -0.0587913 0.740555 -0.0587913 0.958035 0.176374L5.84755 5.4635C6.20752 5.85274 6.79246 5.85274 7.15243 5.4635L12.042 0.176374C12.2594 -0.0587913 12.6194 -0.0587913 12.8369 0.176374C13.0544 0.411539 13.0544 0.800777 12.8369 1.03594L7.94735 6.32307C7.54989 6.75286 7.02494 6.9718 6.49999 6.9718Z"
-              fill="#292D32" />
-          </svg>
-        </div>
-        <div class="totalSub">
-          <p>Total Submssions</p>
-        </div>
-        <div class="Lastupdated">
-          <p>Last updated</p>
-          <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1H20" stroke="#48484A" stroke-width="2" stroke-linecap="round" />
-            <path d="M4.16669 7.35242H16.8334" stroke="#48484A" stroke-width="2" stroke-linecap="round" />
-            <path d="M8.38892 13.7047H12.6111" stroke="#48484A" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </div>
-      </div>
+    
       <div class="selectAll">
         <div>
           <lg-checkbox [selectAll]="selectAll" (change)="onSelectAll($event)"></lg-checkbox>

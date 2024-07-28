@@ -53,7 +53,7 @@
 .btn.row-icon{
     background-color: none;
     border: none;
-    color: var(--border-color);
+    color: var(--border-color) !important;
     /* font-size: x-small; */
 
 }

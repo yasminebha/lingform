@@ -35,7 +35,7 @@ export class FormListItemComponent implements OnInit {
     
   ngOnInit(): void {
     
-    this.updatedAt = this.datePipe.transform(this.updatedAt, 'MMM d, y, h:mm:ss a') || '';
+    this.updatedAt = this.datePipe.transform(this.updatedAt, 'MMM d. y') || '';
   }
  onFormSelectionChange(event: Event) {
     const checkbox = event.target as HTMLInputElement;
