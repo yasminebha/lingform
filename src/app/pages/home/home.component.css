@@ -38,9 +38,16 @@
 .search-container {
   display: flex;
   align-items: center;
-  gap: 20px;
+  border: var(--separation-border);
+  border-radius: 8px;
+  width: 50%;
+  justify-content: space-between;
+
 
 }
+/* ::ng-deep .title .text-field>input {
+  border: none !important;
+} */
 
 /* ::ng-deep .btn{
   width: 130px !important;

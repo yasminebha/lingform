@@ -29,19 +29,19 @@
 
 .form-detail {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 4px;
+  width: 80%;
 }
 
 .form-title {
   font-size: 0.9rem;
-  font-weight: 600;
-  color: #333;
+  flex:1;
 }
 
 .form-sub-info {
-  font-size: 0.8rem;
-  font-weight: 400;
+  font-size: 0.78rem;
+  flex:1;
   color: #666;
 }
 
