@@ -6,7 +6,10 @@
         <lf-button text="create form" (click)="createForm()" layout="outline"></lf-button>
       </div>
       <div class="search-container">
-        <lg-text-field type="search" placeholder="search my forms" (valueChange)="onSearch($event)"></lg-text-field>
+        <div class="search-input">
+
+          <lg-text-field type="search" placeholder="search my forms" (valueChange)="onSearch($event)" class="title"></lg-text-field>
+        </div>
 
         <svg class="search-icon" width="26" height="29" viewBox="0 0 26 29" fill="none"
           xmlns="http://www.w3.org/2000/svg">

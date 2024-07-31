@@ -42,12 +42,21 @@
   border-radius: 8px;
   width: 50%;
   justify-content: space-between;
-
+padding: 0px 4px;
 
 }
-/* ::ng-deep .title .text-field>input {
+.search-container:focus-within {
+  border-color: var(--primary-color) !important;
+  outline-color: var(--primary-color);
+  outline-width: 2px;
+  transition: 0.2s;
+}
+.search-container .search-input{
+  flex: 2;
+}
+::ng-deep .title .text-field>input {
   border: none !important;
-} */
+}
 
 /* ::ng-deep .btn{
   width: 130px !important;
@@ -55,6 +64,7 @@
 .search-icon {
   width: 26px;
   height: 28px;
+  padding: 5px;
 }
 
 .search-icon:hover {
