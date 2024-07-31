@@ -6,6 +6,7 @@ import { QuestionService } from '@/shared/services/question.service';
 import { addBlock, removeBlock, updateBlock, updateBlockOrder } from '../store/actions/builder.actions';
 import * as shortid from 'shortid';
 import { QuestionElement } from '@/shared/models/questionElement.model';
+import { debounce } from '@/shared/utils/timing';
 
 @Component({
   template: '',
@@ -31,7 +32,16 @@ export class FormBlockComponent<TValue, TMeta=any> extends BaseControlComponent<
   }
 
   override ngOnInit(): void {}
+  public updateQuestLabel = debounce((evt: any) => {
+    const updatedValue = evt.target.value;
 
+    this.store.dispatch(
+      updateBlock({
+        blockId: this.id,
+        questLabel: updatedValue,
+      })
+    );
+  }, 1000);
   onOpenSettings() {
     this.settingsClicked.emit();
     

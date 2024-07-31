@@ -51,15 +51,7 @@ export class FileUploadElementComponent extends FormBlockComponent<string[]> imp
     } 
   }
   
-  public updateQuestLabel = debounce((evt: any) => {
-    const updatedValue = evt.target.value;
-    this.store.dispatch(
-      updateBlock({
-        blockId: this.id,
-        questLabel: updatedValue,
-      })
-    );
-  }, 1000);
+  
 
   
 }

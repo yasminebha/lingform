@@ -22,16 +22,7 @@ export class ShortAnswerComponent
   implements OnInit
 {
 
-  public updateQuestLabel = debounce((evt: any) => {
-    const updatedValue = evt.target.value;
 
-    this.store.dispatch(
-      updateBlock({
-        blockId: this.id,
-        questLabel: updatedValue,
-      })
-    );
-  }, 1000);
 
   changeAnswer(evt: any) {
     this.changeCommit(evt.target.value);

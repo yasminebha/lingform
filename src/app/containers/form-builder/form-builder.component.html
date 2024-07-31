@@ -132,6 +132,20 @@
           ngModel
           (settingsClicked)="onBlockSettingsClick(block)"
         ></lg-rating-element>
+        <lf-yes-or-no-element
+        [isInvalidBlock]="invalidBlocks[block.quest_id]"
+        [mode]="mode"
+        *ngIf="block.kind === 'YesOrNoElementComponent'"
+        [id]="block.quest_id"
+        [kind]="block.kind"
+        [label]="block.questLabel"
+        [metaData]="block.quest_meta"
+        [required]="block.required"
+        [name]="block.quest_id"
+        ngModel
+        (settingsClicked)="onBlockSettingsClick(block)"
+
+        ></lf-yes-or-no-element>
       </div>
     </div>
 

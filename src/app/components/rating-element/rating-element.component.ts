@@ -22,16 +22,7 @@ export class RatingElementComponent  extends FormBlockComponent<{"rating":number
   
   override ngOnInit(): void {
   }
-  public updateQuestLabel = debounce((evt: any) => {
-    const updatedValue = evt.target.value;
 
-    this.store.dispatch(
-      updateBlock({
-        blockId: this.id,
-        questLabel: updatedValue,
-      })
-    );
-  }, 1000);
   selectStar(rating: number): void {
     this.stars = this.stars.map((_, index) => index < rating);
     console.log(this.required);

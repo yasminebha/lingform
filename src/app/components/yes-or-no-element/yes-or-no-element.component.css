@@ -1,0 +1,15 @@
+.btn-container{
+    display:flex;
+    gap:30px;
+    margin: 20px;
+    
+}
+.btn-container .yes-no-btn {
+flex: 1;
+width: 100%;
+}
+
+::ng-deep .btn-container .yes-no-btn lf-button.btn.selected{
+    flex: 1;
+    width: 100%;
+    }

@@ -1,0 +1,44 @@
+<div *ngIf="mode === 'edit'" class="container">
+
+
+    <div class="input-type-area">
+        <lg-input-components icon="switch" title="Yes/No" layout="second-layout"></lg-input-components>
+        <div class="tools">
+
+            <lf-icon-button icon="copy" iconStyle="regular" layout="row-icon" class="icon" (click)="duplicateBlock()"
+                type="button"></lf-icon-button>
+            <lf-icon-button icon="trash" iconStyle="solid" layout="row-icon" class="icon"
+                (click)="removeBlock($event, id)"></lf-icon-button>
+            <lf-icon-button icon="gear" iconStyle="solid" layout="row-icon" class="icon"
+                (click)="onOpenSettings()"></lf-icon-button>
+        </div>
+    </div>
+    <lg-text-field placeholder="Question" class="title" (input)="updateQuestLabel($event)"
+        [value]="label"></lg-text-field>
+    <div class="btn-container">
+        <div class="yes-no-btn">
+             <lf-button text="Yes" [disabled]="true" layout="outline"></lf-button>
+        </div>
+        <div class="yes-no-btn">
+            <lf-button text="No" [disabled]="true" layout="outline"> </lf-button>
+        </div>
+
+    </div>
+
+</div>
+
+<div *ngIf="mode === 'live'" class="container" [class.invalid-block]="isInvalidBlock">
+    <label for="">{{ label }}
+        <span class="required-sign" *ngIf="required">*</span>
+    </label>
+    <div class="btn-container">
+        <div class="yes-no-btn">
+            <lf-button text="Yes" [disabled]="true" layout="outline" (click)="changeAnswer('Yes')" [ngClass]="{ 'selected': selectedCommit === 'yes' }"></lf-button>
+       </div>
+       <div class="yes-no-btn">
+           <lf-button text="No" [disabled]="true" layout="outline" (click)="changeAnswer('No')" [ngClass]="{ 'selected': selectedCommit === 'no' }"> </lf-button>
+       </div>
+    
+
+    </div>
+</div>
