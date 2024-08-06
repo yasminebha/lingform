@@ -25,5 +25,7 @@ export class YesOrNoElementComponent  extends FormBlockComponent<string> impleme
  changeAnswer(a:string) {
     this.changeCommit(a);
     this.selectedCommit = a;
+    console.log(this.selectedCommit);
+    
   }
 }

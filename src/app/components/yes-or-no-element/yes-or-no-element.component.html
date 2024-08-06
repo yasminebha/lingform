@@ -33,10 +33,10 @@
     </label>
     <div class="btn-container">
         <div class="yes-no-btn">
-            <lf-button text="Yes" [disabled]="true" layout="outline" (click)="changeAnswer('Yes')" [ngClass]="{ 'selected': selectedCommit === 'yes' }"></lf-button>
+            <lf-button text="Yes"  [disabled]="true"  (click)="changeAnswer('Yes')" [layout]="selectedCommit === 'Yes' ? 'primary' : 'outline'" ></lf-button>
        </div>
        <div class="yes-no-btn">
-           <lf-button text="No" [disabled]="true" layout="outline" (click)="changeAnswer('No')" [ngClass]="{ 'selected': selectedCommit === 'no' }"> </lf-button>
+           <lf-button text="No" [disabled]="true"  (click)="changeAnswer('No')" [layout]="selectedCommit === 'No' ? 'primary' : 'outline'"> </lf-button>
        </div>
     
 
