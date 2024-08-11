@@ -1,0 +1,33 @@
+.upload-container {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .placeholder {
+    color: #777;
+    line-height: 200px;
+  }
+  
+  .image-cover, .video-upload {
+  
+    width: 100%;
+    height: 200px;
+    background-color: #f9f9f9;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+  }
+  .image-logo{
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    
+  }
+  
