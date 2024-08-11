@@ -14,6 +14,7 @@ export interface BuilderState {
   blocks: Record<string, QuestionElement>;
   blockOrder: string[]; 
   updated_at:string;
+  coverImage: string;
 }
 
 const initialState: BuilderState = {
@@ -27,7 +28,8 @@ const initialState: BuilderState = {
   mode: 'edit',
   blocks: {},
   blockOrder: [],
-  updated_at: ''
+  updated_at: '', 
+  coverImage: ''
 };
 
 export const builderReducer = createReducer(

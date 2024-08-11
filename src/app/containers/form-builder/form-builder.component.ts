@@ -5,6 +5,7 @@ import {
   changeFormId,
   swapBlock,
   updateBlockOrder,
+  updateBuilder,
   updateBuilderDescription,
   updateBuilderTitle,
 } from '@/app/store/actions/builder.actions';
@@ -17,12 +18,14 @@ import { debounce } from '@/shared/utils/timing';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
+  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -43,11 +46,16 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   blocks: QuestionElement[] = [];
   formId: string = '';
   blockOrder: string[] = [];
+  coverImage: string = ''
   submissionId: string = '';
   private form?: Form;
   private storeSubscription: any;
+
   @ViewChildren(FileUploadElementComponent)
   fileUploadComponents?: QueryList<FileUploadElementComponent>;
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
   @Output() blockSelected = new EventEmitter<QuestionElement>();
 
   @Input() mode!: 'live' | 'edit';
@@ -61,6 +69,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit(): Promise<void> {
+
     const formId = this.route.snapshot.paramMap.get('id');
 
     this.storeSubscription = this.store
@@ -75,6 +84,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           mode,
           backgroundColor,
           blockOrder,
+          coverImage
         }) => {
           this.mode = mode;
           this.bgColor = backgroundColor;
@@ -88,30 +98,29 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           this.title = title;
           this.description = description;
           this.formId = form_id;
+          this.coverImage = coverImage
           this.autoSave();
         }
       );
 
     if (formId) {
       this.form = await this.formService.getFormById(formId);
-      this.store.dispatch(changeFormId({ id: this.form!.form_id }));
-
       for (const q of this.form!.question) {
         this.store.dispatch(addBlock({ blockId: q.quest_id, newBlock: q }));
       }
-
       if (this.form) {
-        this.store.dispatch(updateBuilderTitle({ title: this.form?.title }));
+    
         this.store.dispatch(
-          updateBuilderDescription({ Description: this.form?.description })
-        );
-        this.store.dispatch(
-          updateBlockOrder({ blockOrder: this.form?.blockOrder || [] })
-        );
-        this.store.dispatch(
-          changeBgColor ({ bgColor: this.form.bgColor })
+          updateBuilder({
+            form_id:this.form!.form_id,
+             coverImage: this.form.coverImage,
+             description: this.form?.description,
+             blockOrder: this.form?.blockOrder || [], 
+             backgroundColor: this.form.bgColor
+             })
         );
       }
+
     }
   }
 
@@ -164,7 +173,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           isValid = false;
         } else if (block) {
           this.invalidBlocks[component.id] = false;
-          isValid= true
+          isValid = true
         }
       }
     }
@@ -178,7 +187,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
     try {
       this.submissionId = await this.formService.addSubmission(this.formId);
-     
+
       if (this.fileUploadComponents) {
         for (const component of this.fileUploadComponents.toArray()) {
           const block = this.blocks.find(
@@ -186,7 +195,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           );
           if (component.files.length > 0) {
             try {
-          
+
               const uploadedPaths = await Promise.all(
                 component.files.map((file) =>
                   this.formService.uploadFile(
@@ -195,15 +204,15 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
                   )
                 )
               );
-               let publicUrls :string[]=[]
+              let publicUrls: string[] = []
 
-               uploadedPaths.forEach(async path=>{
-               publicUrls.push(await this.formService.getPublicUrl(path)) 
+              uploadedPaths.forEach(async path => {
+                publicUrls.push(await this.formService.getPublicUrl(path))
               })
-              
+
               component.changeCommit(publicUrls)
-      
-              publicUrls=[]
+
+              publicUrls = []
             } catch (error) {
               console.error('Error uploading files:', error);
               return;
@@ -225,13 +234,16 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     }
   }
 
+  triggerCoverUpload() {
+    this.fileInput.nativeElement.click();
+  }
   private autoSave = debounce(async () => {
     this.formService.setIsSaving(true);
     this.store
       .select((state) => state.builder)
       .pipe(distinctUntilChanged())
       .subscribe(
-        async ({ blocks, title, description, form_id, blockOrder,backgroundColor }) => {
+        async ({ blocks, title, description, form_id, blockOrder, backgroundColor, coverImage }) => {
           Object.values(blocks).forEach((block: any) => {
             const newBlock: QuestionElement = {
               quest_id: block.quest_id,
@@ -240,7 +252,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
               questLabel: block.questLabel,
               required: block.required || false,
               quest_meta: block.quest_meta || {},
-              
+
+
             };
             this.questService.addQuestionBlock(newBlock);
           });
@@ -249,8 +262,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             title: title,
             description: description,
             blockOrder: blockOrder,
-            bgColor:backgroundColor,
-            updated_at: new Date()
+            bgColor: backgroundColor,
+            updated_at: new Date(),
+            coverImage: coverImage
           };
           await this.formService.updateForm(form_id, updatedForm);
           this.formService.setIsSaving(false);
@@ -269,4 +283,17 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         this.store.dispatch(updateBlockOrder({ blockOrder: newOrder }));
     }
   }
+  async coverImageUpload(file: File,f:string): Promise<void> {
+    if (file) {
+      try {
+        await this.formService.deleteFilesInBucket('uploads', `form_${this.formId}/${f}/*`);
+        const path = await this.formService.uploadFile(file, `form_${this.formId}/${f}/${file.name}`);
+        const publicUrl = await this.formService.getPublicUrl(path);
+        this.store.dispatch(updateBuilder({ coverImage: publicUrl }));
+      } catch (error) {
+        console.error('Error uploading cover image:', error);
+      }
+    }
+  }
+ 
 }

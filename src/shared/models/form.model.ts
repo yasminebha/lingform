@@ -19,6 +19,7 @@ export class Form {
   question: QuestionElement[] = [];
   blockOrder:string[]=[]
   submissions_count:number=0;
+  coverImage:string=''
   constructor(editeurId: string) {
     this.editeur_id = editeurId;
   }

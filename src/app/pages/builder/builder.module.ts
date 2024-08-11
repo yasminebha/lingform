@@ -29,6 +29,8 @@ import { RatingElementComponent } from '../../components/rating-element/rating-e
 import { BlockSettingSideBarComponent } from '../../containers/block-setting-side-bar/block-setting-side-bar.component';
 import { CheckboxListComponent } from '../../containers/checkbox-list/checkbox-list.component';
 import { YesOrNoElementComponent } from '../../components/yes-or-no-element/yes-or-no-element.component';
+import { UploadComponent } from '@/app/components/upload/upload.component';
+
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { YesOrNoElementComponent } from '../../components/yes-or-no-element/yes-
     BlockSettingSideBarComponent,
     CheckboxListComponent,
     YesOrNoElementComponent,
+    UploadComponent
+    
 
 
   ],
