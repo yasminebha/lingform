@@ -15,6 +15,7 @@ export interface BuilderState {
   blockOrder: string[]; 
   updated_at:string;
   coverImage: string;
+  logoImage: string;
 }
 
 const initialState: BuilderState = {
@@ -29,7 +30,8 @@ const initialState: BuilderState = {
   blocks: {},
   blockOrder: [],
   updated_at: '', 
-  coverImage: ''
+  coverImage: '',
+  logoImage:''
 };
 
 export const builderReducer = createReducer(

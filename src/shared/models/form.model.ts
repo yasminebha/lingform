@@ -20,6 +20,7 @@ export class Form {
   blockOrder:string[]=[]
   submissions_count:number=0;
   coverImage:string=''
+  logoImage:string=''
   constructor(editeurId: string) {
     this.editeur_id = editeurId;
   }

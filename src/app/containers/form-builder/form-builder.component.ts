@@ -47,8 +47,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   formId: string = '';
   blockOrder: string[] = [];
   coverImage: string = ''
+  logoImage: string = ''
   submissionId: string = '';
-  private form?: Form;
+   form!: Form;
   private storeSubscription: any;
 
   @ViewChildren(FileUploadElementComponent)
@@ -69,7 +70,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit(): Promise<void> {
-
+    window.addEventListener('triggerFileUpload', this.triggerFileUpload.bind(this));
     const formId = this.route.snapshot.paramMap.get('id');
 
     this.storeSubscription = this.store
@@ -84,7 +85,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           mode,
           backgroundColor,
           blockOrder,
-          coverImage
+          coverImage,
+          logoImage
         }) => {
           this.mode = mode;
           this.bgColor = backgroundColor;
@@ -99,6 +101,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           this.description = description;
           this.formId = form_id;
           this.coverImage = coverImage
+          this.logoImage = logoImage
+
           this.autoSave();
         }
       );
@@ -113,10 +117,11 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         this.store.dispatch(
           updateBuilder({
             form_id:this.form!.form_id,
-             coverImage: this.form.coverImage,
+             coverImage: this.form?.coverImage,
              description: this.form?.description,
-             blockOrder: this.form?.blockOrder || [], 
-             backgroundColor: this.form.bgColor
+             blockOrder: this.form.blockOrder || [], 
+             backgroundColor: this.form.bgColor,
+             logoImage:this.form?.logoImage
              })
         );
       }
@@ -125,7 +130,19 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    window.removeEventListener('triggerFileUpload', this.triggerFileUpload.bind(this));
     this.storeSubscription.unsubscribe();
+  }
+
+  triggerFileUpload(event: any) {
+    const type = event.detail;
+    if (type === 'cover') {
+     
+      this.fileInput.nativeElement.querySelector('.image-cover').click();
+    } else if (type === 'logo') {
+ 
+      this.fileInput.nativeElement.querySelector('.image-logo').click();
+    }
   }
   onBlockSettingsClick(block: QuestionElement) {
     this.blockSelected.emit(block);
@@ -243,7 +260,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       .select((state) => state.builder)
       .pipe(distinctUntilChanged())
       .subscribe(
-        async ({ blocks, title, description, form_id, blockOrder, backgroundColor, coverImage }) => {
+        async ({ blocks, title, description, form_id, blockOrder, backgroundColor, coverImage ,logoImage}) => {
           Object.values(blocks).forEach((block: any) => {
             const newBlock: QuestionElement = {
               quest_id: block.quest_id,
@@ -264,7 +281,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             blockOrder: blockOrder,
             bgColor: backgroundColor,
             updated_at: new Date(),
-            coverImage: coverImage
+            coverImage: coverImage,
+            logoImage:logoImage
           };
           await this.formService.updateForm(form_id, updatedForm);
           this.formService.setIsSaving(false);
@@ -283,13 +301,22 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         this.store.dispatch(updateBlockOrder({ blockOrder: newOrder }));
     }
   }
-  async coverImageUpload(file: File,f:string): Promise<void> {
+  async imageUpload(file: File,f:string): Promise<void> {
     if (file) {
       try {
-        await this.formService.deleteFilesInBucket('uploads', `form_${this.formId}/${f}/*`);
+        
+        // await this.formService.deleteFilesInBucket('uploads', `form_${this.formId}/${f}/*`); not working need fixing
         const path = await this.formService.uploadFile(file, `form_${this.formId}/${f}/${file.name}`);
         const publicUrl = await this.formService.getPublicUrl(path);
-        this.store.dispatch(updateBuilder({ coverImage: publicUrl }));
+        if(f==='cover'){
+
+          this.store.dispatch(updateBuilder({ coverImage: publicUrl }));
+        } if(f==='logo') {
+
+          this.store.dispatch(updateBuilder({ logoImage: publicUrl }));
+        }
+         
+
       } catch (error) {
         console.error('Error uploading cover image:', error);
       }

@@ -1,33 +1,68 @@
 .upload-container {
-    width: 100%;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-  }
-  
-  .placeholder {
-    color: #777;
-    line-height: 200px;
-  }
-  
-  .image-cover, .video-upload {
-  
-    width: 100%;
-    height: 200px;
-    background-color: #f9f9f9;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
-  }
-  .image-logo{
-    position: absolute;
-    height: 150px;
-    width: 150px;
-    border-radius: 50%;
-    
-  }
-  
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.placeholder {
+  color: #777;
+  line-height: 200px;
+}
+
+.image-cover {
+  width: 100%;
+  height: 20vh; /* Adjusted height for better cover appearance */
+  background-color: #f2f2f2;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ccc;
+  transition: border 0.3s ease;
+}
+
+.image-cover:hover {
+  border-color: #999; /* Subtle hover effect */
+}
+
+.image-logo {
+  position: absolute;
+  bottom: -75px; /* Positioned above the bottom border of the cover image */
+  left: 15%;
+  transform: translateX(-50%);
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background-color: #fff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #ccc;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-logo:hover {
+  border-color: #999; /* Subtle hover effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+.video-upload {
+  width: 100%;
+  height: 300px;
+  background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ccc;
+}
+
+.video-upload video {
+  max-width: 100%;
+  max-height: 100%;
+}
