@@ -1,10 +1,14 @@
 <div class="upload-container" *ngIf="mode === 'edit'" (click)="fileInput.click()">
   <ng-container [ngSwitch]="fileType">
     <div *ngSwitchCase="'image'" class="{{classes}}" [ngStyle]="{ 'background-image': fileUrl ? 'url(' + fileUrl + ')' : 'none' }">
+      <button class="remove-button" (click)="onRemoveFile()">&#10005;</button>
       <ng-container *ngIf="!fileUrl">
         <div class="placeholder">
           {{ placeholderText }}
         </div>
+
+      </ng-container>
+      <ng-container *ngIf="fileUrl">
       </ng-container>
     </div>
     <div *ngSwitchCase="'video'" class="video-upload">
@@ -15,6 +19,7 @@
       </ng-container>
       <ng-container *ngIf="fileUrl">
         <video controls [src]="fileUrl"></video>
+        <button class="remove-button" (click)="onRemoveFile()">&#10005;</button>
       </ng-container>
     </div>
   </ng-container>

@@ -14,11 +14,14 @@ export class UploadComponent {
   @Input() uploadPath: string = ''; // Path where the file should be uploaded
   @Input() classes: string=''
   @Output() fileUploaded = new EventEmitter<File>(); // Event emitted when a file is selected for upload
-
+  @Output() removeFile = new EventEmitter<void>();
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input?.files && input.files.length > 0) {
       this.fileUploaded.emit(input.files[0]);
     }
+  }
+  onRemoveFile(): void {
+    this.removeFile.emit();
   }
 }

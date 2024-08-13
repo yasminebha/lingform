@@ -1,201 +1,98 @@
-
 <div class="form-container" [ngStyle]="{ 'background-color': bgColor }">
-    
-    <div class="cover" *ngIf="mode==='edit'" >
-    <lf-upload 
-    *ngIf="mode==='edit' && showCoverUpload"
-      [fileType]="'image'" 
-      [fileUrl]="coverImage" 
-      classes="image-cover"
-      mode="edit" 
-      placeholderText="Click here to upload cover image"
-      (fileUploaded)="imageUpload($event,'cover')">
-      
+  <div class="cover" *ngIf="mode === 'edit' && (showCoverUpload || showLogoUpload || coverImage || logoImage)">
+    <lf-upload *ngIf="showCoverUpload || coverImage " [fileType]="'image'" [fileUrl]="coverImage" classes="image-cover"
+      mode="edit" placeholderText="Click here to upload cover image" (fileUploaded)="imageUpload($event, 'cover')"
+      (removeFile)="removeImage('cover')">
     </lf-upload>
-    <lf-upload 
-    *ngIf="mode==='edit' && showLogoUpload"
-
-      [fileType]="'image'" 
-      [fileUrl]="logoImage" 
-      classes="image-logo"
-      mode="edit" 
-      placeholderText="Click here to upload logo image"
-      (fileUploaded)="imageUpload($event,'logo')">
-      
+    <lf-upload *ngIf="showLogoUpload || logoImage " [fileType]="'image'" [fileUrl]="logoImage" classes="image-logo"
+      mode="edit" placeholderText="Click here to upload logo image" (fileUploaded)="imageUpload($event, 'logo')"
+      (removeFile)="removeImage('logo')">
     </lf-upload>
-
   </div>
+  <div class="cover" *ngIf="mode === 'live' && coverImage || logoImage">
 
-  <div *ngIf="mode==='live'">
-    <lf-upload 
-      [fileType]="'image'" 
-      [fileUrl]="coverImage" 
-      classes="image-cover"
-      mode="live" 
->
-      
-    </lf-upload>
-    <lf-upload 
-      [fileType]="'image'" 
-      [fileUrl]="logoImage" 
-      classes="image-logo"
-      mode="live" 
-      >
-      
-    </lf-upload>
+    <lf-upload [fileType]="'image'" *ngIf="mode === 'live' && coverImage" [fileUrl]="coverImage" classes="image-cover" mode="live"></lf-upload>
+
+
+    <lf-upload [fileType]="'image'" *ngIf="mode === 'live' && logoImage" [fileUrl]="logoImage" classes="image-logo" mode="live"></lf-upload>
+
+
+
 
   </div>
   <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form-builder">
 
-    
+
     <div *ngIf="mode === 'edit'" class="container header">
-      <lg-text-field type="text" placeholder="Form title" class="title" [value]="title" fontSize="24" (input)="updateBuilderTitle($event)"></lg-text-field>
-      <lg-text-area placeholder="Form Description"  [value]="description" (input)="updateBuilderDescription($event)"> </lg-text-area>
+      <lg-text-field type="text" placeholder="Form title" class="title" [value]="title" fontSize="24"
+        (input)="updateBuilderTitle($event)"></lg-text-field>
+      <lg-text-area placeholder="Form Description" [value]="description" (input)="updateBuilderDescription($event)">
+      </lg-text-area>
     </div>
 
 
     <div *ngIf="mode === 'live'" class="container header">
       <lg-text-field type="text" class="title" [value]="title" fontSize="24" [isDisabled]="true"></lg-text-field>
       <hr *ngIf="description">
-      <lg-text-area *ngIf="description"placeholder="Form Description"  [value]="description" [isDisabled]="true" > </lg-text-area>
+      <lg-text-area *ngIf="description" placeholder="Form Description" [value]="description" [isDisabled]="true">
+      </lg-text-area>
 
     </div>
 
 
-    <div class="block-list" cdkDropList (cdkDropListDropped)="drop($event)" >
-          
-      <div class="block" *ngFor="let block of blocks" [cdkDrag]="mode==='edit'" [cdkDragDisabled]="mode==='live'" [cdkDragData]="block"  >
-        
+    <div class="block-list" cdkDropList (cdkDropListDropped)="drop($event)">
+
+      <div class="block" *ngFor="let block of blocks" [cdkDrag]="mode==='edit'" [cdkDragDisabled]="mode==='live'"
+        [cdkDragData]="block">
+
         <div *ngIf="mode==='edit'" class="drag-handle" cdkDragHandle>
           <span class="material-symbols-outlined">
             drag_indicator
-            </span>
+          </span>
         </div>
-        
-        <lg-multiple-choice-element
-          [isInvalidBlock]="invalidBlocks[block.quest_id]"
-          [mode]="mode"
-          *ngIf="block.kind === 'MultipleChoiceElementComponent'"
-          ngModel
-          [id]="block.quest_id"
-          [kind]="block.kind"
-          [label]="block.questLabel"
-          [metaData]="block.quest_meta"
-          [required]="block.required"
-          [name]="block.quest_id"
-          (settingsClicked)="onBlockSettingsClick(block)"
-        ></lg-multiple-choice-element>
 
-        <lg-one-choice
-          [isInvalidBlock]="invalidBlocks[block.quest_id]"
-          [mode]="mode"
-          *ngIf="block.kind === 'OneChoiceComponent'"
-          [id]="block.quest_id"
-          [kind]="block.kind"
-          [label]="block.questLabel"
-          [metaData]="block.quest_meta"
-          [required]="block.required"
-          [name]="block.quest_id"
-          ngModel
-          (settingsClicked)="onBlockSettingsClick(block)"
-        ></lg-one-choice>
+        <lg-multiple-choice-element [isInvalidBlock]="invalidBlocks[block.quest_id]" [mode]="mode"
+          *ngIf="block.kind === 'MultipleChoiceElementComponent'" ngModel [id]="block.quest_id" [kind]="block.kind"
+          [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required" [name]="block.quest_id"
+          (settingsClicked)="onBlockSettingsClick(block)"></lg-multiple-choice-element>
 
-        <lg-email-element
-          [isInvalidBlock]="invalidBlocks[block.quest_id]"
-          [mode]="mode"
-          *ngIf="block.kind === 'EmailElementComponent'"
-          [id]="block.quest_id"
-          [kind]="block.kind"
-          [label]="block.questLabel"
-          [metaData]="block.quest_meta"
-          [required]="block.required"
-          [name]="block.quest_id"
-          ngModel
-          (settingsClicked)="onBlockSettingsClick(block)"
-        ></lg-email-element>
+        <lg-one-choice [isInvalidBlock]="invalidBlocks[block.quest_id]" [mode]="mode"
+          *ngIf="block.kind === 'OneChoiceComponent'" [id]="block.quest_id" [kind]="block.kind"
+          [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required" [name]="block.quest_id"
+          ngModel (settingsClicked)="onBlockSettingsClick(block)"></lg-one-choice>
 
-        <lg-date-element
-          [isInvalidBlock]="invalidBlocks[block.quest_id]"
-          [mode]="mode"
-          *ngIf="block.kind === 'DateElementComponent'"
-          [id]="block.quest_id"
-          [kind]="block.kind"
-          [label]="block.questLabel"
-          [metaData]="block.quest_meta"
-          [required]="block.required"
-          [name]="block.quest_id"
-          ngModel
-          (settingsClicked)="onBlockSettingsClick(block)"
-        ></lg-date-element>
+        <lg-email-element [isInvalidBlock]="invalidBlocks[block.quest_id]" [mode]="mode"
+          *ngIf="block.kind === 'EmailElementComponent'" [id]="block.quest_id" [kind]="block.kind"
+          [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required" [name]="block.quest_id"
+          ngModel (settingsClicked)="onBlockSettingsClick(block)"></lg-email-element>
 
-        <lg-short-answer
-          [isInvalidBlock]="invalidBlocks[block.quest_id]"
-          [mode]="mode"
-          *ngIf="block.kind === 'ShortAnswerComponent'"
-          [id]="block.quest_id"
-          [kind]="block.kind"
-          [label]="block.questLabel"
-          [metaData]="block.quest_meta"
-          [required]="block.required"
-          [name]="block.quest_id"
-          ngModel
-          (settingsClicked)="onBlockSettingsClick(block)"
-        ></lg-short-answer>
+        <lg-date-element [isInvalidBlock]="invalidBlocks[block.quest_id]" [mode]="mode"
+          *ngIf="block.kind === 'DateElementComponent'" [id]="block.quest_id" [kind]="block.kind"
+          [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required" [name]="block.quest_id"
+          ngModel (settingsClicked)="onBlockSettingsClick(block)"></lg-date-element>
 
-        <lg-phone-element
-          [isInvalidBlock]="invalidBlocks[block.quest_id]"
-          [mode]="mode"
-          *ngIf="block.kind === 'PhoneElementComponent'"
-          [id]="block.quest_id"
-          [kind]="block.kind"
-          [label]="block.questLabel"
-          [metaData]="block.quest_meta"
-          [required]="block.required"
-          [name]="block.quest_id"
-          ngModel
-          (settingsClicked)="onBlockSettingsClick(block)"
-        ></lg-phone-element>
+        <lg-short-answer [isInvalidBlock]="invalidBlocks[block.quest_id]" [mode]="mode"
+          *ngIf="block.kind === 'ShortAnswerComponent'" [id]="block.quest_id" [kind]="block.kind"
+          [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required" [name]="block.quest_id"
+          ngModel (settingsClicked)="onBlockSettingsClick(block)"></lg-short-answer>
 
-        <lg-file-upload-element
-          [isInvalidBlock]="invalidBlocks[block.quest_id]"
-          [mode]="mode"
-          *ngIf="block.kind === 'FileUploadElementComponent'"
-          [id]="block.quest_id"
-          [kind]="block.kind"
-          [label]="block.questLabel"
-          [metaData]="block.quest_meta"
-          [required]="block.required"
-          [name]="block.quest_id"
-          ngModel
-          (settingsClicked)="onBlockSettingsClick(block)"
-        ></lg-file-upload-element>
-        <lg-rating-element
-          [isInvalidBlock]="invalidBlocks[block.quest_id]"
-          [mode]="mode"
-          *ngIf="block.kind === 'RatingElementComponent'"
-          [id]="block.quest_id"
-          [kind]="block.kind"
-          [label]="block.questLabel"
-          [metaData]="block.quest_meta"
-          [required]="block.required"
-          [name]="block.quest_id"
-          ngModel
-          (settingsClicked)="onBlockSettingsClick(block)"
-        ></lg-rating-element>
-        <lf-yes-or-no-element
-        [isInvalidBlock]="invalidBlocks[block.quest_id]"
-        [mode]="mode"
-        *ngIf="block.kind === 'YesOrNoElementComponent'"
-        [id]="block.quest_id"
-        [kind]="block.kind"
-        [label]="block.questLabel"
-        [metaData]="block.quest_meta"
-        [required]="block.required"
-        [name]="block.quest_id"
-        ngModel
-        (settingsClicked)="onBlockSettingsClick(block)"
+        <lg-phone-element [isInvalidBlock]="invalidBlocks[block.quest_id]" [mode]="mode"
+          *ngIf="block.kind === 'PhoneElementComponent'" [id]="block.quest_id" [kind]="block.kind"
+          [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required" [name]="block.quest_id"
+          ngModel (settingsClicked)="onBlockSettingsClick(block)"></lg-phone-element>
 
-        ></lf-yes-or-no-element>
+        <lg-file-upload-element [isInvalidBlock]="invalidBlocks[block.quest_id]" [mode]="mode"
+          *ngIf="block.kind === 'FileUploadElementComponent'" [id]="block.quest_id" [kind]="block.kind"
+          [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required" [name]="block.quest_id"
+          ngModel (settingsClicked)="onBlockSettingsClick(block)"></lg-file-upload-element>
+        <lg-rating-element [isInvalidBlock]="invalidBlocks[block.quest_id]" [mode]="mode"
+          *ngIf="block.kind === 'RatingElementComponent'" [id]="block.quest_id" [kind]="block.kind"
+          [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required" [name]="block.quest_id"
+          ngModel (settingsClicked)="onBlockSettingsClick(block)"></lg-rating-element>
+        <lf-yes-or-no-element [isInvalidBlock]="invalidBlocks[block.quest_id]" [mode]="mode"
+          *ngIf="block.kind === 'YesOrNoElementComponent'" [id]="block.quest_id" [kind]="block.kind"
+          [label]="block.questLabel" [metaData]="block.quest_meta" [required]="block.required" [name]="block.quest_id"
+          ngModel (settingsClicked)="onBlockSettingsClick(block)"></lf-yes-or-no-element>
       </div>
     </div>
 

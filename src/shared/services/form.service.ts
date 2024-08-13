@@ -67,14 +67,14 @@ export class FormService {
     const { data } =supabase.storage.from('uploads').getPublicUrl(path);
     return data.publicUrl;
   }
-async deleteFilesInBucket(backetName:string,path:string){
-  const { error } = await supabase
-  .storage
-  .from(backetName)
-  .remove([path])
-
-  if (error) throw new Error(error.message);
-}
+  async deleteFilesInBucket(bucketName: string, path: string): Promise<void> {
+    const { error } = await supabase
+      .storage
+      .from(bucketName)
+      .remove([path]);
+  
+    if (error) throw new Error(error.message);
+  }
   
   async submitAnswers(
     answers: { quest_id: string; value: any }[],

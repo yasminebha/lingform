@@ -322,5 +322,42 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  removeImage(type: 'cover' | 'logo'): void {
+    let imageUrl = '';
+    let fileName = '';
+  
+    if (type === 'cover') {
+      imageUrl = this.coverImage;
+      this.showCoverUpload = false;
+    } else if (type === 'logo') {
+      imageUrl = this.logoImage;
+      this.showLogoUpload = false;
+    }
+  
+    if (imageUrl) {
+      const parts = imageUrl.split('/');
+      fileName = parts[parts.length - 1]; 
+      this.formService.deleteFilesInBucket('uploads', `form_${this.formId}/${type}/${fileName}`)
+        .then(() => {
+       
+          if (type === 'cover') {
+            this.coverImage = '';
+          } else if (type === 'logo') {
+            this.logoImage = '';
+          }
+  
+          this.updateImageInStore(type, '');
+        })
+        .catch(error => {
+          console.error('Failed to delete image from storage:', error);
+        });
+    }
+  }
+
+  updateImageInStore(type: 'cover' | 'logo', imageUrl: string): void {
+    const updateData = type === 'cover' ? { coverImage: imageUrl } : { logoImage: imageUrl };
+    this.store.dispatch(updateBuilder(updateData));
+  }
  
 }
