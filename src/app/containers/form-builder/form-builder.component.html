@@ -1,7 +1,9 @@
 
 <div class="form-container" [ngStyle]="{ 'background-color': bgColor }">
-  <div class="cover" *ngIf="mode==='edit'">
+    
+    <div class="cover" *ngIf="mode==='edit'" >
     <lf-upload 
+    *ngIf="mode==='edit' && showCoverUpload"
       [fileType]="'image'" 
       [fileUrl]="coverImage" 
       classes="image-cover"
@@ -11,6 +13,8 @@
       
     </lf-upload>
     <lf-upload 
+    *ngIf="mode==='edit' && showLogoUpload"
+
       [fileType]="'image'" 
       [fileUrl]="logoImage" 
       classes="image-logo"

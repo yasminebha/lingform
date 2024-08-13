@@ -1,29 +1,32 @@
 <div class="upload-container" *ngIf="mode === 'edit'" (click)="fileInput.click()">
-    <ng-container [ngSwitch]="fileType">
-      <div *ngSwitchCase="'image'" class="{{classes}}" [ngStyle]="{ 'background-image': fileUrl ? 'url(' + fileUrl + ')' : 'none' }">
-        <ng-container *ngIf="!fileUrl">
+  <ng-container [ngSwitch]="fileType">
+    <div *ngSwitchCase="'image'" class="{{classes}}" [ngStyle]="{ 'background-image': fileUrl ? 'url(' + fileUrl + ')' : 'none' }">
+      <ng-container *ngIf="!fileUrl">
+        <div class="placeholder">
           {{ placeholderText }}
-        </ng-container>
-      </div>
-      <div *ngSwitchCase="'video'" class="video-upload">
-        <ng-container *ngIf="fileUrl">
-          <video controls [src]="fileUrl"></video>
-        </ng-container>
-        <ng-container *ngIf="!fileUrl">
+        </div>
+      </ng-container>
+    </div>
+    <div *ngSwitchCase="'video'" class="video-upload">
+      <ng-container *ngIf="!fileUrl">
+        <div class="placeholder">
           {{ placeholderText }}
-        </ng-container>
-      </div>
-    </ng-container>
-    <input type="file" (change)="onFileChange($event)" style="display: none;" #fileInput [accept]="fileType === 'image' ? 'image/*' : 'video/*'" />
-  </div>
-  <div class="upload-container" *ngIf="mode === 'live'">
-    <ng-container [ngSwitch]="fileType">
-      <div *ngSwitchCase="'image'" class="{{classes}}" [ngStyle]="{ 'background-image': fileUrl ? 'url(' + fileUrl + ')' : 'none' }"></div>
-      <div *ngSwitchCase="'video'" class="video-upload">
-        <ng-container *ngIf="fileUrl">
-          <video controls [src]="fileUrl"></video>
-        </ng-container>
-      </div>
-    </ng-container>
-  </div>
-  
+        </div>
+      </ng-container>
+      <ng-container *ngIf="fileUrl">
+        <video controls [src]="fileUrl"></video>
+      </ng-container>
+    </div>
+  </ng-container>
+  <input type="file" (change)="onFileChange($event)" style="display: none;" #fileInput [accept]="fileType === 'image' ? 'image/*' : 'video/*'" />
+</div>
+<div class="upload-container" *ngIf="mode === 'live'">
+  <ng-container [ngSwitch]="fileType">
+    <div *ngSwitchCase="'image'" class="{{classes}}" [ngStyle]="{ 'background-image': fileUrl ? 'url(' + fileUrl + ')' : 'none' }"></div>
+    <div *ngSwitchCase="'video'" class="video-upload">
+      <ng-container *ngIf="fileUrl">
+        <video controls [src]="fileUrl"></video>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

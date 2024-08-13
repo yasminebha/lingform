@@ -7,12 +7,33 @@
 
 .placeholder {
   color: #777;
-  line-height: 200px;
+  font-size: 1.2em; 
+  text-align: center; 
+  width: 100%; 
+  line-height: 20vh; 
+  pointer-events: none; 
 }
+
+
+.image-logo .placeholder {
+  line-height: 150px;
+}
+
+
+.image-cover:hover .placeholder,
+.image-logo:hover .placeholder {
+  color: #555; 
+}
+
+
+.video-upload .placeholder {
+  line-height: 300px; 
+}
+
 
 .image-cover {
   width: 100%;
-  height: 20vh; /* Adjusted height for better cover appearance */
+  height: 20vh; 
   background-color: #f2f2f2;
   background-position: center;
   background-repeat: no-repeat;
@@ -25,12 +46,12 @@
 }
 
 .image-cover:hover {
-  border-color: #999; /* Subtle hover effect */
+  border-color: #999; 
 }
 
 .image-logo {
   position: absolute;
-  bottom: -75px; /* Positioned above the bottom border of the cover image */
+  bottom: -75px;
   left: 15%;
   transform: translateX(-50%);
   height: 150px;
@@ -48,8 +69,8 @@
 }
 
 .image-logo:hover {
-  border-color: #999; /* Subtle hover effect */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  border-color: #999; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .video-upload {

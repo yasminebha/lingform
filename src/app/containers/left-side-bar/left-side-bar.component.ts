@@ -39,9 +39,7 @@ export class LeftSideBarComponent implements OnInit {
     blockOrder.push(newBlockId);
     this.store.dispatch(updateBlockOrder({ blockOrder }));
   }
-  handleImageUpload(type: 'cover' | 'logo') {
-    // Trigger file input click via the form-builder component
-    debugger
+  addImage(type: 'cover' | 'logo') {
     const event = new CustomEvent('triggerFileUpload', { detail: type });
     window.dispatchEvent(event);
   }

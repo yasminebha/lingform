@@ -32,7 +32,6 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged } from 'rxjs/operators';
-import * as shortid from 'shortid';
 
 @Component({
   selector: 'lg-form-builder',
@@ -51,6 +50,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   submissionId: string = '';
    form!: Form;
   private storeSubscription: any;
+  uploadType: 'cover' | 'logo' | null = null;
+  showCoverUpload: boolean = false;
+  showLogoUpload: boolean = false;
 
   @ViewChildren(FileUploadElementComponent)
   fileUploadComponents?: QueryList<FileUploadElementComponent>;
@@ -117,6 +119,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         this.store.dispatch(
           updateBuilder({
             form_id:this.form!.form_id,
+            title:this.form.title,
              coverImage: this.form?.coverImage,
              description: this.form?.description,
              blockOrder: this.form.blockOrder || [], 
@@ -134,14 +137,13 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.storeSubscription.unsubscribe();
   }
 
+ 
   triggerFileUpload(event: any) {
     const type = event.detail;
     if (type === 'cover') {
-     
-      this.fileInput.nativeElement.querySelector('.image-cover').click();
+      this.showCoverUpload = true;
     } else if (type === 'logo') {
- 
-      this.fileInput.nativeElement.querySelector('.image-logo').click();
+      this.showLogoUpload = true;
     }
   }
   onBlockSettingsClick(block: QuestionElement) {
@@ -251,9 +253,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     }
   }
 
-  triggerCoverUpload() {
-    this.fileInput.nativeElement.click();
-  }
+ 
   private autoSave = debounce(async () => {
     this.formService.setIsSaving(true);
     this.store
