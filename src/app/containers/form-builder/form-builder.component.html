@@ -9,7 +9,7 @@
       (removeFile)="removeImage('logo')">
     </lf-upload>
   </div>
-  <div class="cover" *ngIf="mode === 'live' && coverImage || logoImage">
+  <div class="cover" *ngIf="mode === 'live' && (coverImage || logoImage)">
 
     <lf-upload [fileType]="'image'" *ngIf="mode === 'live' && coverImage" [fileUrl]="coverImage" classes="image-cover" mode="live"></lf-upload>
 
