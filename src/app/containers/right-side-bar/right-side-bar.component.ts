@@ -27,6 +27,7 @@ export class RightSideBarComponent implements OnInit {
   questionFontSizes: Array<{ key: any; label: string }> = [];
   textFontSizes: Array<{ key: any; label: string }> = [];
   form_id:string=""
+  bgImgUrl:string=""
 
   showModal:boolean= false;
   @Output() fontChanged = new EventEmitter<string>();
@@ -62,9 +63,10 @@ export class RightSideBarComponent implements OnInit {
       { key: '12', label: '12' },
     ];
     this.store
-    .select((state) => state.builder).subscribe(({form_id})=>{
+    .select((state) => state.builder).subscribe(({form_id,bgImage})=>{
       if(form_id)
       this.form_id=form_id
+    this.bgImgUrl=bgImage
     })
     
   }
@@ -129,4 +131,21 @@ export class RightSideBarComponent implements OnInit {
   onColorChange(color: string) {
     this.store.dispatch(changeColor({ color: color }));
   }
+
+  async changeBackgroundImage(f:File){
+    if(f){
+      const path = await this.formService.uploadFile(f, `form_${this.form_id}/background_image/${f.name}`);
+      const publicUrl = await this.formService.getPublicUrl(path);
+      this.store.dispatch(updateBuilder({ bgImage:publicUrl}));
+      
+    }
+    
+    
+  }
+
+  removeBackground(){
+    
+    this.bgImgUrl=''
+  }
+
 }

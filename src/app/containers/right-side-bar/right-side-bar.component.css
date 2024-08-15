@@ -1,8 +1,10 @@
 .side-bar {
 
-
-    padding: 20px 40px 0;
+    padding: 20px 40px 20px;
     flex-direction: column;
+    gap: 11px;
+    overflow-y: scroll;
+    height: 100%;
 
 
 }

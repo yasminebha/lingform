@@ -21,6 +21,7 @@ export class Form {
   submissions_count:number=0;
   coverImage:string=''
   logoImage:string=''
+  bgImage:string=''
   constructor(editeurId: string) {
     this.editeur_id = editeurId;
   }

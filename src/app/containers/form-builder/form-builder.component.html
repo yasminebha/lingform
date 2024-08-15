@@ -1,20 +1,20 @@
-<div class="form-container" [ngStyle]="{ 'background-color': bgColor }">
+<div class="form-container" [ngStyle]="{ 'background-color': bgColor , 'background-image': bgImage ? 'url(' + bgImage + ')' : 'none'}">
   <div class="cover" *ngIf="mode === 'edit' && (showCoverUpload || showLogoUpload || coverImage || logoImage)">
     <lf-upload *ngIf="showCoverUpload || coverImage " [fileType]="'image'" [fileUrl]="coverImage" classes="image-cover"
-      mode="edit" placeholderText="Click here to upload cover image" (fileUploaded)="imageUpload($event, 'cover')"
+      mode="edit" placeholderText="Click here to upload cover image" (fileUploaded)="imageUpload($event, 'cover')" role="cover"
       (removeFile)="removeImage('cover')">
     </lf-upload>
     <lf-upload *ngIf="showLogoUpload || logoImage " [fileType]="'image'" [fileUrl]="logoImage" classes="image-logo"
-      mode="edit" placeholderText="Click here to upload logo image" (fileUploaded)="imageUpload($event, 'logo')"
+      mode="edit" placeholderText="Click here to upload logo image" (fileUploaded)="imageUpload($event, 'logo')" role="logo"
       (removeFile)="removeImage('logo')">
     </lf-upload>
   </div>
   <div class="cover" *ngIf="mode === 'live' && (coverImage || logoImage)">
 
-    <lf-upload [fileType]="'image'" *ngIf="mode === 'live' && coverImage" [fileUrl]="coverImage" classes="image-cover" mode="live"></lf-upload>
+    <lf-upload [fileType]="'image'" *ngIf="mode === 'live' && coverImage" [fileUrl]="coverImage" role="cover" mode="live" ></lf-upload>
 
 
-    <lf-upload [fileType]="'image'" *ngIf="mode === 'live' && logoImage" [fileUrl]="logoImage" classes="image-logo" mode="live"></lf-upload>
+    <lf-upload [fileType]="'image'" *ngIf="mode === 'live' && logoImage" [fileUrl]="logoImage" role="logo" mode="live" ></lf-upload>
 
 
 

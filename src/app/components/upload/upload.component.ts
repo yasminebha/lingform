@@ -7,18 +7,31 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 })
 export class UploadComponent {
-  @Input() fileType: 'image' | 'video' = 'image'; // Determines the type of file (image or video)
-  @Input() fileUrl: string | null = null; // URL of the currently uploaded file (if any)
-  @Input() mode: 'edit' | 'live' = 'edit'; // Determines whether the component is in edit or live mode
-  @Input() placeholderText: string = 'Click here to upload'; // Text to display when no file is uploaded
-  @Input() uploadPath: string = ''; // Path where the file should be uploaded
+  @Input() fileType: 'image' | 'video' = 'image'; 
+  @Input() fileUrl: string | null = null; 
+  @Input() mode: 'edit' | 'live' = 'edit'; 
+  @Input() placeholderText: string = 'Click here to upload'; 
+  @Input() uploadPath: string = ''; 
   @Input() classes: string=''
-  @Output() fileUploaded = new EventEmitter<File>(); // Event emitted when a file is selected for upload
+
+  @Input() role: 'cover' | 'logo' | 'background' = 'cover';
+
+  @Output() fileUploaded = new EventEmitter<File>(); 
   @Output() removeFile = new EventEmitter<void>();
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input?.files && input.files.length > 0) {
       this.fileUploaded.emit(input.files[0]);
+    }
+  }
+  get roleClass(): string {
+    switch (this.role) {
+      case 'logo':
+        return 'image-logo';
+      case 'background':
+        return 'image-background';
+      default:
+        return 'image-cover';
     }
   }
   onRemoveFile(): void {

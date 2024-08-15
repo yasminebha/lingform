@@ -3,46 +3,19 @@
   text-align: center;
   cursor: pointer;
   position: relative;
-}
-
-
-
-
-.image-cover {
-  width: 100%;
-  height: 20vh; 
-  background-color: #f2f2f2;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  transition: box-shadow 0.3s ease;
 }
 
-.image-cover:hover {
-  border-color: #999; 
+.upload-container:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.remove-button{
-  position: absolute;
-    right: 10px;
-    top: 7px;
-    width: 25px;
-    height: 25px;
-    background: var(--gray);
-    border-radius: 50%;
-}
-.image-logo {
-  position: absolute;
-  bottom: -75px;
-  left: 15%;
-  transform: translateX(-50%);
-  height: 150px;
-  width: 150px;
-  border-radius: 50%;
-  background-color: #fff;
+
+/* Shared Styles for Image Uploads */
+.image-cover,
+.image-logo,
+.image-background {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -52,11 +25,70 @@
   transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
-.image-logo:hover ,.image-cover:hover {
-  border-color: #999; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+/* Specific Styles for Cover Image */
+.image-cover {
+  width: 100%;
+  height: 20vh;
+  background-color: #f2f2f2;
 }
 
+.image-cover:hover {
+  border-color: #999;
+}
+
+/* Specific Styles for Logo Image */
+.image-logo {
+  position: absolute;
+  bottom: -75px;
+  left:10%;
+  transform: translateX(-50%);
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.image-logo:hover {
+  border-color: #999;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-background {
+  width: 100%;
+  height: 150px;
+  border: dotted 1px gray;
+  padding: 28px;
+  border-radius: 8px;
+}
+
+
+.image-background:hover {
+  transition: border 0.3s ease;
+
+}
+
+/* Remove Button Style */
+.remove-button {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  width: 25px;
+  height: 25px;
+  background: var(--gray);
+  border-radius: 50%;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+
+/* Placeholder Text Style */
+.placeholder {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Video Upload Styles */
 .video-upload {
   width: 100%;
   height: 300px;

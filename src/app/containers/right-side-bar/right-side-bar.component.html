@@ -82,13 +82,23 @@
       'font-weight': '500',
       'font-size': '18px'
     }"
-    >Background</label
+    >Background color</label
   >
   <lf-color-palette
     role="bgColor"
     (onChange)="onBgColorChange($event)"
     [palette]="['#E9E4FD', '#C6C0DF', '#CEC3F8', '#D6D1E8']"
   ></lf-color-palette>
-
- 
+  <label
+  [ngStyle]="{
+    margin: '20px 0 30px 0',
+    'font-weight': '500',
+    'font-size': '18px'
+  }"
+  >Background Image</label
+>
+  <lf-upload  [fileType]="'image'" fileUrl="{{bgImgUrl}}"
+  mode="edit" placeholderText="Click here to upload background image" role="background" (fileUploaded)="changeBackgroundImage($event)"
+  (removeFile)="removeBackground()">
+</lf-upload>
 </div>

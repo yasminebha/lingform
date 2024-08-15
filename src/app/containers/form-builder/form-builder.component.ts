@@ -48,6 +48,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   coverImage: string = ''
   logoImage: string = ''
   submissionId: string = '';
+  bgImage: string = '';
    form!: Form;
   private storeSubscription: any;
   uploadType: 'cover' | 'logo' | null = null;
@@ -88,7 +89,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           backgroundColor,
           blockOrder,
           coverImage,
-          logoImage
+          logoImage,
+          bgImage
         }) => {
           this.mode = mode;
           this.bgColor = backgroundColor;
@@ -104,7 +106,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           this.formId = form_id;
           this.coverImage = coverImage
           this.logoImage = logoImage
-
+          this.bgImage=bgImage
           this.autoSave();
         }
       );
@@ -124,7 +126,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
              description: this.form?.description,
              blockOrder: this.form.blockOrder || [], 
              backgroundColor: this.form.bgColor,
-             logoImage:this.form?.logoImage
+             logoImage:this.form?.logoImage,
+             bgImage:this.form?.bgImage
              })
         );
       }
@@ -260,7 +263,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       .select((state) => state.builder)
       .pipe(distinctUntilChanged())
       .subscribe(
-        async ({ blocks, title, description, form_id, blockOrder, backgroundColor, coverImage ,logoImage}) => {
+        async ({ blocks, title, description, form_id, blockOrder, backgroundColor, coverImage ,logoImage,bgImage}) => {
           Object.values(blocks).forEach((block: any) => {
             const newBlock: QuestionElement = {
               quest_id: block.quest_id,
@@ -282,7 +285,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             bgColor: backgroundColor,
             updated_at: new Date(),
             coverImage: coverImage,
-            logoImage:logoImage
+            logoImage:logoImage,
+            bgImage:bgImage
+            
           };
           await this.formService.updateForm(form_id, updatedForm);
           this.formService.setIsSaving(false);
@@ -301,17 +306,17 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         this.store.dispatch(updateBlockOrder({ blockOrder: newOrder }));
     }
   }
-  async imageUpload(file: File,f:string): Promise<void> {
+  async imageUpload(file: File,role:string): Promise<void> {
     if (file) {
       try {
         
         // await this.formService.deleteFilesInBucket('uploads', `form_${this.formId}/${f}/*`); not working need fixing
-        const path = await this.formService.uploadFile(file, `form_${this.formId}/${f}/${file.name}`);
+        const path = await this.formService.uploadFile(file, `form_${this.formId}/${role}/${file.name}`);
         const publicUrl = await this.formService.getPublicUrl(path);
-        if(f==='cover'){
+        if(role==='cover'){
 
           this.store.dispatch(updateBuilder({ coverImage: publicUrl }));
-        } if(f==='logo') {
+        } if(role==='logo') {
 
           this.store.dispatch(updateBuilder({ logoImage: publicUrl }));
         }
