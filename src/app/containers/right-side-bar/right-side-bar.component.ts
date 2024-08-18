@@ -144,8 +144,13 @@ export class RightSideBarComponent implements OnInit {
   }
 
   removeBackground(){
-    
+    let fileName = '';
+    const parts = this.bgImgUrl.split('/');
+    fileName = parts[parts.length - 1]; 
+    this.formService.deleteFilesInBucket('uploads', `form_${this.form_id}/background_image/${fileName}`)
     this.bgImgUrl=''
+    this.store.dispatch(updateBuilder({ bgImage:this.bgImgUrl}));
+
   }
 
 }
