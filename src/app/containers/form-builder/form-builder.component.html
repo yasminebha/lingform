@@ -1,4 +1,8 @@
 <div class="form-container" [ngStyle]="{ 'background-color': bgColor , 'background-image': bgImage ? 'url(' + bgImage + ')' : 'none'}">
+  
+  <button (click)="generateFormWithAI('Create a customer feedback form')">
+    Generate Form with AI
+  </button>
   <div class="cover" *ngIf="mode === 'edit' && (showCoverUpload || showLogoUpload || coverImage || logoImage)">
     <lf-upload *ngIf="showCoverUpload || coverImage " [fileType]="'image'" [fileUrl]="coverImage" classes="image-cover"
       mode="edit" placeholderText="Click here to upload cover image" (fileUploaded)="imageUpload($event, 'cover')" role="cover"

@@ -13,6 +13,7 @@ import { UIComponentsModule } from '@/shared/ui-components/ui-components.module'
 
 import { HomeModule } from './pages/home/home.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { provideHttpClient } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
   imports: [
@@ -24,6 +25,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AccountModule,
     UIComponentsModule,
     HomeModule,
+    
     NgxPaginationModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
@@ -34,5 +36,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     }),
   ],
   bootstrap: [AppComponent],
+  providers: [provideHttpClient()]
 })
 export class AppModule {}

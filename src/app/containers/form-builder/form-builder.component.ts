@@ -12,6 +12,7 @@ import {
 import { AppState } from '@/app/store/reducers';
 import { Form } from '@/shared/models/form.model';
 import { QuestionElement } from '@/shared/models/questionElement.model';
+import { AiFormService } from '@/shared/services/ai-form.service';
 import { FormService } from '@/shared/services/form.service';
 import { QuestionService } from '@/shared/services/question.service';
 import { debounce } from '@/shared/utils/timing';
@@ -69,7 +70,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     private readonly store: Store<AppState>,
     private readonly formService: FormService,
     private readonly route: ActivatedRoute,
-    private questService: QuestionService
+    private questService: QuestionService,
+    private aiFormService: AiFormService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -365,4 +367,14 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.store.dispatch(updateBuilder(updateData));
   }
  
+
+
+  generateFormWithAI(prompt: string) {
+    this.aiFormService.generateForm(prompt).subscribe((response) => {
+      const formStructure = JSON.parse(response.formStructure);
+      formStructure.blocks.forEach((block: any) => {
+        this.store.dispatch(addBlock({ blockId: block.quest_id, newBlock: block }));
+      });
+    });
+  }
 }
