@@ -33,6 +33,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged } from 'rxjs/operators';
+import * as shortid from 'shortid';
 
 @Component({
   selector: 'lg-form-builder',
@@ -368,13 +369,43 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   }
  
 
-
-  generateFormWithAI(prompt: string) {
-    this.aiFormService.generateForm(prompt).subscribe((response) => {
-      const formStructure = JSON.parse(response.formStructure);
-      formStructure.blocks.forEach((block: any) => {
+  async generateFormWithAI(prompt: string) {
+    debugger
+    try {
+      const response = await this.aiFormService.generateForm(prompt).toPromise();
+      const formStructure = response.formStructure;
+  
+      // Dispatch actions to update the form state with the new title, description, and blocks
+      this.store.dispatch(updateBuilderTitle({ title: formStructure.title }));
+      this.store.dispatch(updateBuilderDescription({ Description: formStructure.description }));
+  
+      // Process and add each block (question) to the store
+      let blockOrder:string[]= []
+      formStructure.questions.forEach((question: any, index: number) => {
+        let newblockId=shortid.generate()
+        const block: QuestionElement = {
+          quest_id:newblockId, // Create a unique ID for each block
+          form_id: this.formId,
+          kind: question.type === 'multiple-choice' ? 'MultipleChoiceElementComponent' : 'ShortAnswerComponent', // Map type to the corresponding kind
+          questLabel: question.label,
+          required: false,
+          quest_meta: {
+            options: question.options || [], // Add options for multiple-choice questions
+          },
+        };
+  
         this.store.dispatch(addBlock({ blockId: block.quest_id, newBlock: block }));
+        
+        blockOrder.push(newblockId);
       });
-    });
+      this.store.dispatch(updateBlockOrder({ blockOrder }));
+      
+      
+  
+    } catch (error) {
+      console.error('Error generating form with AI:', error);
+    }
   }
+  
+  
 }

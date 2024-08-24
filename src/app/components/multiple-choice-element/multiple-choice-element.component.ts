@@ -1,11 +1,12 @@
 import { QuestionElement } from '@/shared/models/questionElement.model';
-import { Component, OnInit, forwardRef } from '@angular/core';
+import { Component, OnInit, forwardRef, OnDestroy } from '@angular/core';
 import * as shortid from 'shortid';
 import { FormBlockComponent } from '../form-block.component';
 import { removeBlock, updateBlock } from '@/app/store/actions/builder.actions';
 import { debounce } from '@/shared/utils/timing';
-
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 export class MultipleChoiceOption {
   constructor(val?: string) {
@@ -29,9 +30,27 @@ export class MultipleChoiceOption {
 })
 export class MultipleChoiceElementComponent
   extends FormBlockComponent<string[], { options: MultipleChoiceOption[] }>
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   answers: string[] = [];
+  options: MultipleChoiceOption[] = [];
+  private subscription: Subscription = new Subscription();
+
+  
+
+  override ngOnInit(): void {
+    // Subscribe to the  tostore get the current options from the state
+    this.subscription.add(
+      this.store.select(state => state.builder.blocks[this.id]?.quest_meta?.options)
+        .subscribe((options: MultipleChoiceOption[]) => {
+          if (options) {
+            this.options = options;
+            this.metaData = { options };
+          }
+        })
+    );
+  }
+
   onValueChange(key: string) {
     if (this.answers.includes(key)) {
       this.answers = this.answers.filter((a) => a !== key);
@@ -41,11 +60,6 @@ export class MultipleChoiceElementComponent
 
     this.changeCommit(this.answers);
   }
-
-  override ngOnInit(): void {}
-
-
-
 
   addChoice() {
     const op = new MultipleChoiceOption();
@@ -59,6 +73,7 @@ export class MultipleChoiceElementComponent
       })
     );
   }
+
   removeChoice(key: string) {
     const options = this.metaData?.options || [];
 
@@ -100,5 +115,9 @@ export class MultipleChoiceElementComponent
   updateChoice(event: any, key: string) {
     const currentValue = event.target.value;
     this.debounceChoiceInput(key, currentValue);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe(); // Clean up the subscription
   }
 }

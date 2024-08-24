@@ -12,4 +12,6 @@ export class AiFormService {
 
   generateForm(prompt: string): Observable<any> {
     return this.http.post<any>(this.apiUrl, { prompt });
-  }}
+  }
+
+}
