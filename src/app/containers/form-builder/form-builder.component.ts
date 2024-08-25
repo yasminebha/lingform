@@ -370,42 +370,68 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
  
 
   async generateFormWithAI(prompt: string) {
-    debugger
     try {
       const response = await this.aiFormService.generateForm(prompt).toPromise();
       const formStructure = response.formStructure;
-  
-      // Dispatch actions to update the form state with the new title, description, and blocks
       this.store.dispatch(updateBuilderTitle({ title: formStructure.title }));
       this.store.dispatch(updateBuilderDescription({ Description: formStructure.description }));
+      let blockOrder: string[] = [];
+      formStructure.questions.forEach((question: any) => {
+        let newblockId = shortid.generate();
   
-      // Process and add each block (question) to the store
-      let blockOrder:string[]= []
-      formStructure.questions.forEach((question: any, index: number) => {
-        let newblockId=shortid.generate()
+       
+        let kind: string;
+        switch (question.type) {
+          case 'multiple-choice':
+            kind = 'MultipleChoiceElementComponent';
+            break;
+          case 'one-choice':
+            kind = 'OneChoiceElementComponent';
+            break;
+          case 'short-answer':
+            kind = 'ShortAnswerComponent';
+            break;
+          case 'rating':
+            kind = 'RatingComponent';
+            break;
+          case 'email':
+            kind = 'EmailElementComponent';
+            break;
+          case 'phone':
+            kind = 'PhoneElementComponent';
+            break;
+          case 'file-upload':
+            kind = 'FileUploadComponent';
+            break;
+          case 'yes-or-no':
+            kind = 'YesOrNoElementComponent';
+            break;
+          default:
+            kind = 'ShortAnswerComponent'; 
+        }
+  
         const block: QuestionElement = {
-          quest_id:newblockId, // Create a unique ID for each block
+          quest_id: newblockId, 
           form_id: this.formId,
-          kind: question.type === 'multiple-choice' ? 'MultipleChoiceElementComponent' : 'ShortAnswerComponent', // Map type to the corresponding kind
+          kind: kind, 
           questLabel: question.label,
           required: false,
           quest_meta: {
-            options: question.options || [], // Add options for multiple-choice questions
+            options: question.options || [], 
           },
         };
   
         this.store.dispatch(addBlock({ blockId: block.quest_id, newBlock: block }));
-        
+  
         blockOrder.push(newblockId);
       });
       this.store.dispatch(updateBlockOrder({ blockOrder }));
-      
-      
   
     } catch (error) {
       console.error('Error generating form with AI:', error);
     }
   }
+  
   
   
 }
