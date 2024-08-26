@@ -100,6 +100,6 @@ export const builderReducer = createReducer(
   on(BuilderActions.updateBlockOrder, (currentState, { blockOrder }) => ({
     ...currentState,
     blockOrder: blockOrder,
-  }))
-
+  })),
+  on(BuilderActions.resetBuilderState, () => initialState)
 );

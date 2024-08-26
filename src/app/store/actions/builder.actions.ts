@@ -57,4 +57,5 @@ export const updateBlockOrder = createAction(
   'BUILDER/UPDATE_BLOCK_ORDER',
   props<{ blockOrder: string[] }>()
 );  
+export const resetBuilderState = createAction('BUILDER/RESET_STATE');
 

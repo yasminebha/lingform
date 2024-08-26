@@ -3,6 +3,7 @@ import {
   addBlock,
   changeBgColor,
   changeFormId,
+  resetBuilderState,
   swapBlock,
   updateBlockOrder,
   updateBuilder,
@@ -56,6 +57,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   uploadType: 'cover' | 'logo' | null = null;
   showCoverUpload: boolean = false;
   showLogoUpload: boolean = false;
+  userPrompt:string = ''
 
   @ViewChildren(FileUploadElementComponent)
   fileUploadComponents?: QueryList<FileUploadElementComponent>;
@@ -76,8 +78,9 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    window.addEventListener('triggerFileUpload', this.triggerFileUpload.bind(this));
+
     const formId = this.route.snapshot.paramMap.get('id');
+    window.addEventListener('triggerFileUpload', this.triggerFileUpload.bind(this));
 
     this.storeSubscription = this.store
       .select((state) => state.builder)
@@ -136,6 +139,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       }
 
     }
+   
+    
   }
 
   ngOnDestroy() {
@@ -143,7 +148,11 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     this.storeSubscription.unsubscribe();
   }
 
- 
+ updateUserPrompt(evt:any){
+  this.userPrompt=evt.target.value
+  console.log(this.userPrompt);
+  
+ }
   triggerFileUpload(event: any) {
     const type = event.detail;
     if (type === 'cover') {
@@ -370,65 +379,72 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
  
 
   async generateFormWithAI(prompt: string) {
-    try {
-      const response = await this.aiFormService.generateForm(prompt).toPromise();
-      const formStructure = response.formStructure;
-      this.store.dispatch(updateBuilderTitle({ title: formStructure.title }));
-      this.store.dispatch(updateBuilderDescription({ Description: formStructure.description }));
-      let blockOrder: string[] = [];
-      formStructure.questions.forEach((question: any) => {
-        let newblockId = shortid.generate();
-  
-       
-        let kind: string;
-        switch (question.type) {
-          case 'multiple-choice':
-            kind = 'MultipleChoiceElementComponent';
-            break;
-          case 'one-choice':
-            kind = 'OneChoiceElementComponent';
-            break;
-          case 'short-answer':
-            kind = 'ShortAnswerComponent';
-            break;
-          case 'rating':
-            kind = 'RatingComponent';
-            break;
-          case 'email':
-            kind = 'EmailElementComponent';
-            break;
-          case 'phone':
-            kind = 'PhoneElementComponent';
-            break;
-          case 'file-upload':
-            kind = 'FileUploadComponent';
-            break;
-          case 'yes-or-no':
-            kind = 'YesOrNoElementComponent';
-            break;
-          default:
-            kind = 'ShortAnswerComponent'; 
-        }
-  
-        const block: QuestionElement = {
-          quest_id: newblockId, 
-          form_id: this.formId,
-          kind: kind, 
-          questLabel: question.label,
-          required: false,
-          quest_meta: {
-            options: question.options || [], 
-          },
-        };
-  
-        this.store.dispatch(addBlock({ blockId: block.quest_id, newBlock: block }));
-  
-        blockOrder.push(newblockId);
-      });
-      this.store.dispatch(updateBlockOrder({ blockOrder }));
-  
-    } catch (error) {
-      console.error('Error generating form with AI:', error);
+    if(prompt){
+      // this.store.dispatch(resetBuilderState());
+      try {
+        
+        const response = await this.aiFormService.generateForm(prompt).toPromise();
+        const formStructure = response.formStructure;
+        this.store.dispatch(updateBuilderTitle({ title: formStructure.title }));
+        this.store.dispatch(updateBuilderDescription({ Description: formStructure.description }));
+       // let blockOrder: string[] = [];
+        formStructure.questions.forEach((question: any) => {
+          let newblockId = shortid.generate();
+    
+         
+          let kind: string;
+          switch (question.type) {
+            case 'multiple-choice':
+              kind = 'MultipleChoiceElementComponent';
+              break;
+            case 'one-choice':
+              kind = 'OneChoiceElementComponent';
+              break;
+            case 'short-answer':
+              kind = 'ShortAnswerComponent';
+              break;
+            case 'rating':
+              kind = 'RatingComponent';
+              break;
+            case 'email':
+              kind = 'EmailElementComponent';
+              break;
+            case 'phone':
+              kind = 'PhoneElementComponent';
+              break;
+            case 'file-upload':
+              kind = 'FileUploadComponent';
+              break;
+            case 'yes-or-no':
+              kind = 'YesOrNoElementComponent';
+              break;
+            default:
+              kind = 'ShortAnswerComponent'; 
+          }
+    
+          const block: QuestionElement = {
+            quest_id: newblockId, 
+            form_id: this.formId,
+            kind: kind, 
+            questLabel: question.label,
+            required: false,
+            quest_meta: {
+              options: question.options || [], 
+            },
+          };
+    
+          this.store.dispatch(addBlock({ blockId: block.quest_id, newBlock: block }));
+    
+         this.blockOrder.push(newblockId);
+        }); 
+        this.store.dispatch(updateBlockOrder({blockOrder:this.blockOrder}));
+    
+      } catch (error) {
+        console.error('Error generating form with AI:', error);
+      }
+    }
+    else{
+      alert('enter form description !')
     }
   }
   
