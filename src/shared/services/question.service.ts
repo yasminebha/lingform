@@ -47,6 +47,18 @@ export class QuestionService {
       
     }
   }
+  async removeAllQuestionByFormId(formId: string): Promise<void> {
+    const { error } = await supabase
+      .from('question')
+      .delete()  
+      .eq('form_id', formId); 
+  
+    if (error) {
+      console.error('Error deleting questions from database:', error);
+    } else {
+      console.log("All questions related to formId", formId, "have been deleted from the database");
+    }
+  }
 
   
 }
