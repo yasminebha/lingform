@@ -29,3 +29,8 @@
     align-items: center;
 
 }
+p{
+    padding: 12px 20px;
+    overflow-wrap: anywhere;
+    font-size: 14px;
+}

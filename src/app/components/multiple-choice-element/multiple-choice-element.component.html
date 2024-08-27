@@ -50,7 +50,7 @@
           display: 'flex',
           'align-items': 'center',
           gap: '20px',
-          width: '60%'
+          width: '100%'
         }"
       >
         <lg-checkbox class="checkbox" [isDisabled]="true"></lg-checkbox>
@@ -92,18 +92,16 @@
         display: 'flex',
         'align-items': 'center',
         'justify-content':'flex-start',
-        gap: '20px'
+        gap: '20px',
+        width: '100%'
       }"
     >
       <lg-checkbox
         value="{{ o.value }}"
         (change)="onValueChange(o.value)"
       ></lg-checkbox>
-      <lg-text-field
-      class="title"
-      [isDisabled]="true"
-      value="{{ o.value }}"
-    ></lg-text-field>
+      <p>{{ o.value }}</p>
+      
     </label>
   </div>
 </div>
