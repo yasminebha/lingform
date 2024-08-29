@@ -382,11 +382,6 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       try {
  
         let blockOrder:string[]= []
-        this.store
-          .select((state) => state.builder)
-          .subscribe((builder) => {
-            blockOrder = [...builder.blockOrder];
-          }).unsubscribe();
         this.isLoading = true
        await this.questService.removeAllQuestionByFormId(this.formId);
         this.store.dispatch(resetBuilderState());
@@ -405,7 +400,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
               kind = 'MultipleChoiceElementComponent';
               break;
             case 'one-choice':
-              kind = 'OneChoiceElementComponent';
+              kind = 'OneChoiceComponent';
               break;
             case 'short-answer':
               kind = 'ShortAnswerComponent';
@@ -434,7 +429,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             form_id: this.formId,
             kind: kind,
             questLabel: question.label,
-            required: false,
+            required: true,
             quest_meta: {
               options: question.options || [],
             },
