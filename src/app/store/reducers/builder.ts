@@ -101,5 +101,8 @@ export const builderReducer = createReducer(
     ...currentState,
     blockOrder: blockOrder,
   })),
-  on(BuilderActions.resetBuilderState, () => initialState)
+  on(BuilderActions.resetBuilderState, (state) => ({
+    ...initialState,
+    form_id: state.form_id,
+  }))
 );

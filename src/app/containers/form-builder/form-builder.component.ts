@@ -68,6 +68,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   @Input() mode!: 'live' | 'edit';
   invalidBlocks: { [blockId: string]: boolean } = {};
+  isLoading: boolean=false;
 
   constructor(
     private readonly store: Store<AppState>,
@@ -97,6 +98,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           logoImage,
           bgImage
         }) => {
+          this.formId = form_id;
           this.mode = mode;
           this.bgColor = backgroundColor;
   
@@ -109,7 +111,6 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           }
           this.title = title;
           this.description = description;
-          this.formId = form_id;
           this.coverImage = coverImage;
           this.logoImage = logoImage;
           this.bgImage = bgImage;
@@ -136,6 +137,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           })
         );
       }
+      //console.log(this.blockOrder);
+      
     }
   }
 
@@ -377,21 +380,22 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   async generateFormWithAI(prompt: string) {
     if (prompt) {
       try {
-        // Remove all existing questions from the database for this form
-       // await this.questService.removeAllQuestionByFormId(this.formId);
-  
-        
-        //this.store.dispatch(resetBuilderState());
-       // this.blockOrder = [];
-  
+ 
+        let blockOrder:string[]= []
+        this.store
+          .select((state) => state.builder)
+          .subscribe((builder) => {
+            blockOrder = [...builder.blockOrder];
+          }).unsubscribe();
+        this.isLoading = true
+       await this.questService.removeAllQuestionByFormId(this.formId);
+        this.store.dispatch(resetBuilderState());
         const response = await this.aiFormService.generateForm(prompt).toPromise();
         const formStructure = response.formStructure;
   
-        // Update title and description
         this.store.dispatch(updateBuilderTitle({ title: formStructure.title }));
         this.store.dispatch(updateBuilderDescription({ Description: formStructure.description }));
   
-        // Generate new blocks based on the AI response
         formStructure.questions.forEach((question: any) => {
           const newBlockId = shortid.generate();
   
@@ -437,15 +441,19 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           };
   
           // Add the new block and update blockOrder
-          this.store.dispatch(addBlock({ blockId: block.quest_id, newBlock: block }));
-          this.blockOrder = [...this.blockOrder, newBlockId];
+          this.store.dispatch(addBlock({ blockId: newBlockId, newBlock: block }));
+          blockOrder.push(newBlockId)
+          console.log(blockOrder);
+          
         });
+        this.store.dispatch(updateBlockOrder({ blockOrder }));
   
         // Dispatch updated blockOrder to the store
-        this.store.dispatch(updateBlockOrder({ blockOrder: this.blockOrder }));
-  
+     this.isLoading = false
       } catch (error) {
+        alert("there was a problem while generating the form")
         console.error('Error generating form with AI:', error);
+        this.isLoading = false
       }
     } else {
       alert('Please enter a form description!');
