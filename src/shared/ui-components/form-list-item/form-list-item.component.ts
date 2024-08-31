@@ -24,7 +24,7 @@ export class FormListItemComponent implements OnInit {
     @Input() subCount!:number
     @ViewChild('svgIcon', { static: false }) svgIcon!: ElementRef;
     @ViewChild('menu', { static: false }) menu!: ElementRef;
-    showMenu: boolean = false;
+
     menuStyle: { [key: string]: string } = {};
 
 
@@ -42,12 +42,7 @@ export class FormListItemComponent implements OnInit {
     this.selectionChange.emit({ formID: this.formID, isChecked: checkbox.checked });
   }
 
-  toggleMenu(): void {
-    this.showMenu = !this.showMenu;
-    if (this.showMenu) {
-      this.setPosition();
-    }
-  }
+
 
   setPosition(): void {
     const rect = this.svgIcon.nativeElement.getBoundingClientRect();
@@ -57,24 +52,14 @@ export class FormListItemComponent implements OnInit {
       position: 'absolute'
     };
   }
-  @HostListener('document:click', ['$event'])
-  onClick(event: Event): void {
-    if(this.svgIcon){
-      const clickedInside = this.svgIcon.nativeElement.contains(event.target) ;
-      if (!clickedInside) {
-        this.showMenu = false;
-      }
-    }
  
-    
-  }
 
   async deleteForm(formId: string): Promise<void> {
     if (confirm('Are you sure you want to delete this form?')) {
       try {
+      
         await this.formService.deleteForm(formId);
         console.log('Form deleted successfully');
-        this.showMenu = false; 
         window.location.reload();
       } catch (error) {
         console.error('Error deleting form:', error);

@@ -136,37 +136,15 @@ export class FormService {
   }
   
   async deleteForm(formId: string): Promise<void> {
-    try {
-      const questionsData = (
-        await supabase.from('question').select('quest_id').eq('form_id', formId)
-      ).data;
-      const questionIds = questionsData
-        ? questionsData.map((q) => q.quest_id)
-        : [];
-
-      const answersQuery = supabase
-        .from('answer')
-        .delete()
-        .in('quest_id', questionIds);
-      const { error: answerError } = await answersQuery;
-      if (answerError) throw answerError;
-
-      const questionsQuery = supabase
-        .from('question')
-        .delete()
-        .eq('form_id', formId);
-      const { error: questionError } = await questionsQuery;
-      if (questionError) throw questionError;
-
-      const formQuery = supabase.from('form').delete().eq('form_id', formId);
-      const { error: formError } = await formQuery;
-      if (formError) throw formError;
-
-      console.log('Form and related data deleted successfully');
-    } catch (error) {
-      console.log(error);
+    const { error } = await supabase.rpc('delete_single_form', { p_form_id: formId });
+  
+    if (error) {
+      console.error('Error deleting the form', error.message);
+      throw error;
     }
   }
+  
+  
   async getBlockOrder(formId: string): Promise<string[]> {
     const { data, error } = await supabase
       .from('form')
