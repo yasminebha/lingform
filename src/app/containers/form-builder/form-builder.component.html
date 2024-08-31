@@ -4,8 +4,8 @@
 
 <div class="form-container" [ngStyle]="{ 'background-color': bgColor , 'background-image': bgImage ? 'url(' + bgImage + ')' : 'none'}" *ngIf="!isLoading">
   <div class="form-generation-section" *ngIf="mode==='edit'">
-    <lg-text-field (input)="updateUserPrompt($event)" placeholder="Enter form description here..." ></lg-text-field>
     <lf-button (click)="generateFormWithAI(userPrompt)" text="generate"></lf-button>
+    <lg-text-field (input)="updateUserPrompt($event)" placeholder="Generate your form with Ai ..." ></lg-text-field>
   </div>
   
   

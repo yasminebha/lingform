@@ -27,21 +27,29 @@
         ></lg-text-field>
       </div>
     </div>
-    <lf-button
-      *ngIf="isSubmitting === false"
-      text="login"
-      type="submit"
-      layout="primary"
-    ></lf-button>
-    <lf-button
-      *ngIf="isSubmitting === true"
-      text="loading..."
-      type="submit"
-      layout="primary"
-      [isDisabled]="isSubmitting === true"
-    ></lf-button>
+    <div class="btn">
+      <lf-button
+        *ngIf="isSubmitting === false"
+        text="login"
+        type="submit"
+        layout="primary"
+      ></lf-button>
+
+    </div>
+    <div class="btn">
+      <lf-button
+        *ngIf="isSubmitting === true"
+        text="loading..."
+        type="submit"
+        layout="primary"
+        [isDisabled]="isSubmitting === true"
+      ></lf-button>
+
+    </div>
+    <div class="btn">
+     <lf-button layout="outline" text="Sign in with Google" (click)="signInWithGoogle()"></lf-button>
+    </div>
   </form>
-  <button (click)="signInWithGoogle()">Sign in with Google</button>
 
   <div class="member">
     you forgot your password ?
