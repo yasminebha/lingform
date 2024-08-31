@@ -70,6 +70,17 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   invalidBlocks: { [blockId: string]: boolean } = {};
   isLoading: boolean=false;
 
+
+  elementQuantities = {
+    multipleChoice: 0,
+    oneChoice: 0,
+    shortAnswer: 0,
+    rating: 0,
+    email: 0,
+    phone: 0,
+    fileUpload: 0,
+    yesOrNo: 0
+  };
   constructor(
     private readonly store: Store<AppState>,
     private readonly formService: FormService,

@@ -2,31 +2,76 @@
   <div class="loading-spinner"></div>
 </div>
 
-<div class="form-container" [ngStyle]="{ 'background-color': bgColor , 'background-image': bgImage ? 'url(' + bgImage + ')' : 'none'}" *ngIf="!isLoading">
+<div class="form-container"
+  [ngStyle]="{ 'background-color': bgColor , 'background-image': bgImage ? 'url(' + bgImage + ')' : 'none'}"
+  *ngIf="!isLoading">
   <div class="form-generation-section" *ngIf="mode==='edit'">
-    <lg-text-field (input)="updateUserPrompt($event)" placeholder="Enter form description here..." ></lg-text-field>
-    <lf-button (click)="generateFormWithAI(userPrompt)" text="generate"></lf-button>
+    <div class="main-ai">
+      <lf-icon-button icon="sliders" iconStyle="solid" layout="outline"></lf-icon-button>
+      <lf-button (click)="generateFormWithAI(userPrompt)" text="generate"></lf-button>
+      <lg-text-field (input)="updateUserPrompt($event)" placeholder="Enter form description here..."></lg-text-field>
+
+    </div>
+
+    <div class="secondary-ai">
+      <div class="form-element-quantity">
+        <label for="multipleChoice">Multiple Choice:</label>
+        <input type="number" id="multipleChoice" [(ngModel)]="elementQuantities.multipleChoice" min="0" />
+      </div>
+      <div class="form-element-quantity">
+        <label for="oneChoice">One Choice:</label>
+        <input type="number" id="oneChoice" [(ngModel)]="elementQuantities.oneChoice" min="0" />
+      </div>
+      <div class="form-element-quantity">
+        <label for="shortAnswer">Short Answer:</label>
+        <input type="number" id="shortAnswer" [(ngModel)]="elementQuantities.shortAnswer" min="0" />
+      </div>
+      <div class="form-element-quantity">
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" [(ngModel)]="elementQuantities.rating" min="0" />
+      </div>
+      <div class="form-element-quantity">
+        <label for="email">Email:</label>
+        <input type="number" id="email" [(ngModel)]="elementQuantities.email" min="0" />
+      </div>
+      <div class="form-element-quantity">
+        <label for="phone">Phone:</label>
+        <input type="number" id="phone" [(ngModel)]="elementQuantities.phone" min="0" />
+      </div>
+      <div class="form-element-quantity">
+        <label for="fileUpload">File Upload:</label>
+        <input type="number" id="fileUpload" [(ngModel)]="elementQuantities.fileUpload" min="0" />
+      </div>
+      <div class="form-element-quantity">
+        <label for="yesOrNo">Yes/No:</label>
+        <input type="number" id="yesOrNo" [(ngModel)]="elementQuantities.yesOrNo" min="0" />
+      </div>
+    </div>
+
   </div>
-  
-  
-  
+
+
+
+
   <div class="cover" *ngIf="mode === 'edit' && (showCoverUpload || showLogoUpload || coverImage || logoImage)">
-  
+
     <lf-upload *ngIf="showCoverUpload || coverImage " [fileType]="'image'" [fileUrl]="coverImage" classes="image-cover"
-      mode="edit" placeholderText="Click here to upload cover image" (fileUploaded)="imageUpload($event, 'cover')" role="cover"
-      (removeFile)="removeImage('cover')">
+      mode="edit" placeholderText="Click here to upload cover image" (fileUploaded)="imageUpload($event, 'cover')"
+      role="cover" (removeFile)="removeImage('cover')">
     </lf-upload>
     <lf-upload *ngIf="showLogoUpload || logoImage " [fileType]="'image'" [fileUrl]="logoImage" classes="image-logo"
-      mode="edit" placeholderText="Click here to upload logo image" (fileUploaded)="imageUpload($event, 'logo')" role="logo"
-      (removeFile)="removeImage('logo')">
+      mode="edit" placeholderText="Click here to upload logo image" (fileUploaded)="imageUpload($event, 'logo')"
+      role="logo" (removeFile)="removeImage('logo')">
     </lf-upload>
   </div>
   <div class="cover" *ngIf="mode === 'live' && (coverImage || logoImage)">
 
-    <lf-upload [fileType]="'image'" *ngIf="mode === 'live' && coverImage" [fileUrl]="coverImage" role="cover" mode="live" ></lf-upload>
+    <lf-upload [fileType]="'image'" *ngIf="mode === 'live' && coverImage" [fileUrl]="coverImage" role="cover"
+      mode="live"></lf-upload>
 
 
-    <lf-upload [fileType]="'image'" *ngIf="mode === 'live' && logoImage" [fileUrl]="logoImage" role="logo" mode="live" ></lf-upload>
+    <lf-upload [fileType]="'image'" *ngIf="mode === 'live' && logoImage" [fileUrl]="logoImage" role="logo"
+      mode="live"></lf-upload>
 
 
 
