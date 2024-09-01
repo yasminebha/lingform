@@ -124,7 +124,9 @@ export class HomeComponent implements OnInit {
         this.selectedForms.clear();
         this.selectAll = false;
         this.showCheckbox = false
-        await this.loadForms();
+        window.location.reload();
+
+        
       } catch (error) {
         console.error('Error deleting forms:', error);
       }
