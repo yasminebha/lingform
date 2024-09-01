@@ -103,3 +103,17 @@ button {
   lf-dropdown, lg-text-field {
     flex: 1;
   }
+
+  .statistics-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  canvas {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    height: 400px;
+  }

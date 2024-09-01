@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as saveAs from 'file-saver';
+import { Chart } from 'chart.js/auto';
 
 interface Filter {
   label: string;
@@ -39,9 +40,71 @@ export class ResponsesComponent implements OnInit {
         this.data = this.transformDataToArray(rawData);
         this.filteredData = this.data;
         this.extractQuestionLabels();
-        this.populateDropdownData();  // Populate dropdown data
+        this.populateDropdownData(); 
+        this.generateStatisticsCharts(); 
       }
     }
+  }
+  
+
+  generateStatisticsCharts(): void {
+    console.log('Generating charts for questions:', this.questionLabels);
+  
+
+    setTimeout(() => {
+      this.questionLabels.forEach((label, index) => {
+        const answers = this.collectAnswersForQuestion(label);
+        const answerCounts = this.countAnswers(answers);
+  
+        console.log(`Chart ${index} for question "${label}" - Answers:`, answerCounts);
+  
+        const ctx = document.getElementById(`chart-${index}`) as HTMLCanvasElement;
+        if (!ctx) {
+          console.error(`Canvas element with ID "chart-${index}" not found.`);
+          return;
+        }
+  
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: Object.keys(answerCounts),
+            datasets: [{
+              label: label ,
+              data: Object.values(answerCounts),
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      });
+    }, 0);  
+  }
+  
+
+  collectAnswersForQuestion(label: string): string[] {
+    const answers: string[] = [];
+    this.filteredData.forEach(submission => {
+      const answer = this.getAnswer(submission, label);
+      if (answer) {
+        answers.push(...answer.split(', '));
+      }
+    });
+    return answers;
+  }
+
+  countAnswers(answers: string[]): Record<string, number> {
+    return answers.reduce((acc, answer) => {
+      acc[answer] = (acc[answer] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
   }
 
   transformDataToArray(data: any): any[] {
