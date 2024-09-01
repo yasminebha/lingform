@@ -69,7 +69,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   @Input() mode!: 'live' | 'edit';
   invalidBlocks: { [blockId: string]: boolean } = {};
   isLoading: boolean=false;
-
+  aiParametreIsOpen:boolean=false
 
   elementQuantities = {
     multipleChoice: 0,
@@ -156,6 +156,11 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     window.removeEventListener('triggerFileUpload', this.triggerFileUpload.bind(this));
     this.storeSubscription.unsubscribe();
+  }
+  toggleAiParametre(){
+    this.aiParametreIsOpen=!this.aiParametreIsOpen
+    console.log(this.aiParametreIsOpen);
+    
   }
 
   updateUserPrompt(evt: any) {
