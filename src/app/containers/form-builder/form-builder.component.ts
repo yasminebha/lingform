@@ -396,7 +396,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         this.isLoading = true
        await this.questService.removeAllQuestionByFormId(this.formId);
         this.store.dispatch(resetBuilderState());
-        const response = await this.aiFormService.generateForm(prompt).toPromise();
+        const response = await this.aiFormService.generateForm(prompt,this.elementQuantities).toPromise();
         const formStructure = response.formStructure;
   
         this.store.dispatch(updateBuilderTitle({ title: formStructure.title }));

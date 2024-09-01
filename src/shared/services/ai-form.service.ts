@@ -10,8 +10,8 @@ export class AiFormService {
 
   constructor(private http: HttpClient) {}
 
-  generateForm(prompt: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl, { prompt });
+  generateForm(prompt: string,elementQuantities: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, { prompt , elementQuantities});
   }
 
 }
