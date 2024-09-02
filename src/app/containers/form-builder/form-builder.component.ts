@@ -52,6 +52,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   logoImage: string = ''
   submissionId: string = '';
   bgImage: string = '';
+  settings:{}={}
   form!: Form;
   private storeSubscription: any;
   uploadType: 'cover' | 'logo' | null = null;
@@ -107,14 +108,16 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           blockOrder,
           coverImage,
           logoImage,
-          bgImage
+          bgImage,
+          settings
         }) => {
           this.formId = form_id;
           this.mode = mode;
           this.bgColor = backgroundColor;
+          this.settings=settings
   
           if (Array.isArray(blockOrder)) {
-            // Clone the blockOrder array to ensure it's mutable
+           
             this.blockOrder = [...blockOrder]; 
             this.blocks = this.blockOrder
               .map((id) => blocks[id])
@@ -144,7 +147,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             blockOrder: this.form.blockOrder || [],
             backgroundColor: this.form.bgColor,
             logoImage: this.form?.logoImage,
-            bgImage: this.form?.bgImage
+            bgImage: this.form?.bgImage,
+            settings:this.form?.settings
           })
         );
       }
@@ -290,7 +294,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       .select((state) => state.builder)
       .pipe(distinctUntilChanged())
       .subscribe(
-        async ({ blocks, title, description, form_id, blockOrder, backgroundColor, coverImage, logoImage, bgImage }) => {
+        async ({ blocks, title, description, form_id, blockOrder, backgroundColor, coverImage, logoImage, bgImage ,settings}) => {
           Object.values(blocks).forEach((block: any) => {
             const newBlock: QuestionElement = {
               quest_id: block.quest_id,
@@ -313,7 +317,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             updated_at: new Date(),
             coverImage: coverImage,
             logoImage: logoImage,
-            bgImage: bgImage
+            bgImage: bgImage,
+            settings:settings
 
           };
           await this.formService.updateForm(form_id, updatedForm);

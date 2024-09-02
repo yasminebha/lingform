@@ -22,6 +22,7 @@ export class Form {
   coverImage:string=''
   logoImage:string=''
   bgImage:string=''
+  settings:{}={}
   constructor(editeurId: string) {
     this.editeur_id = editeurId;
   }
