@@ -1,4 +1,8 @@
-
-<lg-form-builder  mode="live"></lg-form-builder>
-
- 
+<div *ngIf="shouldDisplayForm$ | async; else formClosed">
+    <lg-form-builder mode="live"></lg-form-builder>
+  </div>
+  
+  <ng-template #formClosed>
+    <p>The form is currently closed. Please try again later.</p>
+  </ng-template>
+  
