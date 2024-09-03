@@ -2,12 +2,15 @@ import supabase from '@/app/supabase';
 import { Injectable } from '@angular/core';
 import * as shortid from 'shortid';
 import { BehaviorSubject } from 'rxjs';
+import { debounce } from '../utils/timing';
+import { QuestionElement } from '../models/questionElement.model';
+import { QuestionService } from './question.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
-  constructor() {}
+  constructor(private questService:QuestionService) {}
   private isSavingSubject = new BehaviorSubject<boolean>(false);
   isSaving$ = this.isSavingSubject.asObservable();
   setIsSaving(value: boolean) {
@@ -180,4 +183,39 @@ export class FormService {
       throw error;
     }
   }
+
+
+
+  public autoSave = debounce(async (builderState: any) => {
+    this.setIsSaving(true);
+
+    const updatedForm = {
+      title: builderState.title,
+      description: builderState.description,
+      blockOrder: builderState.blockOrder,
+      bgColor: builderState.backgroundColor,
+      updated_at: new Date(),
+      coverImage: builderState.coverImage,
+      logoImage: builderState.logoImage,
+      bgImage: builderState.bgImage,
+      settings: builderState.settings,
+    };
+
+    Object.values(builderState.blocks).forEach((block: any) => {
+      const newBlock: QuestionElement = {
+        quest_id: block.quest_id,
+        form_id: block.form_id,
+        kind: block.kind || null,
+        questLabel: block.questLabel,
+        required: block.required || false,
+        quest_meta: block.quest_meta || {},
+      };
+      this.questService.addQuestionBlock(newBlock);
+    });
+
+    await this.updateForm(builderState.form_id, updatedForm);
+    this.setIsSaving(false);
+
+    console.log('Form auto-saved');
+  }, 2000);
 }
