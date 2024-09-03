@@ -24,7 +24,7 @@ export class ToggleComponent implements OnInit, OnDestroy {
     if(this.block$){
       this.subscription = this.block$.subscribe(block => {
         this.block = block;
-        this.settings=this.settings
+     
       });
 
     }

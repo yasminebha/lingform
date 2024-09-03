@@ -4,27 +4,21 @@
 
   <div class="form-group">
     <label for="open-time">Form Open Time</label>
-    <input id="open-time" type="datetime-local" [(ngModel)]="settings.openTime" (change)="updateSettings()" />
+    <input id="open-time" type="datetime-local" [(ngModel)]="settings.openTime" [value]="settings.openTime" (change)="updateSettings()" />
   </div>
 
   <div class="form-group">
     <label for="close-time">Form Close Time</label>
-    <input id="close-time" type="datetime-local" [(ngModel)]="settings.closeTime" (change)="updateSettings()" />
+    <input id="close-time" type="datetime-local" [value]="settings.closeTime" [(ngModel)]="settings.closeTime" (change)="updateSettings()" />
   </div>
 
   <div class="form-group">
-    <label>
-      
-      Accept More Responses
-    </label>
+
+    <lf-toggle role="accept-responses"></lf-toggle>
   </div>
   
-  <lf-toggle role="accept-responses"></lf-toggle>
   <div class="form-group">
-    <label>
-      
-      Require Login to Respond
-    </label>
+    
     <lf-toggle role="login-required"></lf-toggle>
   </div>
 </div>
