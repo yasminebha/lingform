@@ -35,7 +35,7 @@ export class FormSettingsComponent implements OnInit, OnDestroy {
       .pipe(distinctUntilChanged())
       .subscribe(async (builderState) => {
         this.settings = { ...builderState.settings };
-        this.fs.autoSave(builderState);
+       this.fs.autoSave(builderState);
       });
       if(formId)
       this.form = await this.fs.getFormById(formId);

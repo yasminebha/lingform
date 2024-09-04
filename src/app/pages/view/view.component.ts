@@ -4,9 +4,9 @@ import { Form } from '@/shared/models/form.model';
 import { FormService } from '@/shared/services/form.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { State, Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import {  Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-view',
@@ -15,34 +15,35 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 })
 export class ViewComponent implements OnInit {
   mode: 'live' | 'edit' = 'live';
-  shouldDisplayForm$!: Observable<boolean>;
-  settings:any
-  constructor(private store: Store<AppState>,private route:ActivatedRoute,private fs:FormService) {}
+  shouldDisplayForm$!: boolean;
+  settings: any
+  constructor(private store: Store<AppState>, private route: ActivatedRoute, private fs: FormService) { }
   storeSubscription = new Subscription();
-form!:Form
+  form!: Form
   async ngOnInit(): Promise<void> {
     const formId = this.route.snapshot.paramMap.get('id')
-   
-      if(formId)
+
+    if (formId)
       this.form = await this.fs.getFormById(formId);
-      if(this.form){
-       this.settings= this.form.settings
-      }
-   
+    if (this.form) {
+      this.settings = this.form.settings
+    }
+
     this.store.dispatch(updateBuilder({ mode: this.mode }));
     console.log(this.settings);
-    
+    console.log(this.shouldDisplayForm(this.settings));
+    console.log(this.shouldDisplayForm$);
+
+
   }
 
   private shouldDisplayForm(settings: any): boolean {
+    
     const currentTime = new Date();
     const openTime = new Date(settings.openTime);
     const closeTime = new Date(settings.closeTime);
-
-    return (
-      settings.acceptResponses &&
-      (!settings.openTime || currentTime >= openTime) &&
-      (!settings.closeTime || currentTime <= closeTime)
-    );
+    this.shouldDisplayForm$ = 
+    settings.acceptResponses && (currentTime >= openTime) &&(currentTime <= closeTime)
+    return this.shouldDisplayForm$
   }
 }

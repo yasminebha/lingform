@@ -135,7 +135,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             backgroundColor: this.form.bgColor,
             logoImage: this.form?.logoImage,
             bgImage: this.form?.bgImage,
-            
+            settings:this.form.settings
           })
         );
       }
