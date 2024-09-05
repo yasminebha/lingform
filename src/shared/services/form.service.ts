@@ -5,12 +5,15 @@ import { BehaviorSubject } from 'rxjs';
 import { debounce } from '../utils/timing';
 import { QuestionElement } from '../models/questionElement.model';
 import { QuestionService } from './question.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
-  constructor(private questService:QuestionService) {}
+  constructor(private questService:QuestionService,
+    private userService:UserService
+  ) {}
   private isSavingSubject = new BehaviorSubject<boolean>(false);
   isSaving$ = this.isSavingSubject.asObservable();
   setIsSaving(value: boolean) {
@@ -92,21 +95,28 @@ export class FormService {
     }
   }
   async addSubmission(formId: string): Promise<string> {
+    const user = await this.userService.getUser();
+    
+    const submissionData = {
+      submission_id: shortid.generate(),
+      form_id: formId,
+      user_id: user ? user.id : null,
+      user_email: user ? user.email : 'anonymous',
+    };
+  
     const { data, error } = await supabase
       .from('submission')
-      .insert({
-        submission_id: shortid.generate(),
-        form_id: formId,
-      })
+      .insert(submissionData)
       .select('submission_id')
       .single();
-
+  
     if (error) {
       throw new Error(error.message);
     }
-
+  
     return data.submission_id;
   }
+  
 
   async getAllSubmission(formId: string): Promise<any> {
     const { error: submissionError, data } = await supabase

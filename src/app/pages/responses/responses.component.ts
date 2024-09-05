@@ -24,6 +24,7 @@ export class ResponsesComponent implements OnInit {
   questionLabels: string[] = [];
   dropdownData: string[] = [];  // Dropdown data array
   filters: Filter[] = [{ label: '', value: '' }]; // Initialize with one empty filter
+  selectedTab: string = 'Table';
 
   constructor(
     private formService: FormService,
@@ -47,6 +48,9 @@ export class ResponsesComponent implements OnInit {
   }
   
 
+  onTabClick(tab: string): void {
+    this.selectedTab = tab;
+  }
   generateStatisticsCharts(): void {
     console.log('Generating charts for questions:', this.questionLabels);
   
@@ -199,43 +203,23 @@ export class ResponsesComponent implements OnInit {
   }
 
   async createCSVFile(data: any[]): Promise<Blob> {
-    const questionLabelsMap = new Map<string, string>();
-
-    for (const submission of data) {
-      for (const questId in submission.questions) {
-        const question = submission.questions[questId];
-        questionLabelsMap.set(questId, question.questionLabel);
-      }
-    }
-
-    const headers = ['created_at', ...Array.from(questionLabelsMap.values()).map(label => `${label}`)];
+    const headers = ['created_at', 'user_email', ...this.questionLabels];
     let csvContent = headers.join(',') + '\n';
-
+  
     for (const submission of data) {
-      const answersMap = new Map<string, string>();
-      const row = [submission.created_at];
-
-      for (const questId in submission.questions) {
-        const question = submission.questions[questId];
-
-        for (const answerId in question.answers) {
-          const answer = question.answers[answerId];
-          answersMap.set(`${questId}`, this.convertValueToString(answer.data.value));
-        }
-      }
-
-      questionLabelsMap.forEach((label, questId) => {
-        row.push(this.escapeCSVValue(answersMap.get(questId) || ''));
+      const row = [submission.created_at, submission.user_email];
+      this.questionLabels.forEach((label) => {
+        const answer = this.getAnswer(submission, label) || '';
+        row.push(this.escapeCSVValue(answer));
       });
-
+  
       csvContent += row.join(',') + '\n';
     }
-
-    console.log(csvContent);
-
+  
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
     return blob;
   }
+  
 
   escapeCSVValue(value: string): string {
     if (value.includes(',')) {

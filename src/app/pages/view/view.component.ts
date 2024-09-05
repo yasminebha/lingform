@@ -43,11 +43,9 @@ export class ViewComponent implements OnInit {
     }
 
     this.isLoggedIn = await this.userService.isLoggedIn(); 
-
     if (this.requiresLogin && !this.isLoggedIn) {
       this.showModal = true;
     }
-
     this.store.dispatch(updateBuilder({ mode: this.mode }));
     this.shouldDisplayForm(this.settings);
   }
