@@ -116,5 +116,6 @@ export const builderReducer = createReducer(
   on(BuilderActions.resetBuilderState, (state) => ({
     ...initialState,
     form_id: state.form_id,
+    settings:state.settings
   }))
 );
