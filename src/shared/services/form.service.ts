@@ -2,12 +2,18 @@ import supabase from '@/app/supabase';
 import { Injectable } from '@angular/core';
 import * as shortid from 'shortid';
 import { BehaviorSubject } from 'rxjs';
+import { debounce } from '../utils/timing';
+import { QuestionElement } from '../models/questionElement.model';
+import { QuestionService } from './question.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
-  constructor() {}
+  constructor(private questService:QuestionService,
+    private userService:UserService
+  ) {}
   private isSavingSubject = new BehaviorSubject<boolean>(false);
   isSaving$ = this.isSavingSubject.asObservable();
   setIsSaving(value: boolean) {
@@ -89,21 +95,28 @@ export class FormService {
     }
   }
   async addSubmission(formId: string): Promise<string> {
+    const user = await this.userService.getUser();
+    
+    const submissionData = {
+      submission_id: shortid.generate(),
+      form_id: formId,
+      user_id: user ? user.id : null,
+      user_email: user ? user.email : 'anonymous',
+    };
+  
     const { data, error } = await supabase
       .from('submission')
-      .insert({
-        submission_id: shortid.generate(),
-        form_id: formId,
-      })
+      .insert(submissionData)
       .select('submission_id')
       .single();
-
+  
     if (error) {
       throw new Error(error.message);
     }
-
+  
     return data.submission_id;
   }
+  
 
   async getAllSubmission(formId: string): Promise<any> {
     const { error: submissionError, data } = await supabase
@@ -136,37 +149,15 @@ export class FormService {
   }
   
   async deleteForm(formId: string): Promise<void> {
-    try {
-      const questionsData = (
-        await supabase.from('question').select('quest_id').eq('form_id', formId)
-      ).data;
-      const questionIds = questionsData
-        ? questionsData.map((q) => q.quest_id)
-        : [];
-
-      const answersQuery = supabase
-        .from('answer')
-        .delete()
-        .in('quest_id', questionIds);
-      const { error: answerError } = await answersQuery;
-      if (answerError) throw answerError;
-
-      const questionsQuery = supabase
-        .from('question')
-        .delete()
-        .eq('form_id', formId);
-      const { error: questionError } = await questionsQuery;
-      if (questionError) throw questionError;
-
-      const formQuery = supabase.from('form').delete().eq('form_id', formId);
-      const { error: formError } = await formQuery;
-      if (formError) throw formError;
-
-      console.log('Form and related data deleted successfully');
-    } catch (error) {
-      console.log(error);
+    const { error } = await supabase.rpc('delete_single_form', { p_form_id: formId });
+  
+    if (error) {
+      console.error('Error deleting the form', error.message);
+      throw error;
     }
   }
+  
+  
   async getBlockOrder(formId: string): Promise<string[]> {
     const { data, error } = await supabase
       .from('form')
@@ -202,4 +193,39 @@ export class FormService {
       throw error;
     }
   }
+
+
+
+  public autoSave = debounce(async (builderState: any) => {
+    this.setIsSaving(true);
+
+    const updatedForm = {
+      title: builderState.title,
+      description: builderState.description,
+      blockOrder: builderState.blockOrder,
+      bgColor: builderState.backgroundColor,
+      updated_at: new Date(),
+      coverImage: builderState.coverImage,
+      logoImage: builderState.logoImage,
+      bgImage: builderState.bgImage,
+      settings: builderState.settings,
+    };
+
+    Object.values(builderState.blocks).forEach((block: any) => {
+      const newBlock: QuestionElement = {
+        quest_id: block.quest_id,
+        form_id: block.form_id,
+        kind: block.kind || null,
+        questLabel: block.questLabel,
+        required: block.required || false,
+        quest_meta: block.quest_meta || {},
+      };
+      this.questService.addQuestionBlock(newBlock);
+    });
+
+    await this.updateForm(builderState.form_id, updatedForm);
+    this.setIsSaving(false);
+
+    console.log('Form auto-saved');
+  }, 2000);
 }

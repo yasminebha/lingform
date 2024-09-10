@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as saveAs from 'file-saver';
+import { Chart } from 'chart.js/auto';
 
 interface Filter {
   label: string;
@@ -23,6 +24,7 @@ export class ResponsesComponent implements OnInit {
   questionLabels: string[] = [];
   dropdownData: string[] = [];  // Dropdown data array
   filters: Filter[] = [{ label: '', value: '' }]; // Initialize with one empty filter
+  selectedTab: string = 'Table';
 
   constructor(
     private formService: FormService,
@@ -39,9 +41,74 @@ export class ResponsesComponent implements OnInit {
         this.data = this.transformDataToArray(rawData);
         this.filteredData = this.data;
         this.extractQuestionLabels();
-        this.populateDropdownData();  // Populate dropdown data
+        this.populateDropdownData(); 
+        this.generateStatisticsCharts(); 
       }
     }
+  }
+  
+
+  onTabClick(tab: string): void {
+    this.selectedTab = tab;
+  }
+  generateStatisticsCharts(): void {
+    console.log('Generating charts for questions:', this.questionLabels);
+  
+
+    setTimeout(() => {
+      this.questionLabels.forEach((label, index) => {
+        const answers = this.collectAnswersForQuestion(label);
+        const answerCounts = this.countAnswers(answers);
+  
+        console.log(`Chart ${index} for question "${label}" - Answers:`, answerCounts);
+  
+        const ctx = document.getElementById(`chart-${index}`) as HTMLCanvasElement;
+        if (!ctx) {
+          console.error(`Canvas element with ID "chart-${index}" not found.`);
+          return;
+        }
+  
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: Object.keys(answerCounts),
+            datasets: [{
+              label: label ,
+              data: Object.values(answerCounts),
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      });
+    }, 0);  
+  }
+  
+
+  collectAnswersForQuestion(label: string): string[] {
+    const answers: string[] = [];
+    this.filteredData.forEach(submission => {
+      const answer = this.getAnswer(submission, label);
+      if (answer) {
+        answers.push(...answer.split(', '));
+      }
+    });
+    return answers;
+  }
+
+  countAnswers(answers: string[]): Record<string, number> {
+    return answers.reduce((acc, answer) => {
+      acc[answer] = (acc[answer] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
   }
 
   transformDataToArray(data: any): any[] {
@@ -136,43 +203,23 @@ export class ResponsesComponent implements OnInit {
   }
 
   async createCSVFile(data: any[]): Promise<Blob> {
-    const questionLabelsMap = new Map<string, string>();
-
-    for (const submission of data) {
-      for (const questId in submission.questions) {
-        const question = submission.questions[questId];
-        questionLabelsMap.set(questId, question.questionLabel);
-      }
-    }
-
-    const headers = ['created_at', ...Array.from(questionLabelsMap.values()).map(label => `${label}`)];
+    const headers = ['created_at', 'user_email', ...this.questionLabels];
     let csvContent = headers.join(',') + '\n';
-
+  
     for (const submission of data) {
-      const answersMap = new Map<string, string>();
-      const row = [submission.created_at];
-
-      for (const questId in submission.questions) {
-        const question = submission.questions[questId];
-
-        for (const answerId in question.answers) {
-          const answer = question.answers[answerId];
-          answersMap.set(`${questId}`, this.convertValueToString(answer.data.value));
-        }
-      }
-
-      questionLabelsMap.forEach((label, questId) => {
-        row.push(this.escapeCSVValue(answersMap.get(questId) || ''));
+      const row = [submission.created_at, submission.user_email];
+      this.questionLabels.forEach((label) => {
+        const answer = this.getAnswer(submission, label) || '';
+        row.push(this.escapeCSVValue(answer));
       });
-
+  
       csvContent += row.join(',') + '\n';
     }
-
-    console.log(csvContent);
-
+  
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
     return blob;
   }
+  
 
   escapeCSVValue(value: string): string {
     if (value.includes(',')) {

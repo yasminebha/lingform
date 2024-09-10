@@ -1,0 +1,24 @@
+<lg-navbar></lg-navbar>
+<div class="container">
+  <h2>Form Settings</h2>
+
+  <div class="form-group">
+    <label for="open-time">Form Open Time</label>
+    <input id="open-time" type="datetime-local" [(ngModel)]="settings.openTime" [value]="settings.openTime" (change)="updateSettings()" />
+  </div>
+
+  <div class="form-group">
+    <label for="close-time">Form Close Time</label>
+    <input id="close-time" type="datetime-local" [value]="settings.closeTime" [(ngModel)]="settings.closeTime" (change)="updateSettings()" />
+  </div>
+
+  <div class="form-group">
+
+    <lf-toggle role="accept-responses"></lf-toggle>
+  </div>
+  
+  <div class="form-group">
+    
+    <lf-toggle role="login-required"></lf-toggle>
+  </div>
+</div>

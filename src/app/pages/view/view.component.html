@@ -1,4 +1,19 @@
-
-<lg-form-builder  mode="live"></lg-form-builder>
-
- 
+<ng-container *ngIf="shouldDisplayForm$; else formClosed">
+    <ng-container *ngIf="showModal; else showForm">
+      <div class="modal-overlay">
+        <div class="login-modal">
+          <p>You must log in to respond to this form</p>
+          <lf-button text="connexion"(click)="redirectToLogin()" ></lf-button>
+        </div>
+      </div>
+    </ng-container>
+  
+    <ng-template #showForm>
+      <lg-form-builder mode="live"></lg-form-builder>
+    </ng-template>
+  </ng-container>
+  
+  <ng-template #formClosed>
+    <p>The form is currently closed. Please try again later.</p>
+  </ng-template>
+  

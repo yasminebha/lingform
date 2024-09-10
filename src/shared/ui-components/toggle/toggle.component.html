@@ -1,7 +1,23 @@
-<div class="toggle-container" *ngIf="block">
+<div class="toggle-container">
   <label class="switch">
-    <input type="checkbox" [checked]="block.required" (change)="onToggle()">
+    <input 
+      type="checkbox" 
+      [checked]="
+        role === 'change-block-required' ? block?.required :
+        role === 'accept-responses' ? settings?.acceptResponses :
+        role === 'login-required' ? settings?.requireLogin : false
+      "
+      (change)="onToggle()"
+    />
     <span class="slider round"></span>
   </label>
-  <p>{{ block.required ? 'Required' : 'Not Required' }}</p>
+  <p *ngIf="role === 'change-block-required'">
+    {{ block?.required ? 'Required' : 'Not Required' }}
+  </p>
+  <p *ngIf="role === 'accept-responses'">
+    {{ settings?.acceptResponses ? 'Accepting Responses' : 'Not Accepting Responses' }}
+  </p>
+  <p *ngIf="role === 'login-required'">
+    {{ settings?.requireLogin ? 'Login Required' : 'Login Not Required' }}
+  </p>
 </div>

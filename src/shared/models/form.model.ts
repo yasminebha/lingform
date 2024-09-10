@@ -22,6 +22,12 @@ export class Form {
   coverImage:string=''
   logoImage:string=''
   bgImage:string=''
+  settings!: {
+    openTime?: string;
+    closeTime?: string;
+    acceptResponses?: boolean;
+    requireLogin?: boolean;
+  };
   constructor(editeurId: string) {
     this.editeur_id = editeurId;
   }

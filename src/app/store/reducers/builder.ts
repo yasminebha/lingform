@@ -17,6 +17,12 @@ export interface BuilderState {
   coverImage: string;
   logoImage: string;
   bgImage:string;
+  settings: {
+    openTime?: string;
+    closeTime?: string;
+    acceptResponses?: boolean;
+    requireLogin?: boolean;
+  };
 }
 
 const initialState: BuilderState = {
@@ -33,7 +39,13 @@ const initialState: BuilderState = {
   updated_at: '', 
   coverImage: '',
   logoImage:'',
-  bgImage:''
+  bgImage:'',
+  settings:{
+    openTime: '',
+    closeTime: '',
+    acceptResponses: true,
+    requireLogin: false,
+  }
 };
 
 export const builderReducer = createReducer(
@@ -104,5 +116,6 @@ export const builderReducer = createReducer(
   on(BuilderActions.resetBuilderState, (state) => ({
     ...initialState,
     form_id: state.form_id,
+    settings:state.settings
   }))
 );

@@ -52,6 +52,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   logoImage: string = ''
   submissionId: string = '';
   bgImage: string = '';
+
   form!: Form;
   private storeSubscription: any;
   uploadType: 'cover' | 'logo' | null = null;
@@ -69,7 +70,18 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   @Input() mode!: 'live' | 'edit';
   invalidBlocks: { [blockId: string]: boolean } = {};
   isLoading: boolean=false;
+  aiParametreIsOpen:boolean=false
 
+  elementQuantities = {
+    multipleChoice: 0,
+    oneChoice: 0,
+    shortAnswer: 0,
+    rating: 0,
+    email: 0,
+    phone: 0,
+    fileUpload: 0,
+    yesOrNo: 0
+  };
   constructor(
     private readonly store: Store<AppState>,
     private readonly formService: FormService,
@@ -81,43 +93,32 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     const formId = this.route.snapshot.paramMap.get('id');
     window.addEventListener('triggerFileUpload', this.triggerFileUpload.bind(this));
-  
+
     this.storeSubscription = this.store
       .select((state) => state.builder)
       .pipe(distinctUntilChanged())
-      .subscribe(
-        async ({
-          form_id,
-          blocks,
-          title,
-          description,
-          mode,
-          backgroundColor,
-          blockOrder,
-          coverImage,
-          logoImage,
-          bgImage
-        }) => {
-          this.formId = form_id;
-          this.mode = mode;
-          this.bgColor = backgroundColor;
-  
-          if (Array.isArray(blockOrder)) {
-            // Clone the blockOrder array to ensure it's mutable
-            this.blockOrder = [...blockOrder]; 
-            this.blocks = this.blockOrder
-              .map((id) => blocks[id])
-              .filter((block) => block !== undefined && block !== null);
-          }
-          this.title = title;
-          this.description = description;
-          this.coverImage = coverImage;
-          this.logoImage = logoImage;
-          this.bgImage = bgImage;
-          this.autoSave();
+      .subscribe(async (builderState) => {
+        this.formId = builderState.form_id;
+        this.mode = builderState.mode;
+        this.bgColor = builderState.backgroundColor;
+       
+
+        if (Array.isArray(builderState.blockOrder)) {
+          this.blockOrder = [...builderState.blockOrder];
+          this.blocks = this.blockOrder
+            .map((id) => builderState.blocks[id])
+            .filter((block) => block !== undefined && block !== null);
         }
-      );
-  
+
+        this.title = builderState.title;
+        this.description = builderState.description;
+        this.coverImage = builderState.coverImage;
+        this.logoImage = builderState.logoImage;
+        this.bgImage = builderState.bgImage;
+
+        this.formService.autoSave(builderState);
+      });
+
     if (formId) {
       this.form = await this.formService.getFormById(formId);
       for (const q of this.form!.question) {
@@ -133,18 +134,24 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             blockOrder: this.form.blockOrder || [],
             backgroundColor: this.form.bgColor,
             logoImage: this.form?.logoImage,
-            bgImage: this.form?.bgImage
+            bgImage: this.form?.bgImage,
+            settings:this.form.settings
           })
         );
       }
-      //console.log(this.blockOrder);
-      
     }
   }
-
-  ngOnDestroy() {
+  ngOnDestroy(): void {
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
+    }
     window.removeEventListener('triggerFileUpload', this.triggerFileUpload.bind(this));
-    this.storeSubscription.unsubscribe();
+  }
+
+  toggleAiParametre(){
+    this.aiParametreIsOpen=!this.aiParametreIsOpen
+    console.log(this.aiParametreIsOpen);
+    
   }
 
   updateUserPrompt(evt: any) {
@@ -268,45 +275,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   }
 
 
-  private autoSave = debounce(async () => {
-    this.formService.setIsSaving(true);
-    this.store
-      .select((state) => state.builder)
-      .pipe(distinctUntilChanged())
-      .subscribe(
-        async ({ blocks, title, description, form_id, blockOrder, backgroundColor, coverImage, logoImage, bgImage }) => {
-          Object.values(blocks).forEach((block: any) => {
-            const newBlock: QuestionElement = {
-              quest_id: block.quest_id,
-              form_id: block.form_id,
-              kind: block.kind || null,
-              questLabel: block.questLabel,
-              required: block.required || false,
-              quest_meta: block.quest_meta || {},
-
-
-            };
-            this.questService.addQuestionBlock(newBlock);
-          });
-
-          const updatedForm = {
-            title: title,
-            description: description,
-            blockOrder: blockOrder,
-            bgColor: backgroundColor,
-            updated_at: new Date(),
-            coverImage: coverImage,
-            logoImage: logoImage,
-            bgImage: bgImage
-
-          };
-          await this.formService.updateForm(form_id, updatedForm);
-          this.formService.setIsSaving(false);
-        }
-      );
-
-    console.log('Form auto-saved');
-  }, 2000);
+  
 
   drop(event: CdkDragDrop<QuestionElement[]>) {
     if (this.mode === 'edit') {
@@ -385,7 +354,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         this.isLoading = true
        await this.questService.removeAllQuestionByFormId(this.formId);
         this.store.dispatch(resetBuilderState());
-        const response = await this.aiFormService.generateForm(prompt).toPromise();
+        const response = await this.aiFormService.generateForm(prompt,this.elementQuantities).toPromise();
         const formStructure = response.formStructure;
   
         this.store.dispatch(updateBuilderTitle({ title: formStructure.title }));

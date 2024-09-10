@@ -30,6 +30,7 @@ import { BlockSettingSideBarComponent } from '../../containers/block-setting-sid
 import { CheckboxListComponent } from '../../containers/checkbox-list/checkbox-list.component';
 import { YesOrNoElementComponent } from '../../components/yes-or-no-element/yes-or-no-element.component';
 import { UploadComponent } from '@/app/components/upload/upload.component';
+import { FormSettingsComponent } from '../form-settings/form-settings.component';
 
 
 @NgModule({
@@ -57,8 +58,8 @@ import { UploadComponent } from '@/app/components/upload/upload.component';
     BlockSettingSideBarComponent,
     CheckboxListComponent,
     YesOrNoElementComponent,
-    UploadComponent
-    
+    UploadComponent,
+    FormSettingsComponent
 
 
   ],
