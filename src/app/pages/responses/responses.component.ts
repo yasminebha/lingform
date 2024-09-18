@@ -1,6 +1,6 @@
 import { FormService } from '@/shared/services/form.service';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit , Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as saveAs from 'file-saver';
 import { Chart } from 'chart.js/auto';
@@ -16,22 +16,24 @@ interface Filter {
   styleUrls: ['./responses.component.css'],
   providers: [DatePipe]
 })
-export class ResponsesComponent implements OnInit {
+export class ResponsesComponent implements OnInit ,AfterContentInit {
   formid: string | null = null;
   submissions: any[] = [];
   data: any[] = [];
   filteredData: any[] = [];
   questionLabels: string[] = [];
-  dropdownData: string[] = [];  // Dropdown data array
-  filters: Filter[] = [{ label: '', value: '' }]; // Initialize with one empty filter
+  dropdownData: string[] = [];  
+  filters: Filter[] = [{ label: '', value: '' }]; 
   selectedTab: string = 'Table';
+  charts: Chart[] = [];
 
   constructor(
     private formService: FormService,
     private route: ActivatedRoute,
-    protected datePipe: DatePipe
+    protected datePipe: DatePipe,
+ 
   ) { }
-
+  
   async ngOnInit(): Promise<void> {
     if (this.route) {
       this.formid = this.route.snapshot.paramMap.get('id');
@@ -42,38 +44,51 @@ export class ResponsesComponent implements OnInit {
         this.filteredData = this.data;
         this.extractQuestionLabels();
         this.populateDropdownData(); 
-        this.generateStatisticsCharts(); 
       }
     }
   }
+ 
   
+  ngAfterContentInit(): void {
+    // this.generateStatisticsCharts();
+  }
 
   onTabClick(tab: string): void {
     this.selectedTab = tab;
+    if (this.selectedTab === 'Statistics') {
+     
+      this.generateStatisticsCharts();
+    }
   }
+
   generateStatisticsCharts(): void {
     console.log('Generating charts for questions:', this.questionLabels);
-  
 
     setTimeout(() => {
       this.questionLabels.forEach((label, index) => {
         const answers = this.collectAnswersForQuestion(label);
         const answerCounts = this.countAnswers(answers);
-  
+
         console.log(`Chart ${index} for question "${label}" - Answers:`, answerCounts);
-  
-        const ctx = document.getElementById(`chart-${index}`) as HTMLCanvasElement;
-        if (!ctx) {
+
+        const canvasElement = document.getElementById(`chart-${index}`) as HTMLCanvasElement;
+        if (!canvasElement) {
           console.error(`Canvas element with ID "chart-${index}" not found.`);
           return;
         }
-  
-        new Chart(ctx, {
+
+        // Destroy previous chart if it exists
+        if (this.charts[index]) {
+          this.charts[index].destroy();
+        }
+
+        // Create a new chart and store it in the charts array
+        this.charts[index] = new Chart(canvasElement, {
           type: 'bar',
           data: {
             labels: Object.keys(answerCounts),
             datasets: [{
-              label: label ,
+              label: label,
               data: Object.values(answerCounts),
               backgroundColor: 'rgba(75, 192, 192, 0.2)',
               borderColor: 'rgba(75, 192, 192, 1)',
@@ -89,7 +104,7 @@ export class ResponsesComponent implements OnInit {
           }
         });
       });
-    }, 0);  
+    }, 0);
   }
   
 
@@ -203,7 +218,7 @@ export class ResponsesComponent implements OnInit {
   }
 
   async createCSVFile(data: any[]): Promise<Blob> {
-    const headers = ['created_at', 'user_email', ...this.questionLabels];
+    const headers = ['created_at', 'respondant_email', ...this.questionLabels];
     let csvContent = headers.join(',') + '\n';
   
     for (const submission of data) {
@@ -216,7 +231,7 @@ export class ResponsesComponent implements OnInit {
       csvContent += row.join(',') + '\n';
     }
   
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+    const blob = new Blob([`\uFEFF${csvContent}`], { type: 'text/csv;charset=utf-8' });  // BOM added for UTF-8
     return blob;
   }
   

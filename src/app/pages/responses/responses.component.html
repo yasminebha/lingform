@@ -2,21 +2,21 @@
 <div class="container">
   <h2 class="responses-number">{{submissions.length}} responses</h2>
   <button *ngIf="submissions.length>0" (click)="saveCSVFile()">Export to CSV</button>
-  <ul>
-    <li [class.selected]="selectedTab === 'Table'" (click)="onTabClick('Table')">Table</li>
-  <li [class.selected]="selectedTab === 'Statistics'" (click)="onTabClick('Statistics')">Statistics</li>
-  </ul>
 </div>
+<ul>
+  <li [class.selected]="selectedTab === 'Table'" (click)="onTabClick('Table')">Table</li>
+<li [class.selected]="selectedTab === 'Statistics'" (click)="onTabClick('Statistics')">Statistics</li>
+</ul>
 <div class="statistics-container" *ngIf="submissions.length>0">
 
-  <div class="statistics-container" *ngIf=" submissions.length > 0">
+  <ng-container class="statistics-container" *ngIf=" submissions.length > 0  && selectedTab==='Statistics'">
     <div class="container" *ngFor="let question of questionLabels; let i = index">
       <p>{{ question }}</p>
       <canvas id="chart-{{ i }}"></canvas>
     </div>
-  </div>
+  </ng-container>
 
-  <div class="container table-container" *ngIf="submissions.length > 0">
+  <ng-container class="container table-container" *ngIf="submissions.length > 0 && selectedTab==='Table'">
   <div class="filter-container">
     <div class="filter-row" *ngFor="let filter of filters; let i = index">
       <lf-dropdown [data]="dropdownData" (change)="updateFilterLabel($event, i)"></lf-dropdown>
@@ -53,6 +53,6 @@
     </table>
   </div>
 
-  </div>
+  </ng-container>
  
 </div>

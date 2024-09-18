@@ -48,8 +48,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   blocks: QuestionElement[] = [];
   formId: string = '';
   blockOrder: string[] = [];
-  coverImage: string = ''
-  logoImage: string = ''
+  coverImage: string = '';
+  logoImage: string = '';
   submissionId: string = '';
   bgImage: string = '';
 
@@ -58,7 +58,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   uploadType: 'cover' | 'logo' | null = null;
   showCoverUpload: boolean = false;
   showLogoUpload: boolean = false;
-  userPrompt: string = ''
+  userPrompt: string = '';
 
   @ViewChildren(FileUploadElementComponent)
   fileUploadComponents?: QueryList<FileUploadElementComponent>;
@@ -69,8 +69,8 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
   @Input() mode!: 'live' | 'edit';
   invalidBlocks: { [blockId: string]: boolean } = {};
-  isLoading: boolean=false;
-  aiParametreIsOpen:boolean=false
+  isLoading: boolean = false;
+  aiParametreIsOpen: boolean = false;
 
   elementQuantities = {
     multipleChoice: 0,
@@ -80,7 +80,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     email: 0,
     phone: 0,
     fileUpload: 0,
-    yesOrNo: 0
+    yesOrNo: 0,
   };
   constructor(
     private readonly store: Store<AppState>,
@@ -88,11 +88,14 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute,
     private questService: QuestionService,
     private aiFormService: AiFormService
-  ) { }
+  ) {}
 
   async ngOnInit(): Promise<void> {
     const formId = this.route.snapshot.paramMap.get('id');
-    window.addEventListener('triggerFileUpload', this.triggerFileUpload.bind(this));
+    window.addEventListener(
+      'triggerFileUpload',
+      this.triggerFileUpload.bind(this)
+    );
 
     this.storeSubscription = this.store
       .select((state) => state.builder)
@@ -101,7 +104,6 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
         this.formId = builderState.form_id;
         this.mode = builderState.mode;
         this.bgColor = builderState.backgroundColor;
-       
 
         if (Array.isArray(builderState.blockOrder)) {
           this.blockOrder = [...builderState.blockOrder];
@@ -135,7 +137,7 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             backgroundColor: this.form.bgColor,
             logoImage: this.form?.logoImage,
             bgImage: this.form?.bgImage,
-            settings:this.form.settings
+            settings: this.form.settings,
           })
         );
       }
@@ -145,19 +147,20 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     if (this.storeSubscription) {
       this.storeSubscription.unsubscribe();
     }
-    window.removeEventListener('triggerFileUpload', this.triggerFileUpload.bind(this));
+    window.removeEventListener(
+      'triggerFileUpload',
+      this.triggerFileUpload.bind(this)
+    );
   }
 
-  toggleAiParametre(){
-    this.aiParametreIsOpen=!this.aiParametreIsOpen
+  toggleAiParametre() {
+    this.aiParametreIsOpen = !this.aiParametreIsOpen;
     console.log(this.aiParametreIsOpen);
-    
   }
 
   updateUserPrompt(evt: any) {
-    this.userPrompt = evt.target.value
+    this.userPrompt = evt.target.value;
     console.log(this.userPrompt);
-
   }
   triggerFileUpload(event: any) {
     const type = event.detail;
@@ -194,7 +197,10 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
       } else if (block) {
         const control = f.controls[key];
         const errors = control.errors;
-        if (errors && (errors['invalidEmail'] || errors['invalidPhoneNumber'])) {
+        if (
+          errors &&
+          (errors['invalidEmail'] || errors['invalidPhoneNumber'])
+        ) {
           this.invalidBlocks[key] = true;
           isValid = false;
         } else {
@@ -213,17 +219,14 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           isValid = false;
         } else if (block) {
           this.invalidBlocks[component.id] = false;
-          isValid = true
+          isValid = true;
         }
       }
     }
 
-
-
     if (!isValid) {
       return;
     }
-
 
     try {
       this.submissionId = await this.formService.addSubmission(this.formId);
@@ -235,7 +238,6 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
           );
           if (component.files.length > 0) {
             try {
-
               const uploadedPaths = await Promise.all(
                 component.files.map((file) =>
                   this.formService.uploadFile(
@@ -244,22 +246,21 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
                   )
                 )
               );
-              let publicUrls: string[] = []
+              let publicUrls: string[] = [];
 
-              uploadedPaths.forEach(async path => {
-                publicUrls.push(await this.formService.getPublicUrl(path))
-              })
+              uploadedPaths.forEach(async (path) => {
+                publicUrls.push(await this.formService.getPublicUrl(path));
+              });
 
-              component.changeCommit(publicUrls)
+              component.changeCommit(publicUrls);
 
-              publicUrls = []
+              publicUrls = [];
             } catch (error) {
               console.error('Error uploading files:', error);
               return;
             }
           }
         }
-
       }
       for (const key of Object.keys(f.value)) {
         answers.push({
@@ -274,9 +275,6 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     }
   }
 
-
-  
-
   drop(event: CdkDragDrop<QuestionElement[]>) {
     if (this.mode === 'edit') {
       moveItemInArray(this.blocks, event.previousIndex, event.currentIndex);
@@ -289,19 +287,18 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   async imageUpload(file: File, role: string): Promise<void> {
     if (file) {
       try {
-
         // await this.formService.deleteFilesInBucket('uploads', `form_${this.formId}/${f}/*`); not working need fixing
-        const path = await this.formService.uploadFile(file, `form_${this.formId}/${role}/${file.name}`);
+        const path = await this.formService.uploadFile(
+          file,
+          `form_${this.formId}/${role}/${file.name}`
+        );
         const publicUrl = await this.formService.getPublicUrl(path);
         if (role === 'cover') {
-
           this.store.dispatch(updateBuilder({ coverImage: publicUrl }));
-        } if (role === 'logo') {
-
+        }
+        if (role === 'logo') {
           this.store.dispatch(updateBuilder({ logoImage: publicUrl }));
         }
-
-
       } catch (error) {
         console.error('Error uploading cover image:', error);
       }
@@ -323,9 +320,12 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
     if (imageUrl) {
       const parts = imageUrl.split('/');
       fileName = parts[parts.length - 1];
-      this.formService.deleteFilesInBucket('uploads', `form_${this.formId}/${type}/${fileName}`)
+      this.formService
+        .deleteFilesInBucket(
+          'uploads',
+          `form_${this.formId}/${type}/${fileName}`
+        )
         .then(() => {
-
           if (type === 'cover') {
             this.coverImage = '';
           } else if (type === 'logo') {
@@ -334,35 +334,38 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
 
           this.updateImageInStore(type, '');
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Failed to delete image from storage:', error);
         });
     }
   }
 
   updateImageInStore(type: 'cover' | 'logo', imageUrl: string): void {
-    const updateData = type === 'cover' ? { coverImage: imageUrl } : { logoImage: imageUrl };
+    const updateData =
+      type === 'cover' ? { coverImage: imageUrl } : { logoImage: imageUrl };
     this.store.dispatch(updateBuilder(updateData));
   }
-
 
   async generateFormWithAI(prompt: string) {
     if (prompt) {
       try {
- 
-        let blockOrder:string[]= []
-        this.isLoading = true
-       await this.questService.removeAllQuestionByFormId(this.formId);
+        let blockOrder: string[] = [];
+        this.isLoading = true;
+        await this.questService.removeAllQuestionByFormId(this.formId);
         this.store.dispatch(resetBuilderState());
-        const response = await this.aiFormService.generateForm(prompt,this.elementQuantities).toPromise();
+        const response = await this.aiFormService
+          .generateForm(prompt, this.elementQuantities)
+          .toPromise();
         const formStructure = response.formStructure;
-  
+
         this.store.dispatch(updateBuilderTitle({ title: formStructure.title }));
-        this.store.dispatch(updateBuilderDescription({ Description: formStructure.description }));
-  
+        this.store.dispatch(
+          updateBuilderDescription({ Description: formStructure.description })
+        );
+
         formStructure.questions.forEach((question: any) => {
           const newBlockId = shortid.generate();
-  
+
           let kind: string;
           switch (question.type) {
             case 'multiple-choice':
@@ -389,10 +392,13 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
             case 'yes-or-no':
               kind = 'YesOrNoElementComponent';
               break;
+            case 'datetime':
+              kind = 'DateElementComponent';
+              break;
             default:
               kind = 'ShortAnswerComponent';
           }
-  
+
           const block: QuestionElement = {
             quest_id: newBlockId,
             form_id: this.formId,
@@ -403,28 +409,25 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
               options: question.options || [],
             },
           };
-  
+
           // Add the new block and update blockOrder
-          this.store.dispatch(addBlock({ blockId: newBlockId, newBlock: block }));
-          blockOrder.push(newBlockId)
+          this.store.dispatch(
+            addBlock({ blockId: newBlockId, newBlock: block })
+          );
+          blockOrder.push(newBlockId);
           console.log(blockOrder);
-          
         });
         this.store.dispatch(updateBlockOrder({ blockOrder }));
-  
+
         // Dispatch updated blockOrder to the store
-     this.isLoading = false
+        this.isLoading = false;
       } catch (error) {
-        alert("there was a problem while generating the form")
+        alert('there was a problem while generating the form');
         console.error('Error generating form with AI:', error);
-        this.isLoading = false
+        this.isLoading = false;
       }
     } else {
       alert('Please enter a form description!');
     }
   }
-  
-
-
-
 }
