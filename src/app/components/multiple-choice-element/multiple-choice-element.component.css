@@ -13,6 +13,9 @@
 
 
 }
+lg-text-field{
+    width: 100%;
+}
 
 .checkbox-list {
     display: flex;
