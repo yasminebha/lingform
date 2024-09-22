@@ -15,7 +15,8 @@
 /* Shared Styles for Image Uploads */
 .image-cover,
 .image-logo,
-.image-background {
+.image-background,
+.image-avatar {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -52,7 +53,7 @@
   border-color: #999;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
+x
 .image-background {
   width: 100%;
   height: 150px;
@@ -60,7 +61,13 @@
   padding: 28px;
   border-radius: 8px;
 }
+.image-avatar{
 
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background-color: #fff;
+}
 
 .image-background:hover {
   transition: border 0.3s ease;

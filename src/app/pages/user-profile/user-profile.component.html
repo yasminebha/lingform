@@ -1,0 +1,80 @@
+<div class="profile-wrapper">
+  <h1>Profile</h1>
+<!-- 
+  <lf-upload 
+    [fileType]="'image'" 
+    [fileUrl]="user.avatar"
+    mode="edit" 
+    placeholderText="Click here to upload avatar image" 
+    role="avatar" 
+    (removeFile)="removeAvatar()" 
+    (fileUploaded)="uploadAvatar($event)">
+  </lf-upload> -->
+
+  <form class="container" #f="ngForm" (ngSubmit)="updateProfile(f)">
+    <!-- First Name -->
+    <div class="input-section">
+      <label for="firstName">First Name</label>
+      <lg-text-field
+      class="title"
+        [value]="user.firstName"
+        type="text"
+        placeholder="First Name"
+        layout="outline"
+        ngModel
+        name="firstName"
+        [invalidControl]="invalidControl"
+        errorMsg="{{errorMsg}}"
+      ></lg-text-field>
+    </div>
+
+    <!-- Last Name -->
+    <div class="input-section">
+      <label for="lastName">Last Name</label>
+      <lg-text-field
+      class="title"
+        [value]="user.lastName"
+        type="text"
+        placeholder="Last Name"
+        layout="outline"
+        ngModel
+        name="lastName"
+        [invalidControl]="invalidControl"
+        errorMsg="{{errorMsg}}"
+      ></lg-text-field>
+    </div>
+
+    <div class="input-section">
+      <label for="lastName">Password</label>
+      <a  (click)="resetPassword()" *ngIf="!emailSent">send reset link</a>
+      <span *ngIf="emailSent">reset link has been sent to your inbox </span>
+      <lf-button text="resend reset link" (click)="resetPassword()" layout="outline" *ngIf="emailSent"></lf-button>
+
+
+    </div>
+
+    <!-- Associated Email -->
+    <div class="input-section">
+      <label for="email">Associated Email:</label>
+      <div class="email-display">{{user.email}}</div>
+    </div>
+
+    <!-- Save Button -->
+    <div class="btn-profile">
+      <lf-button
+        *ngIf="!isSubmitting"
+        text="Save Changes"
+        type="submit"
+        layout="primary"
+      ></lf-button>
+
+      <lf-button
+        *ngIf="isSubmitting"
+        text="Saving..."
+        type="submit"
+        layout="primary"
+        [isDisabled]="true"
+      ></lf-button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,40 @@
+.profile-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-wrapper h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.input-section {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+  
+.input-section .email-display {
+  padding: 10px;
+  background-color: #eaeaea;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.btn-profile {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn-profile lf-button {
+  width: 100%;
+  max-width: 200px;
+}

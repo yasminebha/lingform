@@ -1,4 +1,3 @@
-import { FormService } from '@/shared/services/form.service';
 import { Component } from '@angular/core';
 import { AppState } from './store/reducers';
 import { Store } from '@ngrx/store';
@@ -24,10 +23,13 @@ export class AppComponent {
       .then((user) => {
         if (user) {
           this.store.dispatch(
-            login({
+            login({ 
               isLoggedIn: true,
               userId: user.id,
-              username:user.user_metadata['first_name']+" "+user.user_metadata['last_name']
+              firstName:user.user_metadata['first_name'],
+              lastName:user.user_metadata['last_name'],
+              avatar:user.user_metadata['avatar_url'],
+              email:user.user_metadata['email']
             })
           );
         }

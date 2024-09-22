@@ -70,6 +70,9 @@ import { FormSettingsComponent } from '../form-settings/form-settings.component'
     UIComponentsModule,
     DragDropModule,
   ],
+  exports:[
+UploadComponent
+  ],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class BuilderModule {}

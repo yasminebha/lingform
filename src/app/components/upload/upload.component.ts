@@ -14,7 +14,7 @@ export class UploadComponent {
   @Input() uploadPath: string = ''; 
   @Input() classes: string=''
 
-  @Input() role: 'cover' | 'logo' | 'background' = 'cover';
+  @Input() role: 'cover' | 'logo' | 'background'|'avatar' = 'cover';
 
   @Output() fileUploaded = new EventEmitter<File>(); 
   @Output() removeFile = new EventEmitter<void>();
@@ -30,11 +30,15 @@ export class UploadComponent {
         return 'image-logo';
       case 'background':
         return 'image-background';
+        case 'avatar':
+          return 'image-avatar';
       default:
         return 'image-cover';
     }
   }
   onRemoveFile(): void {
     this.removeFile.emit();
+
+      
   }
 }

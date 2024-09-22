@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UserService {
-  constructor() {}
+  constructor() { }
 
   async getUser() {
     try {
@@ -20,6 +20,14 @@ export class UserService {
     }
   }
 
+  async updateUser(user_data: any) {
+    const { error } = await supabase.auth.updateUser({
+      data: user_data
+    })
+    if (error) {
+      throw new Error(error.message);
+    }
+  }
   async isLoggedIn(): Promise<boolean> {
     const user = await this.getUser();
     return !!user;
@@ -37,12 +45,12 @@ export class UserService {
   }
 
 
-   async  signInWithGoogle() :  Promise<any>{
-   return await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-            redirectTo: "http://localhost:4200/forms" 
-        }
+  async signInWithGoogle(): Promise<any> {
+    return await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: "http://localhost:4200/forms"
+      }
     })
   }
 }

@@ -112,6 +112,7 @@ button, [type='button'], [type='reset'], [type='submit'] {
 .title .text-field>input:disabled {
     border: none !important;
     border-radius: 0 !important;
+    width: 100% !important;
 }
 .tools{
     display: flex;
